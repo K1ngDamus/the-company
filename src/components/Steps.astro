@@ -1,0 +1,22 @@
+---
+/* "How it works" in three plain steps — psychological resistance, dialed down.
+   Three is the count; if a service needs four, the service is too complicated
+   to explain and the copy is the problem, not the step count. */
+interface Props { items: { title: string; body: string }[]; heading?: string; eyebrow?: string; }
+const { items, heading = 'How it works', eyebrow = 'Three steps' } = Astro.props;
+---
+<section class="section section--sand" aria-labelledby="steps-h">
+  <div class="wrap">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2 id="steps-h" style="margin-top:.7rem">{heading}</h2>
+    <div class="steps" style="margin-top:2.6rem">
+      {items.map((item) => (
+        <div class="step">
+          <span class="step__n" aria-hidden="true"></span>
+          <h3>{item.title}</h3>
+          <p style="margin-top:.6rem;color:var(--ink-70)">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

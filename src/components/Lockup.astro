@@ -1,0 +1,30 @@
+---
+/* Horizontal lockup: tile left, wordmark right, gap = 1/3 tile width.
+   Clear space 1/4 tile width all sides. (BRANDING.md) */
+import Mark from './Mark.astro';
+interface Props { reversed?: boolean; size?: number; }
+const { reversed = false, size = 38 } = Astro.props;
+---
+<span class="lockup" style={`--tile:${size}px`}>
+  <Mark variant="tile" size={size} />
+  <span class="lockup__type" class:list={{ 'is-reversed': reversed }}>
+    <span class="lockup__name">Front Porch</span>
+    <span class="lockup__sub">Collective</span>
+  </span>
+</span>
+
+<style>
+  .lockup { display: inline-flex; align-items: center; gap: calc(var(--tile) / 3); }
+  .lockup__type { display: grid; line-height: 1; }
+  .lockup__name {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: calc(var(--tile) * 0.52); letter-spacing: -0.01em;
+  }
+  .lockup__sub {
+    font-family: var(--font-ui); font-weight: 400;
+    font-size: calc(var(--tile) * 0.26);
+    letter-spacing: 0.42em; text-transform: uppercase;
+    color: var(--ink-70); margin-top: .32em;
+  }
+  .is-reversed .lockup__sub { color: var(--bone-70); }
+</style>

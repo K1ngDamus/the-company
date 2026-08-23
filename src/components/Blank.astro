@@ -1,0 +1,11 @@
+---
+/* An honest blank. We publish what is true and mark what is missing — we do
+   not invent proof, prices, or names (founding brief §5, rule 11).
+   These are visible on purpose: a blank that hides is a blank that ships. */
+interface Props { title: string; needs: string; }
+const { title, needs } = Astro.props;
+---
+<div class="todo">
+  <strong>{title}</strong>
+  <p style="margin:0">{needs}</p>
+</div>

@@ -1,0 +1,131 @@
+---
+import Lockup from './Lockup.astro';
+import { NAV, CONTACT } from '../data/site';
+interface Props { phoneForward?: boolean; current?: string; ctaHref?: string; }
+const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props;
+---
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a href="/" class="site-header__brand" aria-label="Front Porch Collective — home">
+      <Lockup size={36} />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        {NAV.map((item) => (
+          <li>
+            <a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      {phoneForward && (
+        CONTACT.phone && CONTACT.phoneHref ? (
+          <a class="site-header__phone" href={`tel:${CONTACT.phoneHref}`}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/>
+            </svg>
+            <span>{CONTACT.phone}</span>
+          </a>
+        ) : (
+          <span class="site-header__phone is-blank" title="Awaiting Leon's number">Phone — TODO</span>
+        )
+      )}
+      <a class="btn btn--sm" href={ctaHref}><span class="dot" aria-hidden="true"></span>Get a quote</a>
+    </div>
+
+    <!-- Mobile disclosure: a <details> menu, so it works with zero JavaScript -->
+    <details class="mobile-nav">
+      <summary aria-label="Menu"><span class="bars" aria-hidden="true"></span><span class="visually-hidden">Menu</span></summary>
+      <nav class="mobile-nav__panel" aria-label="Main, mobile">
+        <ul>
+          {NAV.map((item) => (
+            <li><a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        {phoneForward && CONTACT.phone && CONTACT.phoneHref && (
+          <a class="btn" href={`tel:${CONTACT.phoneHref}`}>Call {CONTACT.phone}</a>
+        )}
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(244, 241, 234, 0.88);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--ink-12);
+  }
+  .site-header__inner {
+    display: flex; align-items: center; gap: 1.25rem;
+    min-height: 68px; padding-block: .6rem;
+  }
+  .site-header__brand { text-decoration: none; flex: none; }
+
+  .site-nav { margin-left: auto; display: none; }
+  .site-nav ul { display: flex; gap: 1.35rem; list-style: none; padding: 0; margin: 0; }
+  .site-nav a {
+    text-decoration: none; font-size: var(--step--1); font-weight: 500;
+    padding-block: .4rem; border-bottom: 2px solid transparent; display: block;
+  }
+  .site-nav a:hover { border-bottom-color: var(--clay); }
+  .site-nav a[aria-current="page"] { border-bottom-color: var(--clay); }
+
+  .site-header__actions { display: none; align-items: center; gap: 1rem; flex: none; }
+  .site-header__phone {
+    display: inline-flex; align-items: center; gap: .45rem;
+    text-decoration: none; font-weight: 500; font-size: var(--step--1);
+    white-space: nowrap;
+  }
+  .site-header__phone svg { color: var(--clay); flex: none; }
+  .site-header__phone.is-blank {
+    color: var(--ink-muted); border-bottom: 2px dashed var(--clay); cursor: help;
+  }
+  :global(.btn--sm) { padding: .62em 1.15em; font-size: var(--step--1); }
+
+  /* Mobile: <details> disclosure — no JavaScript involved */
+  .mobile-nav { margin-left: auto; position: relative; }
+  .mobile-nav summary {
+    list-style: none; cursor: pointer;
+    width: 44px; height: 44px; display: grid; place-items: center;
+    border: 1px solid var(--ink-12); border-radius: var(--radius-sm);
+  }
+  .mobile-nav summary::-webkit-details-marker { display: none; }
+  .bars, .bars::before, .bars::after {
+    display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px;
+  }
+  .bars { position: relative; }
+  .bars::before, .bars::after { content: ""; position: absolute; left: 0; }
+  .bars::before { top: -6px; }
+  .bars::after { top: 6px; background: var(--clay); }
+  .mobile-nav[open] summary { background: var(--ink); border-color: var(--ink); }
+  .mobile-nav[open] .bars { background: transparent; }
+  .mobile-nav[open] .bars::before { top: 0; transform: rotate(45deg); background: var(--bone); }
+  .mobile-nav[open] .bars::after { top: 0; transform: rotate(-45deg); background: var(--clay); }
+
+  .mobile-nav__panel {
+    position: absolute; right: 0; top: calc(100% + .7rem);
+    width: min(78vw, 260px);
+    background: var(--bone); border: 1px solid var(--ink-12);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: .6rem; display: grid; gap: .5rem;
+  }
+  .mobile-nav__panel ul { list-style: none; margin: 0; padding: 0; display: grid; }
+  .mobile-nav__panel a:not(.btn) {
+    display: block; padding: .75rem .8rem; text-decoration: none;
+    border-radius: var(--radius-sm); font-weight: 500;
+  }
+  .mobile-nav__panel a:hover:not(.btn) { background: var(--ink-06); }
+  .mobile-nav__panel a[aria-current="page"] { background: var(--ink-06); box-shadow: inset 3px 0 0 var(--clay); }
+
+  @media (min-width: 1024px) {
+    .site-nav, .site-header__actions { display: flex; }
+    .mobile-nav { display: none; }
+  }
+</style>

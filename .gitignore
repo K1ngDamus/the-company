@@ -1,0 +1,13 @@
+# build output — regenerate with `npm run build`
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment
+.env
+.env.production
+
+# os
+.DS_Store

@@ -1,0 +1,100 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import PriceFrom from '../components/PriceFrom.astro';
+import ProofCard from '../components/ProofCard.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { qualifyingFields } from '../data/forms';
+import { service, breadcrumb } from '../lib/schema';
+
+const path = '/apps';
+const description =
+  'Mobile app development end to end — iOS and Android from one codebase, signed release pipelines, and the app store listings handled for you.';
+
+const faqs = [
+  { q: 'iOS, Android, or both?', a: 'Both, from one codebase, unless there is a reason not to. Two separate native builds cost roughly twice as much and most products do not need it — we will tell you if yours does.' },
+  { q: 'Do you handle the app stores?', a: 'Yes: signing, versioning, release pipelines, listings and the review back-and-forth. We have been through Apple rejections and fixed them; that experience is part of what you are hiring.' },
+  { q: 'How long does an app take?', a: 'Longer than a website and shorter than people fear. The honest answer depends on scope, and you get a real timeline with the quote rather than an optimistic number we would have to revise.' },
+  { q: 'Can you take over an app someone else built?', a: 'Often, yes. We will read the codebase first and tell you honestly whether continuing it or restarting is the better spend. Sometimes the answer costs us the bigger job.' },
+  { q: 'What about updates after launch?', a: 'An app is never quite finished — stores change their rules, phones change their sizes. We will scope maintenance separately and plainly, and you are never locked into it.' },
+];
+
+const jsonLd = [
+  service({ path, name: 'Mobile app development', description }),
+  breadcrumb([{ name: 'Home', path: '/' }, { name: 'Apps', path }]),
+];
+---
+<Base title="Mobile App Development, iOS & Android | Front Porch Collective" description={description} path={path} jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Apps', path }]} />
+
+  <Hero
+    eyebrow="App development"
+    title="An app that makes it to the store."
+    promise="iOS and Android from one codebase, signed and versioned automatically, with the store submissions handled by people who have already survived them."
+    primary={{ href: '#quote', label: 'Start a project' }}
+    secondary={{ href: '/work', label: 'See the flagship' }}
+  >
+    <div slot="aside">
+      <QuoteForm
+        id="quote"
+        service="apps"
+        heading="Tell us about the app."
+        sub="Six answers. We come back with scope, a number and a timeline — or a straight no."
+        submitLabel="Send the brief"
+        fields={qualifyingFields({
+          projectLabel: 'What stage are you at?',
+          projectOptions: ['An idea', 'Designs, no code', 'A prototype', 'A live app that needs work', 'Not sure yet'],
+          budgetOptions: ['Under $10k', '$10k–$30k', '$30k–$75k', '$75k+', 'Tell me what it should cost'],
+          detailLabel: 'What should the app do?',
+          detailPlaceholder: 'Who uses it and what it does for them. Two sentences is plenty.',
+        })}
+      />
+    </div>
+  </Hero>
+
+  <Steps
+    eyebrow="Three steps"
+    heading="How an app gets built"
+    items={[
+      { title: 'We pin down the first version', body: 'The smallest app worth shipping, written down. Everything else goes on a list for later, on purpose.' },
+      { title: 'We build it where you can watch', body: 'Working builds on your phone as it comes together, not screenshots of progress.' },
+      { title: 'We ship it and hand over the keys', body: 'Signed releases, store listings, the developer accounts in your name. Including the parts Apple sends back.' },
+    ]}
+  />
+
+  <Faq items={faqs} heading="App development, answered" />
+
+  <section class="section section--sand">
+    <div class="wrap grid grid--2">
+      <ProofCard eyebrow="The pedigree" title="The Atlanta Experience" featured={true} tags={['iOS', 'Android', 'Signed releases', 'CI']}>
+        <p>
+          Our own product, built and shipped by this crew: a live web app plus
+          native iOS and Android builds from a single codebase.
+        </p>
+        <p>
+          The Android pipeline builds a signed release and increments its own
+          version on every push. The iOS build went through App Store review
+          iterations — including a rejection we diagnosed, fixed and staged for
+          resubmission. That is the experience you get on your build.
+        </p>
+      </ProofCard>
+      <div class="stack" style="--flow:1.5rem">
+        <div class="card">
+          <h3 class="card__title">What "end to end" means here</h3>
+          <p style="margin-top:.8rem;color:var(--ink-70)">
+            Design, build, release pipeline, store listing, and the review process
+            after it. The unglamorous half is where most apps stall, so it is the
+            half we make sure is handled.
+          </p>
+        </div>
+        <PriceFrom slug="apps" note="Scope sets the number, and you get it in writing before anything begins." />
+      </div>
+    </div>
+  </section>
+
+  <EmailCapture />
+</Base>

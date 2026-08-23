@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { CONTACT, NAP, COUNTIES, SERVICES } from '../data/site';
+import { breadcrumb } from '../lib/schema';
+
+const path = '/contact';
+const description =
+  'Get in touch with Front Porch Collective — websites, apps, agent templates, marketing, and TV mounting across metro Atlanta.';
+const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Contact', path }])];
+---
+<Base title="Contact Front Porch Collective | Atlanta, Georgia" description={description} path={path} jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Contact', path }]} />
+
+  <Hero
+    eyebrow="Contact"
+    title="Say what you need. We will say what it takes."
+    promise="One form, on this page. You get a real answer — scope, a number, a date — or a straight no if we are not the right shop for it."
+    primary={{ href: '#quote', label: 'Jump to the form' }}
+  >
+    <div slot="aside">
+      <QuoteForm
+        id="quote"
+        service="contact"
+        heading="What can we do for you?"
+        sub="Two taps and how to reach you. Add detail only if you feel like it."
+        submitLabel="Send it to the porch"
+        fields={[
+          { kind: 'choice', name: 'need', label: 'What is this about?', required: true,
+            options: ['A website', 'An app', 'A TV mounted', 'Agent templates', 'Marketing help', 'Something else'] },
+          { kind: 'choice', name: 'timing', label: 'How soon?', required: true,
+            options: ['This week', 'This month', 'Next few months', 'Just exploring'] },
+          { kind: 'text', name: 'name', label: 'Your name', required: true, placeholder: 'First name is fine' },
+          { kind: 'email', name: 'email', label: 'Where do we reply?', required: true, placeholder: 'you@example.com' },
+          { kind: 'textarea', name: 'detail', label: 'Anything we should know? (optional)', placeholder: 'A sentence is plenty.' },
+        ]}
+      />
+    </div>
+  </Hero>
+
+  <section class="section" aria-labelledby="ways-h">
+    <div class="wrap">
+      <p class="eyebrow">Other ways</p>
+      <h2 id="ways-h" style="margin-top:.7rem">Reaching us directly</h2>
+      <div class="grid grid--2 grid--3" style="margin-top:2.4rem">
+        <div class="card">
+          <h3 class="card__title">Email</h3>
+          {CONTACT.email
+            ? <p style="margin-top:.7rem"><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
+            : <p class="pending" style="margin-top:.7rem">Address pending — goes live the moment it is set.</p>}
+        </div>
+        <div class="card">
+          <h3 class="card__title">Phone</h3>
+          {CONTACT.phone && CONTACT.phoneHref
+            ? <p style="margin-top:.7rem"><a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a></p>
+            : <p class="pending" style="margin-top:.7rem">Number pending. Best for TV mounting once it is live.</p>}
+        </div>
+        <div class="card">
+          <h3 class="card__title">Where we are</h3>
+          <p style="margin-top:.7rem;color:var(--ink-70)">
+            {NAP.city}, {NAP.region}. A service-area business — we come to you.
+            TV mounting across {COUNTIES.map((c) => c.short).join(', ')}.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" aria-labelledby="direct-h">
+    <div class="wrap">
+      <p class="eyebrow">Faster</p>
+      <h2 id="direct-h" style="margin-top:.7rem">Go straight to the service.</h2>
+      <p class="lede" style="margin-top:1rem">
+        Each service page carries a form built for that job — shorter questions,
+        better answers, same page.
+      </p>
+      <p class="direct">
+        {SERVICES.map((s) => <a class="btn btn--ghost btn--sm" href={`/${s.slug}${s.anchor}`}>{s.name}</a>)}
+      </p>
+    </div>
+  </section>
+
+  <EmailCapture />
+</Base>
+
+<style>
+  .pending { color: var(--ink-70); border-bottom: 2px dashed var(--clay); display: inline-block; }
+  .direct { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 2rem; }
+</style>

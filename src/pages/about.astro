@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import Faq from '../components/Faq.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Cta from '../components/Cta.astro';
+import Mark from '../components/Mark.astro';
+import { SITE, NAP, COUNTIES } from '../data/site';
+import { breadcrumb } from '../lib/schema';
+
+const path = '/about';
+const description =
+  'Front Porch Collective LLC is an independent creative company in Atlanta, run by Leon Jackson with an agent workforce operating under a written rulebook.';
+
+const rules = [
+  ['Never guess', 'When something is unclear we stop and ask. The interview that shaped this website exists because guessing at your business is how agencies waste your money.'],
+  ['Never invent proof', 'No borrowed testimonials, no stock photos posing as our work, no numbers we cannot source. The blanks on this site are the policy working.'],
+  ['Never spend your money on a hunch', 'No purchases, subscriptions or ad spend without an explicit decision from the person whose money it is.'],
+  ['Accuracy over speed', 'Dates, names, numbers and details are checked before anything is called done. Fast and wrong is just wrong, later.'],
+];
+
+const faqs = [
+  { q: 'What does "agent workforce" actually mean?', a: 'Front Porch Collective runs on a structured set of AI agents, each with a written identity, one job, a narrow lane and a measurable definition of done. They do the work under a standing rulebook, and a person is accountable for everything that leaves here. It is not a stunt — it is the operating system of the company, and it is the product we sell on the templates page.' },
+  { q: 'Is a person involved in my project?', a: 'Yes. Leon owns the company and every decision that matters — what gets built, what gets sent, what gets spent. Nothing reaches you without a human deciding it should.' },
+  { q: 'Why does the site keep pointing at its own blanks?', a: 'Because they are true. We would rather show you a marked gap than fill it with something invented, and how a company treats its own empty spaces tells you how it will treat yours.' },
+  { q: 'Where are you based?', a: `Atlanta, Georgia. TV mounting is hands-on across ${COUNTIES.length} metro counties; everything else happens wherever you are.` },
+];
+
+const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'About', path }])];
+---
+<Base title="About Front Porch Collective — An Independent Creative Company in Atlanta" description={description} path={path} jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'About', path }]} />
+
+  <Hero
+    eyebrow="About"
+    wide={true}
+    title="A small company that leaves the porch light on."
+    promise={SITE.promise}
+    primary={{ href: '/contact', label: 'Get in touch' }}
+    secondary={{ href: '/work', label: 'See the work' }}
+  />
+
+  <section class="section" aria-labelledby="who-h">
+    <div class="wrap grid grid--2" style="align-items:start">
+      <div class="stack" style="--flow:1.2rem">
+        <p class="eyebrow">Who we are</p>
+        <h2 id="who-h">Front Porch Collective LLC</h2>
+        <p class="lede">
+          An independent creative company: apps, websites, stories and services,
+          run by Leon Jackson out of Atlanta.
+        </p>
+        <p style="color:var(--ink-70)">
+          The name is the whole idea. A front porch is where a house meets the
+          street — visible, approachable, and honest about what is inside. That is
+          how we would like the work to feel: plain-spoken, warm, and direct about
+          what a thing costs and what it will actually do.
+        </p>
+        <p style="color:var(--ink-70)">
+          We are deliberately small and deliberately structured. The company runs
+          on an agent workforce — specialists with narrow lanes, written identities
+          and a rulebook — with a person accountable for every piece of work that
+          leaves here. It lets a small operation carry the discipline of a much
+          larger one without the overhead you would pay for.
+        </p>
+      </div>
+      <div class="mark-panel section--ink">
+        <Mark variant="reversed" size={92} />
+        <p class="small" style="margin-top:1.6rem">
+          The mark is an F and a P sharing a stem, with a clay dot at the foot —
+          the porch light. It ships on every page, every app and every document
+          this company puts its name to.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" aria-labelledby="rules-h">
+    <div class="wrap">
+      <p class="eyebrow">How we work</p>
+      <h2 id="rules-h" style="margin-top:.7rem">Four rules you will feel as a customer.</h2>
+      <p class="lede" style="margin-top:1rem">
+        There are nineteen in total and they govern everything here. These are the
+        ones that show up in your invoice and your inbox.
+      </p>
+      <div class="grid grid--2" style="margin-top:2.6rem">
+        {rules.map(([title, body]) => (
+          <div class="card">
+            <h3 class="card__title">{title}</h3>
+            <p style="margin-top:.7rem;color:var(--ink-70)">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqs} heading="About us, answered" />
+
+  <section class="section">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Where we are</p>
+      <h2 style="margin-top:.7rem">{NAP.city}, {NAP.regionName}</h2>
+      <p class="lede" style="margin-top:1rem">
+        {NAP.name} is a service-area business — we come to you for the hands-on
+        work rather than asking you to visit an office. TV mounting covers{' '}
+        {COUNTIES.map((c) => c.short).join(', ')} counties. The software, marketing
+        and story work has no postcode at all.
+      </p>
+    </div>
+  </section>
+
+  <Cta
+    heading="Come up on the porch."
+    body="Tell us what you need. You will get a straight answer, including when the answer is no."
+    href="/contact"
+    label="Get in touch"
+  />
+
+  <EmailCapture />
+</Base>
+
+<style>
+  .mark-panel {
+    border-radius: var(--radius);
+    padding: clamp(2rem, 1.4rem + 2.5vw, 3.2rem);
+    display: grid; justify-items: start;
+  }
+</style>

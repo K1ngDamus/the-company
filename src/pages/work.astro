@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import ProofCard from '../components/ProofCard.astro';
+import Blank from '../components/Blank.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Cta from '../components/Cta.astro';
+import { breadcrumb } from '../lib/schema';
+
+const path = '/work';
+const description =
+  'Work from Front Porch Collective — The Atlanta Experience web app and native builds, the agent system that runs the company, and this website.';
+const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Work', path }])];
+---
+<Base title="Our Work | Front Porch Collective" description={description} path={path} jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Work', path }]} />
+
+  <Hero
+    eyebrow="Work"
+    wide={true}
+    title="What we have built, and what we cannot show yet."
+    promise="Everything on this page is real and ours to talk about. Where a project needs a client's permission, or where the proof does not exist yet, you will find a marked blank instead of a story."
+    primary={{ href: '/contact', label: 'Start a project' }}
+    secondary={{ href: '/about', label: 'Who does the work' }}
+  />
+
+  <section class="section" aria-labelledby="flagship-h">
+    <div class="wrap">
+      <p class="eyebrow">Flagship</p>
+      <h2 id="flagship-h" style="margin-top:.7rem">The Atlanta Experience</h2>
+      <div class="grid grid--2" style="margin-top:2.2rem;align-items:start">
+        <div class="stack" style="--flow:1.2rem">
+          <p class="lede">
+            A city guide to Atlanta, owned and operated by Front Porch Collective —
+            which is exactly why we can show you the whole of it.
+          </p>
+          <p style="color:var(--ink-70)">
+            It runs as a live web app with native iOS and Android builds coming off
+            the same codebase. The Android release pipeline produces a signed build
+            and increments its own version number on every push, so releases are a
+            matter of merging rather than remembering.
+          </p>
+          <p style="color:var(--ink-70)">
+            The iOS side went through App Store review the way real apps do: a
+            rejection, a diagnosis, a fix, and a resubmission staged and waiting.
+            We mention it because a portfolio that contains no setbacks is a
+            portfolio with something missing.
+          </p>
+          <p style="color:var(--ink-70)">
+            The app carries the Front Porch mark and states plainly that it is a
+            product of Front Porch Collective LLC.
+          </p>
+        </div>
+        <div class="stack" style="--flow:1.5rem">
+          <ProofCard eyebrow="What it took" title="The parts worth hiring" tags={['Web app', 'iOS', 'Android', 'Signed CI releases', 'Store submissions']}>
+            <p>One codebase, three surfaces, an automated release pipeline, and the store paperwork handled end to end.</p>
+          </ProofCard>
+          <Blank
+            title="Live link and screenshots"
+            needs="The public URL and app-store links are not published here yet — they go in as soon as Leon confirms the live addresses. We would rather link nothing than link wrong."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" aria-labelledby="system-h">
+    <div class="wrap">
+      <p class="eyebrow">The system</p>
+      <h2 id="system-h" style="margin-top:.7rem">This company is its own case study.</h2>
+      <div class="grid grid--3" style="margin-top:2.4rem">
+        <ProofCard eyebrow="Structure" title="An agent workforce">
+          <p>Every agent has an identity, one job with narrow edges, and a definition of done written as one measurable sentence. Work flows one level at a time and gets checked at every stop.</p>
+        </ProofCard>
+        <ProofCard eyebrow="Law" title="A rulebook with teeth">
+          <p>Nineteen standing rules, including the ones that cost us money: never spend, never send anything external without the owner's word, never delete, never guess.</p>
+        </ProofCard>
+        <ProofCard eyebrow="For sale" title="The same kit, packaged" href="/agent-templates">
+          <p>What runs this company is what we sell on the templates page — the working documents, not a tidied-up teaching version.</p>
+        </ProofCard>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="site-h">
+    <div class="wrap">
+      <p class="eyebrow">Also ours</p>
+      <h2 id="site-h" style="margin-top:.7rem">This website</h2>
+      <div class="grid grid--2" style="margin-top:2rem;align-items:start">
+        <div class="stack" style="--flow:1.1rem">
+          <p style="color:var(--ink-70)">
+            Built to the standard we sell: static output, fonts served from our own
+            domain, AA contrast throughout, structured data on every page, and a
+            form embedded on every page that asks for anything.
+          </p>
+          <p style="color:var(--ink-70)">
+            The blanks you have seen are deliberate. A site that invents its own
+            proof is a site that will invent yours.
+          </p>
+        </div>
+        <div class="grid" style="gap:1.4rem">
+          <Blank
+            title="Client work — The Chloe Girls"
+            needs="Cleared by the client to appear, but the build details and link have not been supplied yet. Nothing gets written into this space until they are."
+          />
+          <Blank
+            title="Testimonials"
+            needs="Real, named, permitted quotes only. None are published yet, so this stays empty."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Cta
+    heading="Want something like this?"
+    body="Tell us what you need and we will come back with scope, a number and a date — or an honest no."
+    href="/contact"
+    label="Start a project"
+    secondary={{ href: '/websites', label: 'See how builds work' }}
+  />
+
+  <EmailCapture />
+</Base>

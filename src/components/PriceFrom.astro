@@ -1,0 +1,20 @@
+---
+/* "From $X" per service — Leon's pricing answer. A null price renders as a
+   visible blank, never a guessed number (rule 11: never guess). */
+import { PRICES } from '../data/site';
+interface Props { slug: string; unit?: string; note?: string; }
+const { slug, unit = '', note } = Astro.props;
+const price = PRICES[slug] ?? null;
+---
+<div class="price-block">
+  <div class="price">
+    <span class="price__from">Starting at</span>
+    {price !== null
+      ? <><span class="price__n">${price.toLocaleString('en-US')}</span>{unit && <span class="small">{unit}</span>}</>
+      : <span class="price__blank">figure pending — Leon's number</span>}
+  </div>
+  {note && <p class="small" style="margin-top:.6rem">{note}</p>}
+</div>
+<style>
+  .price-block { padding: 1.1rem 0; }
+</style>

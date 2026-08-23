@@ -1,0 +1,32 @@
+---
+import { SERVICES } from '../data/site';
+const icons: Record<string, string> = {
+  websites: 'M3 5.5h18M3 5.5v13h18v-13M7.5 9.5h9M7.5 13h5',
+  apps: 'M8 2.5h8a1.5 1.5 0 0 1 1.5 1.5v16a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 20V4A1.5 1.5 0 0 1 8 2.5ZM11 18.5h2',
+  'tv-mounting': 'M3 4.5h18v11H3v-11ZM9 19.5h6M12 15.5v4',
+  'agent-templates': 'M12 3.5 20 8v8l-8 4.5L4 16V8l8-4.5ZM12 12l8-4M12 12v8.5M12 12 4 8',
+  marketing: 'M3.5 9.5h4l8-5v15l-8-5h-4v-5ZM18.5 8.5a5 5 0 0 1 0 7',
+};
+---
+<section class="section" aria-labelledby="services-h">
+  <div class="wrap">
+    <p class="eyebrow">What we do</p>
+    <h2 id="services-h" style="margin-top:.7rem">Five things, done properly.</h2>
+    <p class="lede" style="margin-top:1rem">
+      One page each. Every one of them ends in a form on that same page — no
+      hunting, no phone tag unless you want it.
+    </p>
+    <div class="grid grid--2 grid--3" style="margin-top:2.8rem">
+      {SERVICES.map((s) => (
+        <a class="card" href={`/${s.slug}`}>
+          <svg class="card__icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d={icons[s.slug]} />
+          </svg>
+          <h3 class="card__title">{s.name}</h3>
+          <p style="margin-top:.7rem;color:var(--ink-70)">{s.blurb}</p>
+          <span class="card__arrow">Get a quote <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

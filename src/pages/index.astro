@@ -1,0 +1,178 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ServiceGrid from '../components/ServiceGrid.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import ProofCard from '../components/ProofCard.astro';
+import Blank from '../components/Blank.astro';
+import { SITE, COUNTIES, SERVICES } from '../data/site';
+
+const faqs = [
+  {
+    q: 'Who actually does the work?',
+    a: 'Leon Jackson runs Front Porch Collective, and the company runs on an agent workforce — AI specialists with narrow lanes, a written rulebook, and a person accountable for every piece of work that leaves here. It is the same system we sell as templates, which is the most honest demo we could offer.',
+  },
+  {
+    q: 'Where are you?',
+    a: 'Atlanta, Georgia. TV mounting is hands-on across five metro counties — Fulton, DeKalb, Cobb, Gwinnett and Clayton. The software, story and marketing work happens wherever you are.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'You get a real number in writing before any work starts. No hourly surprises, no scope that quietly grows. If your budget and the job do not line up, we say so early rather than late.',
+  },
+  {
+    q: 'What if you are not the right shop for my project?',
+    a: 'We tell you. Turning down work we would do badly costs us one project; doing it badly costs us the reputation that brings the next ten.',
+  },
+];
+---
+<Base
+  title="Front Porch Collective — Websites, Apps & TV Mounting in Atlanta"
+  description="An independent creative company in Atlanta: custom websites, mobile apps, AI agent templates, marketing copy, and professional TV mounting across metro Atlanta."
+  path="/"
+>
+  <Hero
+    eyebrow="Front Porch Collective LLC · Atlanta, Georgia"
+    wide={true}
+    title="We build the thing, and we answer the door."
+    promise={SITE.promise}
+    primary={{ href: '#start', label: 'Tell us what you need' }}
+    secondary={{ href: '/work', label: 'See the work' }}
+    anchorNote="The form is on this page — no second page, no phone tag unless you want it."
+  >
+    <!-- The fold's second half earns its keep: one tap to the exact service,
+         rather than a decorative image. Fewest clicks wins (playbook §2). -->
+    <div slot="aside" class="jump">
+      <p class="eyebrow">Straight there</p>
+      <ul>
+        {SERVICES.map((s) => (
+          <li>
+            <a href={`/${s.slug}${s.anchor}`}>
+              <span class="jump__name">{s.name}</span>
+              <span class="jump__blurb">{s.blurb}</span>
+              <span class="jump__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Hero>
+
+  <ServiceGrid />
+
+  <!-- Proof. Real work only. What we cannot yet show is marked, not filled. -->
+  <section class="section section--sand" aria-labelledby="proof-h">
+    <div class="wrap">
+      <p class="eyebrow">Proof, not adjectives</p>
+      <h2 id="proof-h" style="margin-top:.7rem">Things we have actually shipped.</h2>
+      <div class="grid grid--2" style="margin-top:2.6rem">
+        <ProofCard
+          eyebrow="Our own flagship"
+          title="The Atlanta Experience"
+          featured={true}
+          tags={['Web', 'iOS', 'Android', 'CI/CD']}
+        >
+          <p>
+            A city guide we own end to end: the live web app, plus native iOS and
+            Android builds from one codebase. The Android release pipeline signs
+            and versions itself on every push; the iOS build is through review
+            iterations and staged for resubmission.
+          </p>
+          <p>
+            Because we own it, we can show you all of it — the code, the pipeline,
+            and the parts that went wrong on the way.
+          </p>
+        </ProofCard>
+
+        <ProofCard
+          eyebrow="The system itself"
+          title="This company is the demo"
+          tags={['AGENT method', 'Rulebook', 'Dispatch protocol']}
+          href="/agent-templates"
+        >
+          <p>
+            Front Porch Collective is run by an agent workforce: every agent has an
+            identity, one job, a measurable definition of done, and a rulebook it
+            cannot talk its way around.
+          </p>
+          <p>
+            That structure is the product on our templates page. It has been running
+            this company daily since it was written — including the site you are reading.
+          </p>
+        </ProofCard>
+      </div>
+
+      <div class="grid grid--2" style="margin-top:1.6rem">
+        <Blank
+          title="Client work — The Chloe Girls"
+          needs="Cleared to show, awaiting the build details and link before anything is written here. We would rather leave a visible blank than fill it with copy we cannot stand behind."
+        />
+        <Blank
+          title="Client testimonials"
+          needs="Real quotes from real, named clients only. We have none published yet, so this stays empty until we do. Invented praise is worse than none."
+        />
+      </div>
+    </div>
+  </section>
+
+  <Steps
+    eyebrow="Three steps"
+    heading="How working with us goes"
+    items={[
+      { title: 'You tell us what you need', body: 'One form, on the page you are already on. Multiple choice where we can manage it, two minutes at most.' },
+      { title: 'We come back with a real answer', body: 'Scope, a number, and a date. If we are not the right shop for it, that is the answer you get instead.' },
+      { title: 'We build it and hand it over', body: 'You own the result outright — code, accounts, files, the lot. No hostage keys, no rented website.' },
+    ]}
+  />
+
+  <Faq items={faqs} />
+
+  <section class="section" aria-labelledby="start-h">
+    <div class="wrap-narrow">
+      <h2 id="start-h" class="visually-hidden">Start a request</h2>
+      <QuoteForm
+        id="start"
+        service="general"
+        heading="Tell us what you need."
+        sub="Two questions, your name, and where to reach you. That is the whole thing."
+        submitLabel="Send it to the porch"
+        fields={[
+          { kind: 'choice', name: 'need', label: 'What do you need?', required: true,
+            options: ['A website', 'An app', 'A TV mounted', 'Agent templates', 'Marketing help', 'Not sure yet'] },
+          { kind: 'choice', name: 'timing', label: 'When are you hoping to start?', required: true,
+            options: ['This week', 'This month', 'Next few months', 'Just exploring'] },
+          { kind: 'text', name: 'name', label: 'Your name', required: true, placeholder: 'First name is fine' },
+          { kind: 'email', name: 'email', label: 'Where do we reply?', required: true, placeholder: 'you@example.com' },
+          { kind: 'textarea', name: 'detail', label: 'Anything we should know? (optional)', hint: 'Skip it if you would rather just talk.', placeholder: 'A sentence is plenty.' },
+        ]}
+      />
+      <p class="small" style="margin-top:1.5rem">
+        Mounting a TV? The <a href="/tv-mounting">TV mounting page</a> has a shorter
+        form built for it — four taps, no typing until the end. We cover {COUNTIES.map((c) => c.short).join(', ')}.
+      </p>
+    </div>
+  </section>
+
+  <EmailCapture />
+</Base>
+
+<style>
+  .jump ul { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: .5rem; }
+  .jump a {
+    display: grid; grid-template-columns: 1fr auto; align-items: center;
+    column-gap: 1rem; text-decoration: none;
+    padding: 1rem 1.15rem; border: 1px solid var(--ink-12);
+    border-radius: var(--radius-sm); background: var(--bone);
+    transition: border-color .18s var(--ease), transform .18s var(--ease);
+  }
+  .jump a:hover { border-color: var(--clay); transform: translateX(3px); }
+  .jump__name { grid-column: 1; grid-row: 1; font-weight: 500; }
+  .jump__blurb {
+    grid-column: 1; grid-row: 2; font-size: var(--step--1); color: var(--ink-70);
+    margin-top: .2rem; max-width: 42ch;
+  }
+  .jump__arrow { grid-column: 2; grid-row: 1 / span 2; color: var(--clay); font-size: var(--step-1); }
+</style>

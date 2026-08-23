@@ -1,0 +1,129 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Steps from '../../components/Steps.astro';
+import Faq from '../../components/Faq.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import PriceFrom from '../../components/PriceFrom.astro';
+import Blank from '../../components/Blank.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { COUNTIES, CONTACT, NAP } from '../../data/site';
+import { TV_FIELDS } from '../../data/forms';
+import { localBusiness, breadcrumb } from '../../lib/schema';
+
+const path = '/tv-mounting';
+const description =
+  'Professional TV mounting across metro Atlanta — Fulton, DeKalb, Cobb, Gwinnett and Clayton counties. Level, solid, cords out of sight. Get a quote in four taps.';
+
+const faqs = [
+  { q: 'Do you supply the mount?', a: 'We can, or you can. If you already bought one, we will tell you honestly whether it suits your TV and your wall before we hang anything on it.' },
+  { q: 'Can you mount over a fireplace?', a: 'Usually yes, and it is worth a conversation first. Height and heat both matter, and above some fireplaces the comfortable viewing angle is worse than people expect. We will say so before we drill.' },
+  { q: 'Can the cords go inside the wall?', a: 'On standard drywall with no fire-blocking in the way, yes — that is the tidiest result. On brick, stone or concrete we use a low-profile cover that runs flush and paints over.' },
+  { q: 'How long does it take?', a: 'Most single-TV jobs are done inside a couple of hours, including tidying up. Bigger TVs, stone walls and in-wall cord runs take longer, and your quote says so before the day.' },
+  { q: 'What if my wall will not take it?', a: 'We stop and tell you. There is always a way to do it right — a different anchor, a different spot, sometimes a different mount — and we would rather find it than hang a television on hope.' },
+  { q: 'Which areas do you cover?', a: `Five metro Atlanta counties: ${COUNTIES.map((c) => c.name).join(', ')}. Each has its own page with the towns we reach.` },
+];
+
+const jsonLd = [
+  localBusiness({ path, name: 'Front Porch Collective — TV Mounting', description, counties: COUNTIES }),
+  breadcrumb([{ name: 'Home', path: '/' }, { name: 'TV Mounting', path }]),
+];
+---
+<Base
+  title="TV Mounting in Metro Atlanta | Front Porch Collective"
+  description={description}
+  path={path}
+  jsonLd={jsonLd}
+  phoneForward={true}
+>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'TV Mounting', path }]} />
+
+  <Hero
+    eyebrow="TV hanging & mounting · Metro Atlanta"
+    title="Your TV on the wall. Level, solid, cords gone."
+    promise="Mounted properly the first time — the right anchors for your wall, the right height for your room, and the cables out of sight before we leave."
+    primary={{ href: '#quote', label: 'Get a quote — four taps' }}
+    secondary={{ href: '#areas', label: 'Check your area' }}
+  >
+    <div slot="aside">
+      <QuoteForm
+        id="quote"
+        service="tv-mounting"
+        heading="Four taps and your number."
+        sub="No essays, no site visit to get a price. Tell us the TV and the wall and we will come back with a real figure."
+        submitLabel="Get my quote"
+        fields={TV_FIELDS}
+      />
+    </div>
+  </Hero>
+
+  <Steps
+    eyebrow="Three steps"
+    heading="How a mounting job goes"
+    items={[
+      { title: 'Tell us the TV and the wall', body: 'Four taps on this page. Size, wall, cords, timing — a guess on any of them is fine, we confirm on the day.' },
+      { title: 'We send a real price and a window', body: 'Not a range that doubles later. If your wall changes the job, we say what and why before anyone drives out.' },
+      { title: 'We mount it and clean up', body: 'Level, anchored into what actually holds, cords handled the way you picked. Packaging leaves with us.' },
+    ]}
+  />
+
+  <Faq items={faqs} heading="TV mounting, answered before you ask" />
+
+  <section class="section" id="areas" aria-labelledby="areas-h">
+    <div class="wrap">
+      <p class="eyebrow">Where we come out</p>
+      <h2 id="areas-h" style="margin-top:.7rem">Five counties across metro Atlanta.</h2>
+      <p class="lede" style="margin-top:1rem">
+        {NAP.name} is a service-area business — we come to you. Pick your county
+        for the towns we cover and a quote form already set for that area.
+      </p>
+      <div class="grid grid--2 grid--3" style="margin-top:2.4rem">
+        {COUNTIES.map((c) => (
+          <a class="card" href={`/tv-mounting/${c.slug}`}>
+            <h3 class="card__title">{c.name}</h3>
+            <p style="margin-top:.6rem;color:var(--ink-70)">{c.towns.slice(0, 5).join(' · ')}{c.towns.length > 5 ? ' and more' : ''}</p>
+            <span class="card__arrow">TV mounting in {c.short} <span aria-hidden="true">→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="wrap grid grid--2">
+      <div>
+        <p class="eyebrow">What it costs</p>
+        <h2 style="margin-top:.7rem">A starting figure, then a real one.</h2>
+        <PriceFrom
+          slug="tv-mounting"
+          unit="per TV"
+          note="Your quote is the number that counts. Wall type, TV size and in-wall cord runs move it, and we tell you which one moved it."
+        />
+      </div>
+      <Blank
+        title="Mounting photos and reviews"
+        needs="No installation photos or customer reviews are published here yet. When there are real ones — with permission — they go here. Stock photos of someone else's living room would not be proof of anything."
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-narrow" style="text-align:center">
+      <hr class="rule--clay" style="margin:0 auto 1.75rem" />
+      <h2>Ready when you are.</h2>
+      <p class="lede" style="margin:1rem auto 2rem">
+        Four taps up top gets you a real price. If you would rather just talk,
+        {CONTACT.phone ? ' give us a ring.' : ' the phone number lands here as soon as it is set.'}
+      </p>
+      <p style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+        <a class="btn" href="#quote"><span class="dot" aria-hidden="true"></span>Get my quote</a>
+        {CONTACT.phone && CONTACT.phoneHref && (
+          <a class="btn btn--ghost" href={`tel:${CONTACT.phoneHref}`}>Call {CONTACT.phone}</a>
+        )}
+      </p>
+    </div>
+  </section>
+
+  <EmailCapture />
+</Base>

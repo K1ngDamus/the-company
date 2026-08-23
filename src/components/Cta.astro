@@ -1,0 +1,21 @@
+---
+/* The CTA restated above every form — its own argument, never a bare button
+   (playbook §3). */
+interface Props { heading: string; body?: string; href: string; label: string; secondary?: { href: string; label: string }; }
+const { heading, body, href, label, secondary } = Astro.props;
+---
+<section class="section cta" aria-labelledby="cta-h">
+  <div class="wrap-narrow" style="text-align:center">
+    <hr class="rule--clay" style="margin:0 auto 1.75rem" />
+    <h2 id="cta-h">{heading}</h2>
+    {body && <p class="lede" style="margin:1rem auto 0">{body}</p>}
+    <p class="cta__actions">
+      <a class="btn" href={href}><span class="dot" aria-hidden="true"></span>{label}</a>
+      {secondary && <a class="btn btn--ghost" href={secondary.href}>{secondary.label}</a>}
+    </p>
+  </div>
+</section>
+<style>
+  .cta .lede { max-width: 52ch; }
+  .cta__actions { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 2rem; }
+</style>

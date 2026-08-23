@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import PriceFrom from '../components/PriceFrom.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Blank from '../components/Blank.astro';
+import { qualifyingFields } from '../data/forms';
+import { service, breadcrumb } from '../lib/schema';
+
+const path = '/marketing';
+const description =
+  'Marketing and copy services — positioning, funnels and conversion copy built on a resistance framework, with the metric named before the work starts.';
+
+const faqs = [
+  { q: 'What do you actually change?', a: 'Usually the resistance, not the adjectives. Clicks between a visitor and the thing they came for, typing where a tap would do, arguments buried under the fold. The words matter, but they are rarely what is costing you the most.' },
+  { q: 'Will you promise me a conversion rate?', a: 'No, and be careful with anyone who does. What we will do is name the dial we are turning, the direction, and the number that will show whether it moved. If we cannot measure it, we say that out loud too.' },
+  { q: 'Do you write the copy or just advise?', a: 'We write it. Advice you have to implement yourself is half a service, and the writing is where the argument is either made or lost.' },
+  { q: 'Do you do social posting and ads?', a: 'We build the machinery — the sequences, the funnel, the copy. Posting and paid spend stay in your hands and on your accounts. We do not spend other people\'s money on a hunch.' },
+  { q: 'What if my problem is not marketing?', a: 'We will say so. Sometimes the honest answer is that the offer is wrong, or the site is too slow, or the thing being sold has not found its people yet. Copy cannot fix any of those, and pretending otherwise wastes your money.' },
+];
+
+const jsonLd = [
+  service({ path, name: 'Marketing and copywriting services', description }),
+  breadcrumb([{ name: 'Home', path: '/' }, { name: 'Marketing', path }]),
+];
+---
+<Base title="Marketing & Conversion Copy Services | Front Porch Collective" description={description} path={path} jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Marketing', path }]} />
+
+  <Hero
+    eyebrow="Marketing & copy"
+    title="Fewer words. Less resistance. Better numbers."
+    promise="Positioning, funnels and copy built like an argument — every section earning its place, every change naming the metric that will prove it."
+    primary={{ href: '#quote', label: 'Start a conversation' }}
+    secondary={{ href: '#method', label: 'How we work' }}
+  >
+    <div slot="aside">
+      <QuoteForm
+        id="quote"
+        service="marketing"
+        heading="What are you trying to move?"
+        sub="Six answers. We come back with what we would change first and why — not a deck."
+        submitLabel="Send it over"
+        fields={qualifyingFields({
+          projectLabel: 'What do you need most?',
+          projectOptions: ['Positioning and messaging', 'A funnel that converts', 'Website or landing page copy', 'Email sequences', 'An honest audit first'],
+          budgetOptions: ['Under $2k', '$2k–$6k', '$6k–$15k', '$15k+', 'Tell me what it should cost'],
+          detailLabel: 'What is happening now?',
+          detailPlaceholder: 'What you sell, who to, and where it seems to be stalling.',
+        })}
+      />
+    </div>
+  </Hero>
+
+  <section class="section" id="method" aria-labelledby="method-h">
+    <div class="wrap">
+      <p class="eyebrow">The method</p>
+      <h2 id="method-h" style="margin-top:.7rem">Dials, not switches.</h2>
+      <p class="lede" style="margin-top:1rem">
+        Nothing here "works" or "does not work." Everything is a dial with a
+        direction and a number attached. Two kinds of resistance sit between a
+        visitor and the thing you want them to do, and both can be turned down
+        deliberately.
+      </p>
+      <div class="grid grid--2" style="margin-top:2.6rem">
+        <div class="card">
+          <h3 class="card__title">Physical resistance</h3>
+          <p style="margin-top:.8rem;color:var(--ink-70)">
+            What the body has to do: clicks, keystrokes, scrolls. A button that
+            opens a second page to hold a form can halve the people who fill it in.
+            We count the clicks on your page, literally, and kill the ones not
+            earning their keep.
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="card__title">Psychological resistance</h3>
+          <p style="margin-top:.8rem;color:var(--ink-70)">
+            What the mind has to do: thinking, and trusting. Visitors scan rather
+            than study, so images beat paragraphs and three plain steps beat a
+            manifesto. Proof lowers the fear of going first — which is why we will
+            never invent any for you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Steps
+    eyebrow="Three steps"
+    heading="How the work goes"
+    items={[
+      { title: 'We find the resistance', body: 'We walk your funnel as a customer and count what it costs them — every click, every field, every unanswered question.' },
+      { title: 'We change one thing at a time', body: 'Named dial, named direction, named metric. Change six things at once and you learn nothing about any of them.' },
+      { title: 'We report the number', body: 'Including when it did not move. The number we cannot get is stated as a number we cannot get, not dressed up as a result.' },
+    ]}
+  />
+
+  <Faq items={faqs} heading="Marketing services, answered" />
+
+  <section class="section section--sand">
+    <div class="wrap grid grid--2">
+      <div class="card">
+        <h3 class="card__title">Where the method has been used</h3>
+        <p style="margin-top:.8rem;color:var(--ink-70)">
+          On this site, first. Every form is embedded on the page it belongs to,
+          the FAQs sit high rather than buried, the TV mounting funnel is four taps
+          before it asks you to type, and each service page states where it sits on
+          the curious-to-committed scale and why.
+        </p>
+        <p style="margin-top:.8rem;color:var(--ink-70)">
+          We used our own playbook on our own front door. You can audit it while you read.
+        </p>
+      </div>
+      <div class="stack" style="--flow:1.5rem">
+        <Blank
+          title="Client results and numbers"
+          needs="No client conversion figures are published here yet. When we have real before-and-after numbers we are permitted to share, they go here with the caveats attached. Invented percentages are worse than no percentages."
+        />
+        <PriceFrom slug="marketing" note="Scope sets the number. An audit costs less than a rebuild, and we will tell you which one you need." />
+      </div>
+    </div>
+  </section>
+
+  <EmailCapture />
+</Base>
