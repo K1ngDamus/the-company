@@ -1,8 +1,11 @@
 name: CI
 
+# Pushes to a PR branch already fire `pull_request`. Listening to push on
+# every branch as well would run the whole job twice for one push, so push is
+# scoped to main (post-merge) and PR branches are covered by pull_request.
 on:
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
     branches: [main]
 
