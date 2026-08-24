@@ -4,7 +4,7 @@
 import { FORM_ENDPOINT } from '../data/site';
 const live = FORM_ENDPOINT !== null;
 ---
-<section class="section--ink porch" aria-labelledby="porch-h">
+<section class="porch" aria-labelledby="porch-h">
   <div class="wrap porch__inner">
     <div>
       <p class="eyebrow">From the Porch</p>
@@ -24,7 +24,7 @@ const live = FORM_ENDPOINT !== null;
         </button>
       </form>
       {!live && (
-        <p class="small" style="margin-top:.9rem;color:var(--bone-70)">
+        <p class="small" style="margin-top:.9rem;color:var(--ash)">
           Built and staged. No list is connected, so nothing is collected or sent yet.
         </p>
       )}
@@ -32,11 +32,15 @@ const live = FORM_ENDPOINT !== null;
   </div>
 </section>
 <style>
-  .porch { padding-block: clamp(3rem, 2.2rem + 3.5vw, 5rem); }
+  .porch {
+    padding-block: clamp(3rem, 2.2rem + 3.5vw, 5rem);
+    background: var(--graphite);
+    border-top: 2px solid var(--signal);
+  }
   .porch__inner { display: grid; gap: 2rem; align-items: center; }
-  .porch .input { background: transparent; border-color: var(--bone-16); color: var(--bone); }
-  .porch .input::placeholder { color: var(--bone-70); }
-  .porch .input:hover { border-color: var(--bone-70); }
-  .porch .input:focus { border-color: var(--clay); box-shadow: 0 0 0 3px rgba(180,90,56,.3); }
+  .porch .input { background: transparent; border-color: var(--line-strong); color: var(--chalk); }
+  .porch .input::placeholder { color: var(--ash); }
+  .porch .input:hover { border-color: var(--ash); }
+  .porch .input:focus { border-color: var(--signal); box-shadow: 0 0 0 3px var(--signal-glow); }
   @media (min-width: 880px) { .porch__inner { grid-template-columns: 1.1fr 1fr; gap: 4rem; } }
 </style>

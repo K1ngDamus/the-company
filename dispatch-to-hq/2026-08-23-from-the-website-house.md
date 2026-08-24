@@ -88,24 +88,50 @@ HQ shows the project at *discovery, not started* as of Sevin's 2026-08-18
 dispatch — so there may be nothing to show yet regardless of permission. The slot
 is built and visibly marked.
 
+## Amendment filed: the brand is now black, gray and red
+
+**Leon's order, 2026-08-24.** The palette is amended company-wide (rule 17). The
+amended `BRANDING.md` and the four recoloured mark SVGs are staged in
+`dispatch-to-hq/branding/` for Leon to carry into HQ — they cannot be pushed
+from here.
+
+- **Ink → Coal `#0F0F11`, Clay → Signal `#FF4D4F`, Bone → Chalk `#F4F4F6`,
+  Sand → Graphite `#16161A`**, with Slate and Pitch added for raised and
+  deepest grounds.
+- **The mark's geometry is untouched** — every path is byte-for-byte what it
+  was. Colour only.
+- **The accessibility finding from the first dispatch is resolved by this
+  amendment, not worked around.** Signal measures 5.86:1 on Coal and can carry
+  small text; Clay measured 4.20:1 on Bone and could not. The one hard rule is
+  that Signal is never a fill behind white text (2.97:1) — red fills take Coal
+  text.
+
+**What it obliges beyond the website,** listed so the drift is on the record:
+the Atlanta Experience app icon, splash, launcher and store artwork; the printed
+business cards and QR codes; the raster set at the desktop home base; and any
+agent identity file that names the palette. None of it has been touched.
+
 ## Needs Leon — the blanks
 
 Sixteen honest blanks are listed in `docs/BLANKS.md`, all of them **visible on
 the pages** rather than hidden. The ones that block launch:
 
-1. **Public email address** — appears in the footer, contact page, both legal
-   pages and the schema.
-2. **Public phone number** — the header on all six TV pages currently shows a
-   marked "Phone — TODO" where the number belongs.
-3. **Five starting prices** — websites, apps, TV mounting, agent templates,
-   marketing. *Any service Leon would rather quote case by case can stay blank
-   permanently; the page reads correctly either way.*
-4. **The company promise line** — a draft is in place; three alternatives were
+**Answered 2026-08-24:** public email `jacksonleon24@gmail.com` and public phone
+`(678) 525-8154` are in, site-wide and in the structured data. Pricing is settled
+as **quote-only across the board** — no starting figures published, every job
+priced from its own scope. Leon is setting TV mounting prices once the site is
+up; one number in `PRICES['tv-mounting']` flips all six TV pages.
+
+Still open:
+
+1. **The company promise line** — a draft is in place; three alternatives were
    put to Leon and his own words beat all four.
-5. **Atlanta Experience live links** — the public URL and any store links. We
+2. **Atlanta Experience live links** — the public URL and any store links. We
    linked nothing rather than link wrong.
-6. **Privacy and terms** — written in plain language and accurate to the current
+3. **Privacy and terms** — written in plain language and accurate to the current
    state, but not reviewed by a lawyer. *Recommendation: review before deploy.*
+4. **The repo's default branch** — still the working branch; flip it to `main`
+   in Settings. No API tool for it is available here.
 
 All seven facts live in one file, `src/data/site.ts`. Filling them in is a
 single edit each, and every page updates.

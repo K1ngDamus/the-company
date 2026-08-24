@@ -3,7 +3,7 @@ import Lockup from './Lockup.astro';
 import { SITE, NAV, CONTACT, NAP, COUNTIES } from '../data/site';
 const year = 2026;
 ---
-<footer class="site-footer section--ink">
+<footer class="site-footer section--deep">
   <div class="wrap">
     <div class="site-footer__top">
       <div class="site-footer__brand">
@@ -69,17 +69,17 @@ const year = 2026;
   .site-footer__cols { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
   .site-footer__h {
     font-family: var(--font-ui); font-size: var(--step--1); font-weight: 500;
-    letter-spacing: .16em; text-transform: uppercase; color: var(--bone-70);
+    letter-spacing: .16em; text-transform: uppercase; color: var(--ash);
     margin-bottom: .9rem;
   }
   .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
   .site-footer a { text-decoration: none; font-size: var(--step--1); }
-  .site-footer a:hover { text-decoration: underline; text-decoration-color: var(--clay); text-decoration-thickness: 2px; }
-  .site-footer__rule { border: 0; height: 1px; background: var(--bone-16); margin-block: 2.5rem 1.75rem; }
+  .site-footer a:hover { text-decoration: underline; text-decoration-color: var(--signal); text-decoration-thickness: 2px; }
+  .site-footer__rule { border: 0; height: 1px; background: var(--line-strong); margin-block: 2.5rem 1.75rem; }
   .site-footer__bottom { display: grid; gap: 1.25rem; }
   .site-footer__nap p { margin: 0 0 .3rem; }
-  .blank { border-bottom: 2px dashed var(--clay); color: var(--bone-70); }
-  .site-footer__legal { color: var(--bone-70); }
+  .blank { border-bottom: 2px dashed var(--signal); color: var(--ash); }
+  .site-footer__legal { color: var(--ash); }
   @media (min-width: 860px) {
     .site-footer__top { grid-template-columns: 1fr 1.6fr; gap: 4rem; }
     .site-footer__bottom { grid-template-columns: 1fr auto; align-items: end; }

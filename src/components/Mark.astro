@@ -9,17 +9,17 @@ interface Props {
   class?: string;
 }
 const { variant = 'primary', size = 40, class: klass = '' } = Astro.props;
-const stroke = variant === 'reversed' ? '#F4F1EA' : '#201C1A';
+const stroke = variant === 'reversed' ? '#F4F4F6' : '#0F0F11';
 ---
 {variant === 'tile' ? (
   <svg class={klass} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width={size} height={size} role="img" aria-label="Front Porch Collective">
-    <rect width="120" height="120" rx="31" fill="#201C1A" />
+    <rect width="120" height="120" rx="31" fill="#0F0F11" />
     <g transform="translate(15,15) scale(0.75)">
-      <g fill="none" stroke="#F4F1EA" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+      <g fill="none" stroke="#F4F4F6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
         <path d="M60,26 V94" /><path d="M60,26 H74 a13,13 0 0 1 0,26 H60" />
         <path d="M60,26 H43" /><path d="M60,52 H48" />
       </g>
-      <circle cx="60" cy="94" r="4.2" fill="#B45A38" />
+      <circle cx="60" cy="94" r="4.2" fill="#FF4D4F" />
     </g>
   </svg>
 ) : (
@@ -28,6 +28,6 @@ const stroke = variant === 'reversed' ? '#F4F1EA' : '#201C1A';
       <path d="M60,26 V94" /><path d="M60,26 H74 a13,13 0 0 1 0,26 H60" />
       <path d="M60,26 H43" /><path d="M60,52 H48" />
     </g>
-    <circle cx="60" cy="94" r="4.2" fill="#B45A38" />
+    <circle cx="60" cy="94" r="4.2" fill="#FF4D4F" />
   </svg>
 )}

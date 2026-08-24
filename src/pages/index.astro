@@ -64,7 +64,7 @@ const faqs = [
   <ServiceGrid />
 
   <!-- Proof. Real work only. What we cannot yet show is marked, not filled. -->
-  <section class="section section--sand" aria-labelledby="proof-h">
+  <section class="section section--band" aria-labelledby="proof-h">
     <div class="wrap">
       <p class="eyebrow">Proof, not adjectives</p>
       <h2 id="proof-h" style="margin-top:.7rem">Things we have actually shipped.</h2>
@@ -164,15 +164,15 @@ const faqs = [
   .jump a {
     display: grid; grid-template-columns: 1fr auto; align-items: center;
     column-gap: 1rem; text-decoration: none;
-    padding: 1rem 1.15rem; border: 1px solid var(--ink-12);
-    border-radius: var(--radius-sm); background: var(--bone);
+    padding: 1rem 1.15rem; border: 1px solid var(--line);
+    border-radius: var(--radius-sm); background: var(--slate);
     transition: border-color .18s var(--ease), transform .18s var(--ease);
   }
-  .jump a:hover { border-color: var(--clay); transform: translateX(3px); }
+  .jump a:hover { border-color: var(--signal); transform: translateX(3px); }
   .jump__name { grid-column: 1; grid-row: 1; font-weight: 500; }
   .jump__blurb {
-    grid-column: 1; grid-row: 2; font-size: var(--step--1); color: var(--ink-70);
+    grid-column: 1; grid-row: 2; font-size: var(--step--1); color: var(--ash);
     margin-top: .2rem; max-width: 42ch;
   }
-  .jump__arrow { grid-column: 2; grid-row: 1 / span 2; color: var(--clay); font-size: var(--step-1); }
+  .jump__arrow { grid-column: 2; grid-row: 1 / span 2; color: var(--signal); font-size: var(--step-1); }
 </style>

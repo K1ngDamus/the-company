@@ -5,7 +5,7 @@
 interface Props { items: { title: string; body: string }[]; heading?: string; eyebrow?: string; }
 const { items, heading = 'How it works', eyebrow = 'Three steps' } = Astro.props;
 ---
-<section class="section section--sand" aria-labelledby="steps-h">
+<section class="section section--band" aria-labelledby="steps-h">
   <div class="wrap">
     <p class="eyebrow">{eyebrow}</p>
     <h2 id="steps-h" style="margin-top:.7rem">{heading}</h2>
@@ -14,7 +14,7 @@ const { items, heading = 'How it works', eyebrow = 'Three steps' } = Astro.props
         <div class="step">
           <span class="step__n" aria-hidden="true"></span>
           <h3>{item.title}</h3>
-          <p style="margin-top:.6rem;color:var(--ink-70)">{item.body}</p>
+          <p style="margin-top:.6rem;color:var(--ash)">{item.body}</p>
         </div>
       ))}
     </div>

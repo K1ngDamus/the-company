@@ -58,9 +58,9 @@ const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props
 <style>
   .site-header {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(244, 241, 234, 0.88);
+    background: rgba(15, 15, 17, 0.86);
     backdrop-filter: saturate(140%) blur(10px);
-    border-bottom: 1px solid var(--ink-12);
+    border-bottom: 1px solid var(--line);
   }
   .site-header__inner {
     display: flex; align-items: center; gap: 1.25rem;
@@ -74,8 +74,8 @@ const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props
     text-decoration: none; font-size: var(--step--1); font-weight: 500;
     padding-block: .4rem; border-bottom: 2px solid transparent; display: block;
   }
-  .site-nav a:hover { border-bottom-color: var(--clay); }
-  .site-nav a[aria-current="page"] { border-bottom-color: var(--clay); }
+  .site-nav a:hover { border-bottom-color: var(--signal); }
+  .site-nav a[aria-current="page"] { border-bottom-color: var(--signal); }
 
   .site-header__actions { display: none; align-items: center; gap: 1rem; flex: none; }
   .site-header__phone {
@@ -83,9 +83,9 @@ const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props
     text-decoration: none; font-weight: 500; font-size: var(--step--1);
     white-space: nowrap;
   }
-  .site-header__phone svg { color: var(--clay); flex: none; }
+  .site-header__phone svg { color: var(--signal); flex: none; }
   .site-header__phone.is-blank {
-    color: var(--ink-muted); border-bottom: 2px dashed var(--clay); cursor: help;
+    color: var(--ash-dim); border-bottom: 2px dashed var(--signal); cursor: help;
   }
   :global(.btn--sm) { padding: .62em 1.15em; font-size: var(--step--1); }
 
@@ -94,25 +94,25 @@ const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props
   .mobile-nav summary {
     list-style: none; cursor: pointer;
     width: 44px; height: 44px; display: grid; place-items: center;
-    border: 1px solid var(--ink-12); border-radius: var(--radius-sm);
+    border: 1px solid var(--line); border-radius: var(--radius-sm);
   }
   .mobile-nav summary::-webkit-details-marker { display: none; }
   .bars, .bars::before, .bars::after {
-    display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px;
+    display: block; width: 18px; height: 2px; background: var(--chalk); border-radius: 2px;
   }
   .bars { position: relative; }
   .bars::before, .bars::after { content: ""; position: absolute; left: 0; }
   .bars::before { top: -6px; }
-  .bars::after { top: 6px; background: var(--clay); }
-  .mobile-nav[open] summary { background: var(--ink); border-color: var(--ink); }
+  .bars::after { top: 6px; background: var(--signal); }
+  .mobile-nav[open] summary { background: var(--signal); border-color: var(--signal); }
   .mobile-nav[open] .bars { background: transparent; }
-  .mobile-nav[open] .bars::before { top: 0; transform: rotate(45deg); background: var(--bone); }
-  .mobile-nav[open] .bars::after { top: 0; transform: rotate(-45deg); background: var(--clay); }
+  .mobile-nav[open] .bars::before { top: 0; transform: rotate(45deg); background: var(--coal); }
+  .mobile-nav[open] .bars::after { top: 0; transform: rotate(-45deg); background: var(--coal); }
 
   .mobile-nav__panel {
     position: absolute; right: 0; top: calc(100% + .7rem);
     width: min(78vw, 260px);
-    background: var(--bone); border: 1px solid var(--ink-12);
+    background: var(--slate); border: 1px solid var(--line);
     border-radius: var(--radius); box-shadow: var(--shadow);
     padding: .6rem; display: grid; gap: .5rem;
   }
@@ -121,8 +121,8 @@ const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props
     display: block; padding: .75rem .8rem; text-decoration: none;
     border-radius: var(--radius-sm); font-weight: 500;
   }
-  .mobile-nav__panel a:hover:not(.btn) { background: var(--ink-06); }
-  .mobile-nav__panel a[aria-current="page"] { background: var(--ink-06); box-shadow: inset 3px 0 0 var(--clay); }
+  .mobile-nav__panel a:hover:not(.btn) { background: var(--wash); }
+  .mobile-nav__panel a[aria-current="page"] { background: var(--wash); box-shadow: inset 3px 0 0 var(--signal); }
 
   @media (min-width: 1024px) {
     .site-nav, .site-header__actions { display: flex; }

@@ -50,13 +50,13 @@ const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'About', path }
           An independent creative company: apps, websites, stories and services,
           run by Leon Jackson out of Atlanta.
         </p>
-        <p style="color:var(--ink-70)">
+        <p style="color:var(--ash)">
           The name is the whole idea. A front porch is where a house meets the
           street — visible, approachable, and honest about what is inside. That is
           how we would like the work to feel: plain-spoken, warm, and direct about
           what a thing costs and what it will actually do.
         </p>
-        <p style="color:var(--ink-70)">
+        <p style="color:var(--ash)">
           We are deliberately small and deliberately structured. The company runs
           on an agent workforce — specialists with narrow lanes, written identities
           and a rulebook — with a person accountable for every piece of work that
@@ -64,7 +64,7 @@ const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'About', path }
           larger one without the overhead you would pay for.
         </p>
       </div>
-      <div class="mark-panel section--ink">
+      <div class="mark-panel">
         <Mark variant="reversed" size={92} />
         <p class="small" style="margin-top:1.6rem">
           The mark is an F and a P sharing a stem, with a clay dot at the foot —
@@ -75,7 +75,7 @@ const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'About', path }
     </div>
   </section>
 
-  <section class="section section--sand" aria-labelledby="rules-h">
+  <section class="section section--band" aria-labelledby="rules-h">
     <div class="wrap">
       <p class="eyebrow">How we work</p>
       <h2 id="rules-h" style="margin-top:.7rem">Four rules you will feel as a customer.</h2>
@@ -87,7 +87,7 @@ const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'About', path }
         {rules.map(([title, body]) => (
           <div class="card">
             <h3 class="card__title">{title}</h3>
-            <p style="margin-top:.7rem;color:var(--ink-70)">{body}</p>
+            <p style="margin-top:.7rem;color:var(--ash)">{body}</p>
           </div>
         ))}
       </div>
@@ -121,6 +121,8 @@ const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'About', path }
 
 <style>
   .mark-panel {
+    background: var(--pitch);
+    border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: clamp(2rem, 1.4rem + 2.5vw, 3.2rem);
     display: grid; justify-items: start;

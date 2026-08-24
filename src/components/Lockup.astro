@@ -1,12 +1,16 @@
 ---
-/* Horizontal lockup: tile left, wordmark right, gap = 1/3 tile width.
-   Clear space 1/4 tile width all sides. (BRANDING.md) */
+/* Horizontal lockup: mark left, wordmark right, gap = 1/3 mark width.
+   Clear space 1/4 mark width all sides.
+
+   On the dark brand the lockup uses the REVERSED monogram, not the app tile:
+   the tile's Coal ground would sit on a Coal page and disappear. The tile is
+   still canon — it is the app icon, where it has a home screen behind it. */
 import Mark from './Mark.astro';
 interface Props { reversed?: boolean; size?: number; }
 const { reversed = false, size = 38 } = Astro.props;
 ---
 <span class="lockup" style={`--tile:${size}px`}>
-  <Mark variant="tile" size={size} />
+  <Mark variant="reversed" size={Math.round(size * 0.86)} />
   <span class="lockup__type" class:list={{ 'is-reversed': reversed }}>
     <span class="lockup__name">Front Porch</span>
     <span class="lockup__sub">Collective</span>
@@ -24,7 +28,7 @@ const { reversed = false, size = 38 } = Astro.props;
     font-family: var(--font-ui); font-weight: 400;
     font-size: calc(var(--tile) * 0.26);
     letter-spacing: 0.42em; text-transform: uppercase;
-    color: var(--ink-70); margin-top: .32em;
+    color: var(--ash); margin-top: .32em;
   }
-  .is-reversed .lockup__sub { color: var(--bone-70); }
+  .is-reversed .lockup__sub { color: var(--ash); }
 </style>
