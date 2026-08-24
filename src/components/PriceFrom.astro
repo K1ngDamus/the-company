@@ -1,20 +1,46 @@
 ---
-/* "From $X" per service — Leon's pricing answer. A null price renders as a
-   visible blank, never a guessed number (rule 11: never guess). */
+/* Pricing display.
+
+   Leon's ruling, 2026-08-24: quote-only across the board. A `null` price is a
+   DECISION here, not a gap — the page says plainly that the job is quoted,
+   rather than showing a pending blank. Put a number into PRICES and that
+   service switches to a "starting at" figure automatically.
+
+   `mode` distinguishes services (quoted per job) from the templates shelf
+   (a product with a price, set before the till opens). */
 import { PRICES } from '../data/site';
-interface Props { slug: string; unit?: string; note?: string; }
-const { slug, unit = '', note } = Astro.props;
+interface Props {
+  slug: string;
+  unit?: string;
+  note?: string;
+  mode?: 'quote' | 'product';
+  label?: string;
+}
+const { slug, unit = '', note, mode = 'quote', label } = Astro.props;
 const price = PRICES[slug] ?? null;
+const fallback = label ?? (mode === 'product'
+  ? 'Price announced when the shelf opens'
+  : 'Priced per job');
 ---
 <div class="price-block">
-  <div class="price">
-    <span class="price__from">Starting at</span>
-    {price !== null
-      ? <><span class="price__n">${price.toLocaleString('en-US')}</span>{unit && <span class="small">{unit}</span>}</>
-      : <span class="price__blank">figure pending — Leon's number</span>}
-  </div>
+  {price !== null ? (
+    <div class="price">
+      <span class="price__from">Starting at</span>
+      <span class="price__n">${price.toLocaleString('en-US')}</span>
+      {unit && <span class="small">{unit}</span>}
+    </div>
+  ) : (
+    <p class="price__quoted">{fallback}</p>
+  )}
   {note && <p class="small" style="margin-top:.6rem">{note}</p>}
 </div>
 <style>
   .price-block { padding: 1.1rem 0; }
+  .price__quoted {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0;
+  }
 </style>

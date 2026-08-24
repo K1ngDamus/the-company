@@ -6,19 +6,24 @@ than as filler. This file is the full list, so nothing gets forgotten.
 
 ## Facts only Leon can supply
 
-| # | Blank | Where it shows | Fill it in |
-|---|---|---|---|
-| 1 | Public email address | Footer, `/contact`, `/privacy`, `/terms`, schema | `CONTACT.email` in `src/data/site.ts` |
-| 2 | Public phone number | Header on TV pages, footer, `/contact`, county pages, schema | `CONTACT.phone` + `CONTACT.phoneHref` |
-| 3 | Website starting price | `/websites` | `PRICES.websites` |
-| 4 | App starting price | `/apps` | `PRICES.apps` |
-| 5 | TV mounting starting price | `/tv-mounting` + 5 county pages | `PRICES['tv-mounting']` |
-| 6 | Agent template price | `/agent-templates` | `PRICES['agent-templates']` |
-| 7 | Marketing starting price | `/marketing` | `PRICES.marketing` |
+**Resolved 2026-08-24.** Contact details are in; pricing is settled as a policy
+rather than a set of numbers.
 
-A price left as `null` for good reason reads correctly as quote-only — the page
-does not break, it simply stops promising a figure. That is a valid permanent
-answer for any service Leon would rather quote case by case.
+| # | Item | Status |
+|---|---|---|
+| 1 | Public email address | **`jacksonleon24@gmail.com`** — footer, `/contact`, `/privacy`, `/terms`, schema |
+| 2 | Public phone number | **`(678) 525-8154`** — header on all six TV pages, footer, `/contact`, schema |
+| 3–7 | Starting prices | **Quote-only across the board.** No starting figures are published; every job is priced from its own scope. This is a decision, not a gap, and the pages say so. |
+
+**TV pricing is coming.** Leon is setting TV mounting prices once the site is
+up. Put the number into `PRICES['tv-mounting']` in `src/data/site.ts` and all six
+TV pages switch from "Priced per job" to a "Starting at $X" figure. Nothing else
+needs editing. The same is true of any other service.
+
+**The templates shelf is a product, not a quote.** `/agent-templates` reads
+"Price announced when the shelf opens" rather than "Priced per job", because a
+digital download does get a fixed price — set before checkout is connected. See
+`FORMS.md`.
 
 ## Proof awaiting permission or detail
 
@@ -35,6 +40,12 @@ answer for any service Leon would rather quote case by case.
 
 | # | Item | Status |
 |---|---|---|
-| 14 | The company one-line promise | A draft is in place (`SITE.promise`). Leon has three alternatives to choose from in the hand-off note and can replace it with his own. |
-| 15 | Budget brackets in the qualifying forms | Drafted as sensible ranges in `src/data/forms.ts`. They imply nothing about our prices, but they should match Leon's actual intent before launch. |
+| 14 | The company one-line promise | A draft is in place (`SITE.promise`). Three alternatives were put to Leon; he has not picked, and his own words beat all four. **Still open.** |
+| 15 | Budget brackets in the qualifying forms | Drafted as sensible ranges in `src/data/forms.ts`. They imply nothing about our prices — they qualify the enquiry — but they should match Leon's intent before launch. |
 | 16 | Privacy and terms | Written in plain language and accurate to the current state. Neither has been reviewed by a lawyer, and both should be before the site is deployed. |
+
+## Not a blank, but Leon's to do
+
+Flip the repository's default branch to `main` in **Settings → General**. GitHub
+adopted the working branch automatically when it was the only one; there is no
+API tool available here to change it.

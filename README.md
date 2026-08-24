@@ -53,9 +53,10 @@ reads from it.
 
 ## Read these before changing anything
 
-- **[`docs/BLANKS.md`](docs/BLANKS.md)** — everything the site is honestly
-  missing, and exactly where to fill each one in. Sixteen items, all of them
-  visible on the pages rather than hidden.
+- **[`docs/BLANKS.md`](docs/BLANKS.md)** — what the site is honestly missing and
+  where to fill it in. Contact details are done; pricing is deliberately
+  quote-only. What remains is proof awaiting permission, and it shows as marked
+  gaps on the pages rather than hidden.
 - **[`FORMS.md`](FORMS.md)** — every form is built and staged. One constant
   turns them all on.
 - **[`docs/DESIGN.md`](docs/DESIGN.md)** — the palette is canon and Clay has a

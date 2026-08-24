@@ -7,7 +7,6 @@ import EmailCapture from '../components/EmailCapture.astro';
 import PriceFrom from '../components/PriceFrom.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Blank from '../components/Blank.astro';
-import { PRICES } from '../data/site';
 import { service, breadcrumb } from '../lib/schema';
 
 const path = '/agent-templates';
@@ -75,7 +74,7 @@ const jsonLd = [
 
         <aside class="shelf__buy" aria-labelledby="buy-h">
           <h3 id="buy-h">Get the kit</h3>
-          <PriceFrom slug="agent-templates" note="Digital download. One payment, no subscription." />
+          <PriceFrom slug="agent-templates" mode="product" note="Digital download. One payment, no subscription." />
           <p class="shelf__delivery">
             Instant download once checkout is live. Updated whenever the company's
             own copies change — you get the revisions.
@@ -93,9 +92,6 @@ const jsonLd = [
                 below and you will hear the day it opens.
               </span>
             </p>
-          )}
-          {PRICES['agent-templates'] === null && (
-            <p class="small" style="margin-top:1rem">The price is set before launch, not guessed at now.</p>
           )}
         </aside>
       </div>

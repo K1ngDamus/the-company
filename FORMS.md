@@ -55,7 +55,12 @@ Nothing else needs editing. Rebuild and the whole site is live-consistent.
 `/agent-templates` has a real buy button in a disabled state. It turns on by
 setting `CHECKOUT_ENABLED = true` in `src/pages/agent-templates.astro` — but
 only once a payment provider actually exists, which is a spending decision and
-therefore Leon's alone. The price is also still blank; see `docs/BLANKS.md`.
+therefore Leon's alone.
+
+The kit's price is not set yet either, so the page reads "Price announced when
+the shelf opens" rather than showing a figure. Unlike the services — which are
+quote-only by policy — a digital download does need a fixed number before it can
+sell. Set it in `PRICES['agent-templates']`.
 
 ## Spam
 

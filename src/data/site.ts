@@ -20,9 +20,9 @@ export const SITE = {
    TV pages). The VALUES are still his to give. Do not invent them.
    -------------------------------------------------------------------------- */
 export const CONTACT = {
-  email: null as string | null,          // TODO(Leon): public email address
-  phone: null as string | null,          // TODO(Leon): public phone, digits + formatting
-  phoneHref: null as string | null,      // TODO(Leon): tel: form, e.g. +14045551234
+  email: 'jacksonleon24@gmail.com' as string | null,   // Leon, 2026-08-24
+  phone: '(678) 525-8154' as string | null,            // Leon, 2026-08-24
+  phoneHref: '+16785258154' as string | null,          // tel: form of the above
 } as const;
 
 /* --------------------------------------------------------------------------
@@ -49,16 +49,22 @@ export const NAP = {
 export const FORM_ENDPOINT: string | null = null;
 
 /* --------------------------------------------------------------------------
-   PRICES — "from $X" per service, Leon's answer. The NUMBERS are his.
-   `null` renders as a visible blank, not a guess. A service that should stay
-   quote-only can keep `null` permanently — the page reads correctly either way.
+   PRICES — quote-only across the board (Leon's ruling, 2026-08-24), which
+   supersedes the earlier "from $X" answer.
+
+   `null` here is a DECISION, not a gap: no starting figures are published, and
+   every job is priced from its own scope. The pages say so plainly rather than
+   showing a pending blank. Put a number in and that service starts showing a
+   "starting at" figure again — nothing else needs editing.
    -------------------------------------------------------------------------- */
 export const PRICES: Record<string, number | null> = {
-  websites: null,        // TODO(Leon)
-  apps: null,            // TODO(Leon)
-  'tv-mounting': null,   // TODO(Leon)
-  'agent-templates': null, // TODO(Leon)
-  marketing: null,       // TODO(Leon)
+  websites: null,          // quote-only
+  apps: null,              // quote-only
+  'tv-mounting': null,     // quote-only FOR NOW — Leon is setting TV prices
+                           // once the site is up. Put the number here and all
+                           // six TV pages show it; nothing else needs editing.
+  'agent-templates': null, // price set before the shelf opens — see FORMS.md
+  marketing: null,         // quote-only
 };
 
 /* --------------------------------------------------------------------------
