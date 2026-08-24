@@ -14,7 +14,34 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # static output into dist/
 npm run preview  # serve the built site
+
+npm run check    # build + audit + contrast — what CI runs
 ```
+
+## The checks
+
+CI runs on every push and every PR into `main` (`.github/workflows/ci.yml`).
+Both checks also run locally, and both exit non-zero on a finding.
+
+**`npm run audit`** — reads the built HTML in `dist/` and fails on: a page
+without exactly one `<h1>`, a meta description outside 50–170 characters, a
+missing canonical, invalid JSON-LD, a dead internal link or anchor, an `<svg>`
+with no accessible name or `aria-hidden`, an unlabelled input, or a page missing
+the FPC mark from its header or footer.
+
+**`npm run contrast`** — checks the palette against the WCAG AA floor. It
+**parses the tokens out of `src/styles/global.css`** rather than repeating them,
+so it cannot drift into false assurance; if a token is renamed it fails loudly
+instead of quietly passing a stale list.
+
+Both were verified by breaking them on purpose — a dimmed token, a renamed
+token, a dead link, and an unlabelled input each produced the expected failure
+and a non-zero exit.
+
+**Not covered by CI:** the browser-rendered checks — console errors, horizontal
+overflow, and tap-target sizes — which need Playwright and a Chromium download.
+Those have been run by hand at 1440px and 390px. Say the word if they should
+become a job too.
 
 Astro 7, static output, no client-side framework. The only shipped JavaScript is
 a focus-advance enhancement on the forms; everything works without it.

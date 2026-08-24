@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+# A superseded push does not need to finish; cancel it and save the minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Structure and links: one h1 per page, meta descriptions in range,
+      # canonicals, valid JSON-LD, no dead links or anchors, labelled inputs
+      # and SVGs, and the FPC mark on every page (company law, bible v1.3).
+      - name: Audit pages
+        run: npm run audit
+
+      # The palette against the AA floor. Reads the tokens out of global.css
+      # rather than repeating them, so it cannot drift into false assurance.
+      - name: Check contrast
+        run: npm run contrast
