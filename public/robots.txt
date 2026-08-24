@@ -1,5 +1,0 @@
-# Front Porch Collective LLC — frontporchco.com
-User-agent: *
-Allow: /
-
-Sitemap: https://frontporchco.com/sitemap.xml

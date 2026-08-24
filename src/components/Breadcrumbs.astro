@@ -1,4 +1,6 @@
 ---
+import { link } from '../data/site';
+
 interface Props { items: { name: string; path: string }[] }
 const { items } = Astro.props;
 ---
@@ -8,7 +10,7 @@ const { items } = Astro.props;
       {items.map((item, i) => (
         <li>
           {i < items.length - 1
-            ? <a href={item.path}>{item.name}</a>
+            ? <a href={link(item.path)}>{item.name}</a>
             : <span aria-current="page">{item.name}</span>}
         </li>
       ))}

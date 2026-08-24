@@ -1,12 +1,12 @@
 ---
 import Lockup from './Lockup.astro';
-import { NAV, CONTACT } from '../data/site';
+import { NAV, CONTACT, link } from '../data/site';
 interface Props { phoneForward?: boolean; current?: string; ctaHref?: string; }
 const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props;
 ---
 <header class="site-header">
   <div class="wrap site-header__inner">
-    <a href="/" class="site-header__brand" aria-label="Front Porch Collective — home">
+    <a href={link("/")} class="site-header__brand" aria-label="Front Porch Collective — home">
       <Lockup size={36} />
     </a>
 
@@ -15,7 +15,7 @@ const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props
       <ul>
         {NAV.map((item) => (
           <li>
-            <a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a>
+            <a href={link(item.href)} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a>
           </li>
         ))}
       </ul>
@@ -34,7 +34,7 @@ const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props
           <span class="site-header__phone is-blank" title="Awaiting Leon's number">Phone — TODO</span>
         )
       )}
-      <a class="btn btn--sm" href={ctaHref}><span class="dot" aria-hidden="true"></span>Get a quote</a>
+      <a class="btn btn--sm" href={link(ctaHref)}><span class="dot" aria-hidden="true"></span>Get a quote</a>
     </div>
 
     <!-- Mobile disclosure: a <details> menu, so it works with zero JavaScript -->
@@ -43,9 +43,9 @@ const { phoneForward = false, current = '', ctaHref = '/contact' } = Astro.props
       <nav class="mobile-nav__panel" aria-label="Main, mobile">
         <ul>
           {NAV.map((item) => (
-            <li><a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a></li>
+            <li><a href={link(item.href)} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a></li>
           ))}
-          <li><a href="/contact">Contact</a></li>
+          <li><a href={link("/contact")}>Contact</a></li>
         </ul>
         {phoneForward && CONTACT.phone && CONTACT.phoneHref && (
           <a class="btn" href={`tel:${CONTACT.phoneHref}`}>Call {CONTACT.phone}</a>

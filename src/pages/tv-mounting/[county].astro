@@ -7,7 +7,7 @@ import QuoteForm from '../../components/QuoteForm.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import PriceFrom from '../../components/PriceFrom.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { COUNTIES, CONTACT, NAP, type County } from '../../data/site';
+import { COUNTIES, CONTACT, NAP, type County, link } from '../../data/site';
 import { TV_FIELDS } from '../../data/forms';
 import { localBusiness, breadcrumb } from '../../lib/schema';
 
@@ -115,7 +115,7 @@ const jsonLd = [
       <h2 style="margin-top:.7rem">Not in {county.short}?</h2>
       <p class="lede" style="margin-top:1rem">We cover four more metro counties.</p>
       <p class="nearby">
-        {others.map((c) => <a class="btn btn--ghost btn--sm" href={`/tv-mounting/${c.slug}`}>{c.name}</a>)}
+        {others.map((c) => <a class="btn btn--ghost btn--sm" href={link(`/tv-mounting/${c.slug}`)}>{c.name}</a>)}
       </p>
       <p class="small" style="margin-top:1.5rem">
         {CONTACT.phone && CONTACT.phoneHref

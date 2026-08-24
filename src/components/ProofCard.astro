@@ -1,4 +1,6 @@
 ---
+import { link } from '../data/site';
+
 interface Props {
   eyebrow: string;
   title: string;
@@ -9,7 +11,7 @@ interface Props {
 const { eyebrow, title, href, tags = [], featured = false } = Astro.props;
 const Tag = href ? 'a' : 'div';
 ---
-<Tag class:list={['card', 'proof', { 'proof--featured': featured, 'card--link': !!href }]} href={href}>
+<Tag class:list={['card', 'proof', { 'proof--featured': featured, 'card--link': !!href }]} href={href && link(href)}>
   <p class="eyebrow">{eyebrow}</p>
   <h3 class="card__title" style="margin-top:.8rem">{title}</h3>
   <div class="proof__body"><slot /></div>

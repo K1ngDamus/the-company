@@ -1,4 +1,6 @@
 ---
+import { link } from '../data/site';
+
 /* Above the fold, every time: headline (the thesis), the one-line promise,
    the primary CTA, and the form — or, on narrow screens, its anchor.
    Nothing else earns a place up here. */
@@ -21,8 +23,8 @@ const hasAside = Astro.slots.has('aside');
       <h1>{title}</h1>
       <p class="lede">{promise}</p>
       <p class="hero__actions">
-        <a class="btn" href={primary.href}><span class="dot" aria-hidden="true"></span>{primary.label}</a>
-        {secondary && <a class="btn btn--ghost" href={secondary.href}>{secondary.label}</a>}
+        <a class="btn" href={link(primary.href)}><span class="dot" aria-hidden="true"></span>{primary.label}</a>
+        {secondary && <a class="btn btn--ghost" href={link(secondary.href)}>{secondary.label}</a>}
       </p>
       {anchorNote && <p class="small hero__note">{anchorNote}</p>}
     </div>

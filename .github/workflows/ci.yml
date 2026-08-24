@@ -44,3 +44,12 @@ jobs:
       # rather than repeating them, so it cannot drift into false assurance.
       - name: Check contrast
         run: npm run contrast
+
+      # The site has to be correct at two addresses: its own domain, and a
+      # GitHub Pages project URL where every path is nested under /the-company.
+      # This rebuilds mounted there and re-audits. A link written as a bare
+      # "/contact" instead of link("/contact") is a dead link here and nowhere
+      # else, so this is the only thing standing between that mistake and a
+      # broken preview.
+      - name: Build at a mounted path
+        run: npm run check:mounted

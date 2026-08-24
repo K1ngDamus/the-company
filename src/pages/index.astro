@@ -8,7 +8,7 @@ import QuoteForm from '../components/QuoteForm.astro';
 import EmailCapture from '../components/EmailCapture.astro';
 import ProofCard from '../components/ProofCard.astro';
 import Blank from '../components/Blank.astro';
-import { SITE, COUNTIES, SERVICES } from '../data/site';
+import { SITE, COUNTIES, SERVICES, link } from '../data/site';
 
 const faqs = [
   {
@@ -50,7 +50,7 @@ const faqs = [
       <ul>
         {SERVICES.map((s) => (
           <li>
-            <a href={`/${s.slug}${s.anchor}`}>
+            <a href={link(`/${s.slug}${s.anchor}`)}>
               <span class="jump__name">{s.name}</span>
               <span class="jump__blurb">{s.blurb}</span>
               <span class="jump__arrow" aria-hidden="true">→</span>
@@ -150,7 +150,7 @@ const faqs = [
         ]}
       />
       <p class="small" style="margin-top:1.5rem">
-        Mounting a TV? The <a href="/tv-mounting">TV mounting page</a> has a shorter
+        Mounting a TV? The <a href={link("/tv-mounting")}>TV mounting page</a> has a shorter
         form built for it — four taps, no typing until the end. We cover {COUNTIES.map((c) => c.short).join(', ')}.
       </p>
     </div>
