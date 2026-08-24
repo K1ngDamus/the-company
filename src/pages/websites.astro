@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import PriceFrom from '../components/PriceFrom.astro';
+import ProofCard from '../components/ProofCard.astro';
+import Blank from '../components/Blank.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { qualifyingFields } from '../data/forms';
+import { service, breadcrumb } from '../lib/schema';
+
+const path = '/websites';
+const description =
+  'Custom websites built to a world-class standard — design, build, accessibility, SEO and launch. Fast, accessible, and yours to own outright.';
+
+const faqs = [
+  { q: 'What do I actually get at the end?', a: 'The site, the code, the accounts, and the ability to leave. Everything is handed over in your name. We do not rent you your own website or hold the keys to it.' },
+  { q: 'Do you use a template?', a: 'No. We build the site your content needs. What we do reuse is our standards — accessibility, performance, and SEO get done the same disciplined way every time, because that part should not be reinvented per client.' },
+  { q: 'Is it accessible?', a: 'WCAG 2.2 AA is our floor, not an upgrade. Keyboard navigation, real focus states, sensible contrast and proper semantics ship on every build. This site is built to the same standard — check it.' },
+  { q: 'Will it be fast?', a: 'Yes, and deliberately so. Static output, no framework tax, fonts served from our own domain, images sized properly. Speed is a conversion feature before it is a technical one.' },
+  { q: 'Do you do SEO?', a: 'The foundation, always: focused titles and descriptions, semantic markup, structured data, a real sitemap, clean URLs. Ongoing content and link work is a separate conversation, and we will tell you plainly whether you need it.' },
+  { q: 'Can you work with my designer or my brand guide?', a: 'Yes. Hand us the guide and we will hold to it — down to the clear space around your mark. If something in it fails an accessibility check, we flag it and propose a fix rather than quietly breaking either one.' },
+];
+
+const jsonLd = [
+  service({ path, name: 'Website design and development', description }),
+  breadcrumb([{ name: 'Home', path: '/' }, { name: 'Websites', path }]),
+];
+---
+<Base title="Custom Website Design & Development | Front Porch Collective" description={description} path={path} jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Websites', path }]} />
+
+  <Hero
+    eyebrow="Website building"
+    title="A website that earns its keep."
+    promise="Designed, built, tested and launched to a standard we can defend line by line — then handed over completely, in your name."
+    primary={{ href: '#quote', label: 'Start a project' }}
+    secondary={{ href: '/work', label: 'See what we have built' }}
+  >
+    <div slot="aside">
+      <QuoteForm
+        id="quote"
+        service="websites"
+        heading="Tell us about the project."
+        sub="Six quick answers. We reply with scope, a real number, and a date — or an honest no."
+        submitLabel="Send the brief"
+        fields={qualifyingFields({
+          projectLabel: 'What kind of site?',
+          projectOptions: ['Brand new site', 'Rebuild of an existing one', 'Online store', 'Landing page or funnel', 'Not sure yet'],
+          budgetOptions: ['Under $3k', '$3k–$8k', '$8k–$20k', '$20k+', 'Tell me what it should cost'],
+          detailLabel: 'What is the site for?',
+          detailPlaceholder: 'Who it is for and what you need it to do. Two sentences is plenty.',
+        })}
+      />
+    </div>
+  </Hero>
+
+  <Steps
+    eyebrow="Three steps"
+    heading="How a build goes"
+    items={[
+      { title: 'We work out what it has to do', body: 'Who it is for, what it must make happen, and what would count as it working. Written down before anyone opens a design tool.' },
+      { title: 'We design and build it in the open', body: 'You see real pages as they come together, not a slide deck of a website. Changes are cheapest while it is still moving.' },
+      { title: 'We test, tune and hand it over', body: 'Accessibility, speed, browsers, forms, structured data, sitemap. Then the keys, in your name, with a walkthrough.' },
+    ]}
+  />
+
+  <Faq items={faqs} heading="Website building, answered" />
+
+  <section class="section" aria-labelledby="inc-h">
+    <div class="wrap">
+      <p class="eyebrow">What is in every build</p>
+      <h2 id="inc-h" style="margin-top:.7rem">The parts nobody advertises.</h2>
+      <div class="grid grid--2 grid--3" style="margin-top:2.4rem">
+        {[
+          ['Accessibility to AA', 'Keyboard paths, focus states, contrast, semantics. Tested, not assumed.'],
+          ['Speed as a feature', 'Static output where it fits, self-hosted fonts, images sized right.'],
+          ['SEO foundations', 'Titles, descriptions, structured data, sitemap, clean URLs.'],
+          ['Forms that convert', 'Embedded on the page, buckets over typing, every click audited.'],
+          ['Real handover', 'Code, accounts and documentation in your name. You can leave.'],
+          ['Honest content', 'We will not fill your site with invented testimonials. Blanks stay blank.'],
+        ].map(([title, body]) => (
+          <div class="card">
+            <h3 class="card__title">{title}</h3>
+            <p style="margin-top:.6rem;color:var(--ash)">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--band">
+    <div class="wrap grid grid--2">
+      <ProofCard eyebrow="Built and running" title="The Atlanta Experience" featured={true} tags={['Web app', 'Live', 'Ours']}>
+        <p>Our own city-guide product: the live web app, built and maintained by this crew, with native builds riding on the same codebase.</p>
+        <p>We own it, so we can show you the whole thing — including the parts that had to be fixed twice.</p>
+      </ProofCard>
+      <div class="stack" style="--flow:1.5rem">
+        <ProofCard eyebrow="You are looking at one" title="This website">
+          <p>Built by the same standards we are selling: static, self-hosted fonts, AA contrast, structured data, every form embedded on the page it belongs to.</p>
+          <p>If you want a sample of the work, you are reading it.</p>
+        </ProofCard>
+        <PriceFrom slug="websites" note="Scope sets the number, and you get it in writing before anything starts. No published rate card, because no two builds are the same size." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-narrow">
+      <Blank
+        title="Client sites and testimonials"
+        needs="Client work is only shown with the client's written permission (rule 16), and no testimonials are cleared for publication yet. This block stays visibly empty until real, named ones exist."
+      />
+    </div>
+  </section>
+
+  <EmailCapture />
+</Base>

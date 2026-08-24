@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE, CONTACT, FORM_ENDPOINT } from '../data/site';
+import { breadcrumb } from '../lib/schema';
+const path = '/privacy';
+const collecting = FORM_ENDPOINT !== null;
+---
+<Base
+  title="Privacy Policy | Front Porch Collective"
+  description="How Front Porch Collective LLC handles the information you give us — in plain language."
+  path={path}
+  jsonLd={[breadcrumb([{ name: 'Home', path: '/' }, { name: 'Privacy', path }])]}
+>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Privacy', path }]} />
+  <section class="section legal">
+    <div class="wrap-narrow stack" style="--flow:1.4rem">
+      <p class="eyebrow">Privacy</p>
+      <h1>Privacy policy</h1>
+      <p class="small">Plain-language draft, last updated 23 August 2026. Written to be read, not to be survived.</p>
+
+      {!collecting && (
+        <p class="staged">
+          <span aria-hidden="true">●</span>
+          <span><strong>Current state: nothing is collected.</strong> The forms on this site are
+          built but not connected to any handler, so submissions do not leave your browser and no
+          data reaches us at all. This policy describes what happens once they are connected.</span>
+        </p>
+      )}
+
+      <h2>What we collect</h2>
+      <p>Only what you type into a form and send us: your name, your email address, a phone number if you give one, and the answers you select about the work you want. That is the whole list. We do not ask for anything we would not need in order to reply.</p>
+
+      <h2>What we do with it</h2>
+      <p>We use it to answer you, quote the work, and carry out the job if you hire us. We do not sell it, rent it, trade it, or hand it to anyone else to market to you. If you join the monthly note, we use your email for that note and nothing else.</p>
+
+      <h2>Tracking</h2>
+      <p>This site sets no advertising cookies and runs no third-party tracking scripts. Our fonts are served from our own domain rather than a font network, so loading a page here does not announce your visit to another company.</p>
+
+      <h2>How long we keep it</h2>
+      <p>Enquiries are kept while there is a live conversation and for a reasonable period afterwards in case you come back. Ask us to delete yours and we will, unless we are legally required to keep a record of work performed.</p>
+
+      <h2>Your choices</h2>
+      <p>You can ask what we hold about you, ask us to correct it, or ask us to delete it. The monthly note unsubscribes in one click, and we will not email you to ask why.</p>
+
+      <h2>Contact</h2>
+      <p>
+        {CONTACT.email
+          ? <>Questions about any of this go to <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.</>
+          : <>The contact address for privacy questions is published here as soon as it is set. It will be the same address shown throughout the site.</>}
+      </p>
+
+      <h2>Who we are</h2>
+      <p>{SITE.legalName}, Atlanta, Georgia, United States.</p>
+    </div>
+  </section>
+</Base>
+<style>
+  .legal h2 { font-size: var(--step-1); margin-top: 1rem; }
+  .legal p { color: var(--ash); }
+  .legal .staged { color: var(--ash); }
+</style>

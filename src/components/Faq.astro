@@ -1,0 +1,30 @@
+---
+/* FAQs sit HIGH on every page, not buried (playbook §2: a stack of
+   low-resistance arguments). Emits FAQPage structured data alongside. */
+interface Props { items: { q: string; a: string }[]; heading?: string; }
+const { items, heading = 'Questions people actually ask' } = Astro.props;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((i) => ({
+    '@type': 'Question',
+    name: i.q,
+    acceptedAnswer: { '@type': 'Answer', text: i.a },
+  })),
+};
+---
+<section class="section" aria-labelledby="faq-h">
+  <div class="wrap-narrow">
+    <p class="eyebrow">Straight answers</p>
+    <h2 id="faq-h" style="margin-top:.7rem">{heading}</h2>
+    <div class="faq" style="margin-top:2rem">
+      {items.map((item) => (
+        <details>
+          <summary>{item.q}</summary>
+          <p class="answer">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

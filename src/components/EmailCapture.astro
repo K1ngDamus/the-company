@@ -1,0 +1,46 @@
+---
+/* "From the Porch" — one field, embedded, on every page (§5 of the brief).
+   The welcome and sales sequences are written and HELD, never sent (rule 9). */
+import { FORM_ENDPOINT } from '../data/site';
+const live = FORM_ENDPOINT !== null;
+---
+<section class="porch" aria-labelledby="porch-h">
+  <div class="wrap porch__inner">
+    <div>
+      <p class="eyebrow">From the Porch</p>
+      <h2 id="porch-h" style="margin-top:.7rem">One note a month. Nothing else.</h2>
+      <p class="lede" style="margin-top:.9rem">
+        What we built, what broke, and what it taught us — plain language, once a
+        month. No drip, no pitch stack, unsubscribe in one click.
+      </p>
+    </div>
+    <div>
+      <form class="capture" method="post" action={live ? FORM_ENDPOINT : undefined}>
+        <input type="hidden" name="list" value="from-the-porch" />
+        <label class="visually-hidden" for="porch-email">Your email address</label>
+        <input class="input" id="porch-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+        <button class="btn" type="submit" aria-disabled={live ? undefined : 'true'} disabled={!live}>
+          <span class="dot" aria-hidden="true"></span>Send it
+        </button>
+      </form>
+      {!live && (
+        <p class="small" style="margin-top:.9rem;color:var(--ash)">
+          Built and staged. No list is connected, so nothing is collected or sent yet.
+        </p>
+      )}
+    </div>
+  </div>
+</section>
+<style>
+  .porch {
+    padding-block: clamp(3rem, 2.2rem + 3.5vw, 5rem);
+    background: var(--graphite);
+    border-top: 2px solid var(--signal);
+  }
+  .porch__inner { display: grid; gap: 2rem; align-items: center; }
+  .porch .input { background: transparent; border-color: var(--line-strong); color: var(--chalk); }
+  .porch .input::placeholder { color: var(--ash); }
+  .porch .input:hover { border-color: var(--ash); }
+  .porch .input:focus { border-color: var(--signal); box-shadow: 0 0 0 3px var(--signal-glow); }
+  @media (min-width: 880px) { .porch__inner { grid-template-columns: 1.1fr 1fr; gap: 4rem; } }
+</style>

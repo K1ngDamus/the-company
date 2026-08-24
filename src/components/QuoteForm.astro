@@ -1,0 +1,150 @@
+---
+import { FORM_ENDPOINT } from '../data/site';
+
+/* ---------------------------------------------------------------------------
+   The quote form. Playbook §2, physical resistance:
+   - Embedded on the service page. Never a button to a second page.
+   - Multiple choice with the likely answers bucketed. Keystrokes are added
+     ONLY as a deliberate quality filter, and each one is marked below.
+   - Radio select with auto-advance (progressive enhancement; works without JS).
+   Rule 9: nothing sends. FORM_ENDPOINT is null, so submit is inert and the
+   staging notice is visible. See FORMS.md.
+   --------------------------------------------------------------------------- */
+export type Field =
+  | { kind: 'choice'; name: string; label: string; hint?: string; options: string[]; required?: boolean }
+  | { kind: 'text' | 'email' | 'tel'; name: string; label: string; hint?: string; placeholder?: string; required?: boolean }
+  | { kind: 'textarea'; name: string; label: string; hint?: string; placeholder?: string; required?: boolean };
+
+interface Props {
+  id?: string;
+  service: string;      // routed with the submission
+  heading: string;      // the CTA restated above the form — its own argument (§3)
+  sub?: string;
+  fields: Field[];
+  submitLabel?: string;
+}
+const {
+  id = 'quote',
+  service,
+  heading,
+  sub,
+  fields,
+  submitLabel = 'Send my request',
+} = Astro.props;
+
+const live = FORM_ENDPOINT !== null;
+---
+<div class="quote" id={id}>
+  <div class="quote__head">
+    <h2>{heading}</h2>
+    {sub && <p class="lede">{sub}</p>}
+  </div>
+
+  <form
+    class="form"
+    method="post"
+    action={live ? FORM_ENDPOINT : undefined}
+    aria-describedby={live ? undefined : `${id}-staged`}
+  >
+    <input type="hidden" name="service" value={service} />
+    <!-- Honeypot: bots fill it, people never see it -->
+    <p class="visually-hidden" aria-hidden="true">
+      <label>Leave this field empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+    </p>
+
+    {fields.map((field, i) =>
+      field.kind === 'choice' ? (
+        <fieldset class="field field--choice" data-step={i}>
+          <legend class="label">{field.label}</legend>
+          {field.hint && <p class="hint">{field.hint}</p>}
+          <div class="choices">
+            {field.options.map((opt) => (
+              <label class="choice">
+                <input type="radio" name={field.name} value={opt} required={field.required} />
+                <span>{opt}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ) : field.kind === 'textarea' ? (
+        <div class="field" data-step={i}>
+          <label class="label" for={`${id}-${field.name}`}>{field.label}</label>
+          {field.hint && <p class="hint" id={`${id}-${field.name}-hint`}>{field.hint}</p>}
+          <textarea
+            class="textarea" id={`${id}-${field.name}`} name={field.name}
+            placeholder={field.placeholder} required={field.required}
+            aria-describedby={field.hint ? `${id}-${field.name}-hint` : undefined}
+          ></textarea>
+        </div>
+      ) : (
+        <div class="field" data-step={i}>
+          <label class="label" for={`${id}-${field.name}`}>{field.label}</label>
+          {field.hint && <p class="hint" id={`${id}-${field.name}-hint`}>{field.hint}</p>}
+          <input
+            class="input" type={field.kind} id={`${id}-${field.name}`} name={field.name}
+            placeholder={field.placeholder} required={field.required}
+            autocomplete={field.kind === 'email' ? 'email' : field.kind === 'tel' ? 'tel' : 'on'}
+            aria-describedby={field.hint ? `${id}-${field.name}-hint` : undefined}
+          />
+        </div>
+      )
+    )}
+
+    {!live && (
+      <p class="staged" id={`${id}-staged`}>
+        <span aria-hidden="true">●</span>
+        <span>
+          <strong>Staged, not sending.</strong> This form is built and ready; no
+          handler is connected yet, so nothing leaves this page. Leon connects one
+          when he's ready — see <code>FORMS.md</code>.
+        </span>
+      </p>
+    )}
+
+    <div>
+      <button class="btn" type="submit" aria-disabled={live ? undefined : 'true'} disabled={!live}>
+        <span class="dot" aria-hidden="true"></span>{submitLabel}
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  /* Auto-advance: choosing a radio moves focus to the next question. Saves a
+     scroll and a tap per answer. The form is fully usable without this. */
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLFormElement>('.quote form').forEach((form) => {
+    const steps = Array.from(form.querySelectorAll<HTMLElement>('[data-step]'));
+    form.addEventListener('change', (event) => {
+      const target = event.target as HTMLInputElement;
+      if (target.type !== 'radio') return;
+      const current = target.closest<HTMLElement>('[data-step]');
+      if (!current) return;
+      const next = steps[steps.indexOf(current) + 1];
+      if (!next) return;
+      const control = next.querySelector<HTMLElement>('input, textarea, select');
+      if (!control) return;
+      window.setTimeout(() => {
+        control.focus({ preventScroll: true });
+        if (!prefersReduced) next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 90);
+    });
+  });
+</script>
+
+<style>
+  .quote {
+    background: var(--slate);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.5rem, 1rem + 2vw, 2.6rem);
+    box-shadow: var(--shadow);
+    scroll-margin-top: 90px;
+  }
+  .quote__head { margin-bottom: 1.9rem; }
+  .quote__head h2 { font-size: var(--step-2); }
+  .quote__head .lede { font-size: var(--step-0); margin-top: .7rem; }
+  fieldset.field { border: 0; padding: 0; margin: 0; }
+  legend.label { padding: 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+</style>

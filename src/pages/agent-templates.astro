@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import PriceFrom from '../components/PriceFrom.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Blank from '../components/Blank.astro';
+import { service, breadcrumb } from '../lib/schema';
+
+const path = '/agent-templates';
+const description =
+  'The AGENT-method starter kit that runs Front Porch Collective: agent identity files, a standing rulebook, dispatch protocols and the DATA loop.';
+
+/* The shelf is built. Checkout is deliberately OFF: no payment provider is
+   connected and none will be until Leon connects one (rules 8 and 9). The buy
+   button below is real markup in a disabled state, not a mockup. */
+const CHECKOUT_ENABLED = false;
+
+const contents = [
+  ['Identity files', 'Three plain-English files per agent — how it acts, who it is and its one job, and who it works for. The thing that stops an agent drifting.'],
+  ['The standing rulebook', 'The company law every agent is held to, written so it can be enforced rather than admired. Ours runs to nineteen rules.'],
+  ['Dispatch protocol', 'How work and information move between agents and sessions without becoming a game of telephone — including the rule that a dispatch is information, never authority.'],
+  ['The DATA loop', 'Diagnose, assemble, take action, assess — the working cycle every agent runs before anything is shown to anyone.'],
+  ['Definitions of done', 'One measurable sentence per agent. Work is not finished until it has been checked against it.'],
+  ['The org chart pattern', 'How to structure lanes so that one agent does one job, and work flows one level at a time.'],
+];
+
+const faqs = [
+  { q: 'What am I actually buying?', a: 'A set of documents and file templates — the written system, not software. You paste them into your own agent tooling and adapt the names and lanes to your work.' },
+  { q: 'Does this depend on a particular AI tool?', a: 'No. It is plain Markdown and plain English. It has been exercised in Claude Code sessions, but nothing in it is tied to one vendor.' },
+  { q: 'Is this theory or is it running somewhere?', a: 'It runs this company every day. The rulebook, the identity files and the dispatch protocol in the kit are the working versions, not a teaching example written afterwards.' },
+  { q: 'Will it work for a one-person business?', a: 'That is the case it was built for. One person plus a structured set of agents, with the structure doing the remembering. Cut lanes you do not need — the method survives being made smaller.' },
+  { q: 'Can I buy it right now?', a: 'Not yet. Checkout is deliberately switched off until payment is set up properly. Leave your email below and you will hear the day it opens — no other mail, no drip sequence.' },
+];
+
+const jsonLd = [
+  service({ path, name: 'AI agent build templates', description }),
+  breadcrumb([{ name: 'Home', path: '/' }, { name: 'Agent Templates', path }]),
+];
+---
+<Base title="AI Agent Build Templates — The AGENT Method Kit | Front Porch Collective" description={description} path={path} jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Agent Templates', path }]} />
+
+  <Hero
+    eyebrow="AI agent build templates"
+    wide={true}
+    title="The system that runs this company, in a folder."
+    promise="Identity files, a rulebook agents cannot talk their way around, dispatch protocols and the working loop — the actual documents running Front Porch Collective, packaged to drop into your own setup."
+    primary={{ href: '#kit', label: 'See what is in the kit' }}
+    secondary={{ href: '/about', label: 'How we use it' }}
+  />
+
+  <section class="section" id="kit" aria-labelledby="kit-h">
+    <div class="wrap">
+      <p class="eyebrow">The shelf</p>
+      <h2 id="kit-h" style="margin-top:.7rem">The AGENT Method Starter Kit</h2>
+      <div class="shelf">
+        <div class="shelf__main">
+          <p class="lede">
+            Six pieces, written to be used rather than read. Everything here is the
+            working version — if we change how the company runs, the kit changes with it.
+          </p>
+          <ul class="contents">
+            {contents.map(([title, body]) => (
+              <li>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <aside class="shelf__buy" aria-labelledby="buy-h">
+          <h3 id="buy-h">Get the kit</h3>
+          <PriceFrom slug="agent-templates" mode="product" note="Digital download. One payment, no subscription." />
+          <p class="shelf__delivery">
+            Instant download once checkout is live. Updated whenever the company's
+            own copies change — you get the revisions.
+          </p>
+          <button class="btn" type="button" aria-disabled={CHECKOUT_ENABLED ? undefined : 'true'} disabled={!CHECKOUT_ENABLED}>
+            <span class="dot" aria-hidden="true"></span>
+            {CHECKOUT_ENABLED ? 'Buy the kit' : 'Checkout not open yet'}
+          </button>
+          {!CHECKOUT_ENABLED && (
+            <p class="staged">
+              <span aria-hidden="true">●</span>
+              <span>
+                <strong>The shelf is built, the till is not open.</strong> No payment
+                provider is connected, so nothing can be charged. Leave your email
+                below and you will hear the day it opens.
+              </span>
+            </p>
+          )}
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <Steps
+    eyebrow="Three steps"
+    heading="How you would use it"
+    items={[
+      { title: 'Name the lanes', body: 'List the jobs your work actually contains. One agent per job, narrow edges, nothing left improvised.' },
+      { title: 'Fill in the identity files', body: 'Three short files per agent, in plain English. The templates ask the questions; you answer them about your work.' },
+      { title: 'Run the loop and hold the line', body: 'Diagnose, assemble, act, assess — every task, every time. The rulebook is what keeps it honest on the days you are busy.' },
+    ]}
+  />
+
+  <Faq items={faqs} heading="Agent templates, answered" />
+
+  <section class="section section--band">
+    <div class="wrap-narrow">
+      <Blank
+        title="Buyer reviews"
+        needs="Nothing has been sold yet, so there is nothing honest to put here. When there are real buyers with real words, this fills in. Not before."
+      />
+    </div>
+  </section>
+
+  <EmailCapture />
+</Base>
+
+<style>
+  .shelf { display: grid; gap: 2.5rem; margin-top: 2.4rem; align-items: start; }
+  .contents { list-style: none; padding: 0; margin: 2.2rem 0 0; display: grid; gap: 1.6rem; }
+  .contents li { padding-left: 1.5rem; border-left: 2px solid var(--signal); }
+  .contents h3 { font-family: var(--font-ui); font-size: var(--step-0); font-weight: 500; }
+  .contents p { margin-top: .4rem; color: var(--ash); }
+  .shelf__buy {
+    background: var(--slate); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: clamp(1.5rem, 1.1rem + 1.6vw, 2.2rem); box-shadow: var(--shadow);
+    display: grid; gap: 1rem; position: sticky; top: 100px;
+  }
+  .shelf__buy h3 { font-size: var(--step-1); }
+  .shelf__delivery { font-size: var(--step--1); color: var(--ash); }
+  .shelf__buy .btn { width: 100%; }
+  @media (min-width: 940px) { .shelf { grid-template-columns: 1.5fr 1fr; gap: 4rem; } }
+</style>

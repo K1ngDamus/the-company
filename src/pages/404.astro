@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { SERVICES } from '../data/site';
+---
+<Base title="Page not found | Front Porch Collective" description="That page does not exist. Head back to the porch, or go straight to websites, apps, TV mounting, agent templates or marketing." path="/404">
+  <section class="section" style="text-align:center">
+    <div class="wrap-narrow">
+      <p class="eyebrow">404</p>
+      <h1 style="margin-top:1rem">The light is on, but that room is not here.</h1>
+      <p class="lede" style="margin:1.2rem auto 2.4rem">
+        The page you were after does not exist. Here is where most people were heading.
+      </p>
+      <p style="display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center">
+        <a class="btn" href="/"><span class="dot" aria-hidden="true"></span>Home</a>
+        {SERVICES.map((s) => <a class="btn btn--ghost btn--sm" href={`/${s.slug}`}>{s.nav}</a>)}
+      </p>
+    </div>
+  </section>
+</Base>

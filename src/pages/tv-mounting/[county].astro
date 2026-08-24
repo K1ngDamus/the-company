@@ -1,0 +1,146 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Steps from '../../components/Steps.astro';
+import Faq from '../../components/Faq.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import PriceFrom from '../../components/PriceFrom.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { COUNTIES, CONTACT, NAP, type County } from '../../data/site';
+import { TV_FIELDS } from '../../data/forms';
+import { localBusiness, breadcrumb } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return COUNTIES.map((county) => ({ params: { county: county.slug }, props: { county } }));
+}
+
+interface Props { county: County }
+const { county } = Astro.props;
+const path = `/tv-mounting/${county.slug}`;
+const others = COUNTIES.filter((c) => c.slug !== county.slug);
+
+const description = `TV mounting in ${county.name}, Georgia — ${county.towns.slice(0, 4).join(', ')} and across the county. Level, solid, cords out of sight. Get a quote in four taps.`;
+
+/* County-specific answers. The geography is real; nothing here claims a job
+   we cannot evidence. */
+const faqs = [
+  {
+    q: `Which parts of ${county.name} do you cover?`,
+    a: `All of it — ${county.towns.join(', ')}, and the addresses in between. ${county.seat} is the county seat and the middle of most of our runs out here.`,
+  },
+  { q: 'Do you charge extra to come out this far?', a: `No trip fee inside our five metro counties, and ${county.short} is one of them. What changes the price is the job — TV size, wall type, and whether the cords go inside the wall.` },
+  { q: 'Can you do it this week?', a: 'Often, yes. Pick "this week" on the form and we will tell you the real availability rather than a promise we would have to walk back.' },
+  { q: 'What kind of walls do you run into around here?', a: county.line },
+  { q: 'Will the cords show?', a: 'Only if you want them to. On drywall we can run them inside the wall; on brick, stone or concrete we use a flush cover that takes paint. You pick on the form.' },
+];
+
+const jsonLd = [
+  localBusiness({
+    path,
+    name: `Front Porch Collective — TV Mounting in ${county.name}`,
+    description,
+    counties: [county],
+  }),
+  breadcrumb([
+    { name: 'Home', path: '/' },
+    { name: 'TV Mounting', path: '/tv-mounting' },
+    { name: county.name, path },
+  ]),
+];
+---
+<Base
+  title={`TV Mounting in ${county.name}, GA | Front Porch Collective`}
+  description={description}
+  path={path}
+  jsonLd={jsonLd}
+  phoneForward={true}
+>
+  <Breadcrumbs items={[
+    { name: 'Home', path: '/' },
+    { name: 'TV Mounting', path: '/tv-mounting' },
+    { name: county.name, path },
+  ]} />
+
+  <Hero
+    eyebrow={`TV mounting · ${county.name}, Georgia`}
+    title={`TV mounting in ${county.short}, done right the first time.`}
+    promise={`${county.line} We mount it level, anchor it into what actually holds, and leave the cords where you cannot see them.`}
+    primary={{ href: '#quote', label: 'Get a quote — four taps' }}
+    secondary={{ href: '#towns', label: `Towns we cover in ${county.short}` }}
+  >
+    <div slot="aside">
+      <QuoteForm
+        id="quote"
+        service={`tv-mounting/${county.slug}`}
+        heading={`Quote for ${county.short} County.`}
+        sub="Four taps and your number. No site visit needed to get a real figure."
+        submitLabel="Get my quote"
+        fields={TV_FIELDS}
+      />
+    </div>
+  </Hero>
+
+  <Steps
+    eyebrow="Three steps"
+    heading={`How it works in ${county.short}`}
+    items={[
+      { title: 'Tell us the TV and the wall', body: 'Four taps on this page. Size, wall, cords, timing — guesses are fine, we confirm on the day.' },
+      { title: 'We send a price and a window', body: `A real figure for your address in ${county.short}, not a range that grows later.` },
+      { title: 'We mount it and clean up', body: 'Level, solid, cords handled the way you picked, packaging gone when we go.' },
+    ]}
+  />
+
+  <Faq items={faqs} heading={`TV mounting in ${county.short} — answered`} />
+
+  <section class="section" id="towns" aria-labelledby="towns-h">
+    <div class="wrap">
+      <p class="eyebrow">Service area</p>
+      <h2 id="towns-h" style="margin-top:.7rem">Where we mount in {county.name}</h2>
+      <p class="lede" style="margin-top:1rem">
+        {NAP.name} is a service-area business — we come to you, right across the county.
+      </p>
+      <ul class="towns">
+        {county.towns.map((town) => <li>{town}</li>)}
+      </ul>
+      <div style="margin-top:2.5rem">
+        <PriceFrom slug="tv-mounting" unit="per TV" note={`Same pricing across all five counties — no trip fee inside ${county.short}. Four taps up top gets you the figure.`} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--band">
+    <div class="wrap">
+      <p class="eyebrow">Nearby</p>
+      <h2 style="margin-top:.7rem">Not in {county.short}?</h2>
+      <p class="lede" style="margin-top:1rem">We cover four more metro counties.</p>
+      <p class="nearby">
+        {others.map((c) => <a class="btn btn--ghost btn--sm" href={`/tv-mounting/${c.slug}`}>{c.name}</a>)}
+      </p>
+      <p class="small" style="margin-top:1.5rem">
+        {CONTACT.phone && CONTACT.phoneHref
+          ? <>Rather talk it through? <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>.</>
+          : <>Prefer the phone? The number goes live here as soon as it is set.</>}
+      </p>
+    </div>
+  </section>
+
+  <EmailCapture />
+</Base>
+
+<style>
+  .towns {
+    list-style: none; padding: 0; margin: 2rem 0 0;
+    display: grid; gap: .6rem;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+  .towns li {
+    padding: .7rem 1rem; border: 1px solid var(--line);
+    border-radius: var(--radius-sm); background: var(--slate); font-weight: 500;
+  }
+  .towns li::before {
+    content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--signal); margin-right: .65em; vertical-align: middle;
+  }
+  .nearby { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.8rem; }
+</style>

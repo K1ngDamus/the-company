@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE, CONTACT } from '../data/site';
+import { breadcrumb } from '../lib/schema';
+const path = '/terms';
+---
+<Base
+  title="Terms of Use | Front Porch Collective"
+  description="The terms for using the Front Porch Collective website, in plain language."
+  path={path}
+  jsonLd={[breadcrumb([{ name: 'Home', path: '/' }, { name: 'Terms', path }])]}
+>
+  <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Terms', path }]} />
+  <section class="section legal">
+    <div class="wrap-narrow stack" style="--flow:1.4rem">
+      <p class="eyebrow">Terms</p>
+      <h1>Terms of use</h1>
+      <p class="small">Plain-language draft, last updated 23 August 2026.</p>
+
+      <h2>Who you are dealing with</h2>
+      <p>This site is operated by {SITE.legalName}, an independent creative company based in Atlanta, Georgia.</p>
+
+      <h2>What this site is</h2>
+      <p>It describes our services and lets you ask us for a quote. Nothing on it is a binding offer or a fixed price. Any figure shown as a starting point is exactly that — the number that governs your job is the one in the written quote we send you.</p>
+
+      <h2>Quotes and work</h2>
+      <p>A quote becomes an agreement when you accept it in writing and we confirm. Until then, either of us can walk away with nothing owed. Where separate project terms apply to a piece of work, those terms govern that work.</p>
+
+      <h2>Our content</h2>
+      <p>The words, design, code and the Front Porch Collective mark on this site belong to us. You are welcome to read, quote and link to it. You are not welcome to pass it off as your own.</p>
+
+      <h2>Your submissions</h2>
+      <p>Send us only information you have the right to send, and keep it accurate. We rely on what you tell us when we quote, so a quote based on wrong details is a quote that will change.</p>
+
+      <h2>Accuracy</h2>
+      <p>We keep this site accurate and mark plainly where something is not yet known rather than filling the gap. Even so, we cannot promise every page is complete or current at every moment, and nothing here is professional advice for your particular situation.</p>
+
+      <h2>Limits</h2>
+      <p>The site is provided as it is. We are not liable for losses arising from using it, beyond what the law does not let us exclude. Georgia law governs these terms.</p>
+
+      <h2>Contact</h2>
+      <p>
+        {CONTACT.email
+          ? <>Questions go to <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.</>
+          : <>The contact address for questions about these terms is published here as soon as it is set.</>}
+      </p>
+    </div>
+  </section>
+</Base>
+<style>
+  .legal h2 { font-size: var(--step-1); margin-top: 1rem; }
+  .legal p { color: var(--ash); }
+</style>
