@@ -44,8 +44,9 @@ digital download does get a fixed price — set before checkout is connected. Se
 | 15 | Budget brackets in the qualifying forms | Drafted as sensible ranges in `src/data/forms.ts`. They imply nothing about our prices — they qualify the enquiry — but they should match Leon's intent before launch. |
 | 16 | Privacy and terms | Written in plain language and accurate to the current state. Neither has been reviewed by a lawyer, and both should be before the site is deployed. |
 
-## Not a blank, but Leon's to do
+## Repository trunk — done
 
-Flip the repository's default branch to `main` in **Settings → General**. GitHub
-adopted the working branch automatically when it was the only one; there is no
-API tool available here to change it.
+**Resolved 2026-08-24.** Leon switched the repository's default branch to `main`,
+verified against the remote (`HEAD branch: main`). GitHub had adopted the working
+branch automatically when it was the only one. Branches cut from now on start
+from the right place.

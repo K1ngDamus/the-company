@@ -130,8 +130,8 @@ Still open:
    linked nothing rather than link wrong.
 3. **Privacy and terms** — written in plain language and accurate to the current
    state, but not reviewed by a lawyer. *Recommendation: review before deploy.*
-4. **The repo's default branch** — still the working branch; flip it to `main`
-   in Settings. No API tool for it is available here.
+4. ~~The repo's default branch~~ — **done 2026-08-24: Leon switched it to
+   `main`,** verified against the remote.
 
 All seven facts live in one file, `src/data/site.ts`. Filling them in is a
 single edit each, and every page updates.
