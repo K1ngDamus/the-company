@@ -44,6 +44,7 @@ const live = FORM_ENDPOINT !== null;
     class="form"
     method="post"
     action={live ? FORM_ENDPOINT : undefined}
+    data-endpoint={live ? FORM_ENDPOINT : undefined}
     aria-describedby={live ? undefined : `${id}-staged`}
   >
     <input type="hidden" name="service" value={service} />
@@ -101,19 +102,37 @@ const live = FORM_ENDPOINT !== null;
       </p>
     )}
 
+    <p class="form__error" role="alert" hidden></p>
+
     <div>
       <button class="btn" type="submit" aria-disabled={live ? undefined : 'true'} disabled={!live}>
-        <span class="dot" aria-hidden="true"></span>{submitLabel}
+        <span class="dot" aria-hidden="true"></span><span class="btn__label">{submitLabel}</span>
       </button>
     </div>
   </form>
+
+  <!-- Shown in place of the form on success. No page load: a redirect to the
+       provider's own thank-you page costs a navigation and dumps the visitor
+       on someone else's branding. -->
+  <div class="quote__done" role="status" aria-live="polite" tabindex="-1" hidden>
+    <p class="eyebrow">Sent</p>
+    <h3>Thanks — that reached us.</h3>
+    <p>
+      It goes straight to Leon, and you will get a real answer rather than an
+      auto-reply. If it is urgent, the phone number in the footer is the fastest route.
+    </p>
+  </div>
 </div>
 
 <script>
-  /* Auto-advance: choosing a radio moves focus to the next question. Saves a
-     scroll and a tap per answer. The form is fully usable without this. */
+  /* Two enhancements, both optional. With JavaScript off the forms still work:
+     the browser POSTs natively to the provider and lands on its thank-you page.
+     With it on, nothing navigates. */
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   document.querySelectorAll<HTMLFormElement>('.quote form').forEach((form) => {
+    /* 1. Auto-advance: choosing a radio moves focus to the next question.
+          Saves a scroll and a tap per answer. */
     const steps = Array.from(form.querySelectorAll<HTMLElement>('[data-step]'));
     form.addEventListener('change', (event) => {
       const target = event.target as HTMLInputElement;
@@ -128,6 +147,58 @@ const live = FORM_ENDPOINT !== null;
         control.focus({ preventScroll: true });
         if (!prefersReduced) next.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 90);
+    });
+
+    /* 2. Submit in place. Only when an endpoint exists — while the site is
+          staged there is nothing to post to and the button is disabled. */
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) return;
+
+    const panel = form.closest('.quote');
+    const done = panel?.querySelector<HTMLElement>('.quote__done');
+    const error = form.querySelector<HTMLElement>('.form__error');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const label = button?.querySelector<HTMLElement>('.btn__label');
+    const labelText = label?.textContent ?? '';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      /* Honeypot: bots fill it, people never see it. Pretend success rather
+         than telling the bot it was caught. */
+      const trap = form.querySelector<HTMLInputElement>('[name="_gotcha"]');
+      if (trap?.value) { form.hidden = true; if (done) { done.hidden = false; } return; }
+
+      if (error) error.hidden = true;
+      if (button) button.disabled = true;
+      if (label) label.textContent = 'Sending…';
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!response.ok) throw new Error(`${response.status}`);
+        form.hidden = true;
+        if (done) {
+          done.hidden = false;
+          /* After paint — focusing an element the browser has not laid out yet
+             silently does nothing. */
+          requestAnimationFrame(() => done.focus());
+        }
+      } catch {
+        /* Never swallow it. A form that silently fails loses the enquiry and
+           the visitor never knows — worse than an error they can act on. */
+        if (error) {
+          error.textContent =
+            'That did not send. Please try again, or email us directly — the address is in the footer.';
+          error.hidden = false;
+        }
+        if (button) button.disabled = false;
+        if (label) label.textContent = labelText;
+      }
     });
   });
 </script>
@@ -147,4 +218,19 @@ const live = FORM_ENDPOINT !== null;
   fieldset.field { border: 0; padding: 0; margin: 0; }
   legend.label { padding: 0; }
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+
+  .form__error {
+    border: 1.5px solid var(--signal);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 77, 79, 0.09);
+    color: var(--chalk);
+    padding: .85rem 1rem;
+    font-size: var(--step--1);
+    margin: 0;
+  }
+  .quote__done { padding: .5rem 0; }
+  .quote__done h3 { font-size: var(--step-2); margin-top: .7rem; }
+  .quote__done p:last-child { margin-top: .9rem; color: var(--ash); }
+  .quote__done:focus { outline: none; }
+  .quote__done:focus-visible { outline: 3px solid var(--signal); outline-offset: 6px; }
 </style>

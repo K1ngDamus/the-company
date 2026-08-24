@@ -61,6 +61,12 @@
 
 /* --- reset ------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
+
+/* Must outrank component display rules. `.form { display: grid }` and
+   `.capture { display: flex }` both beat the UA's `[hidden] { display: none }`,
+   so without this a hidden form stays on screen. Caught by testing the submit
+   flow rather than by reading it. */
+[hidden] { display: none !important; }
 * { margin: 0; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; background: var(--coal); }
 @media (prefers-reduced-motion: reduce) {

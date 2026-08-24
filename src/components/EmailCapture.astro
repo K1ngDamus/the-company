@@ -15,14 +15,19 @@ const live = FORM_ENDPOINT !== null;
       </p>
     </div>
     <div>
-      <form class="capture" method="post" action={live ? FORM_ENDPOINT : undefined}>
+      <form class="capture" method="post" action={live ? FORM_ENDPOINT : undefined}
+            data-endpoint={live ? FORM_ENDPOINT : undefined}>
         <input type="hidden" name="list" value="from-the-porch" />
         <label class="visually-hidden" for="porch-email">Your email address</label>
         <input class="input" id="porch-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+        <p class="visually-hidden" aria-hidden="true">
+          <label>Leave this field empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+        </p>
         <button class="btn" type="submit" aria-disabled={live ? undefined : 'true'} disabled={!live}>
-          <span class="dot" aria-hidden="true"></span>Send it
+          <span class="dot" aria-hidden="true"></span><span class="btn__label">Send it</span>
         </button>
       </form>
+      <p class="porch__status" role="status" aria-live="polite" hidden></p>
       {!live && (
         <p class="small" style="margin-top:.9rem;color:var(--ash)">
           Built and staged. No list is connected, so nothing is collected or sent yet.
@@ -31,6 +36,53 @@ const live = FORM_ENDPOINT !== null;
     </div>
   </div>
 </section>
+
+<script>
+  /* Submits in place, like the quote forms. Without JavaScript the browser
+     POSTs natively and lands on the provider's page — still works, just less
+     pleasant. */
+  document.querySelectorAll<HTMLFormElement>('.porch form').forEach((form) => {
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) return;
+    const status = form.parentElement?.querySelector<HTMLElement>('.porch__status');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const label = button?.querySelector<HTMLElement>('.btn__label');
+    const labelText = label?.textContent ?? '';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const trap = form.querySelector<HTMLInputElement>('[name="_gotcha"]');
+      if (trap?.value) { form.hidden = true; return; }
+
+      if (button) button.disabled = true;
+      if (label) label.textContent = 'Sending…';
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!response.ok) throw new Error(`${response.status}`);
+        form.hidden = true;
+        if (status) {
+          status.textContent = 'You are on the list. One note a month, and nothing else.';
+          status.hidden = false;
+        }
+      } catch {
+        if (status) {
+          status.textContent = 'That did not send. Please try again in a moment.';
+          status.hidden = false;
+        }
+        if (button) button.disabled = false;
+        if (label) label.textContent = labelText;
+      }
+    });
+  });
+</script>
+
 <style>
   .porch {
     padding-block: clamp(3rem, 2.2rem + 3.5vw, 5rem);
@@ -42,5 +94,9 @@ const live = FORM_ENDPOINT !== null;
   .porch .input::placeholder { color: var(--ash); }
   .porch .input:hover { border-color: var(--ash); }
   .porch .input:focus { border-color: var(--signal); box-shadow: 0 0 0 3px var(--signal-glow); }
+  .porch__status {
+    margin-top: .9rem; font-size: var(--step--1); color: var(--chalk);
+    border-left: 2px solid var(--signal); padding-left: .8rem;
+  }
   @media (min-width: 880px) { .porch__inner { grid-template-columns: 1.1fr 1fr; gap: 4rem; } }
 </style>
