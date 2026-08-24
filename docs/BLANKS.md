@@ -40,7 +40,7 @@ digital download does get a fixed price — set before checkout is connected. Se
 
 | # | Item | Status |
 |---|---|---|
-| 14 | The company one-line promise | A draft is in place (`SITE.promise`). Three alternatives were put to Leon; he has not picked, and his own words beat all four. **Still open.** |
+| 14 | The company one-line promise | **Resolved 2026-08-24.** Leon picked *"We build it properly, then hand you the keys."* It runs in the footer, on `/about` and `/work`, and closes the home hero. Structured data uses `SITE.summary` instead — a promise this short makes a poor search description. |
 | 15 | Budget brackets in the qualifying forms | Drafted as sensible ranges in `src/data/forms.ts`. They imply nothing about our prices — they qualify the enquiry — but they should match Leon's intent before launch. |
 | 16 | Privacy and terms | Written in plain language and accurate to the current state. Neither has been reviewed by a lawyer, and both should be before the site is deployed. |
 

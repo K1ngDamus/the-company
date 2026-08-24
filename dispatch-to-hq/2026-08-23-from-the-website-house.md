@@ -124,8 +124,8 @@ up; one number in `PRICES['tv-mounting']` flips all six TV pages.
 
 Still open:
 
-1. **The company promise line** — a draft is in place; three alternatives were
-   put to Leon and his own words beat all four.
+1. ~~The company promise line~~ — **answered 2026-08-24: "We build it properly,
+   then hand you the keys."** Running site-wide.
 2. **Atlanta Experience live links** — the public URL and any store links. We
    linked nothing rather than link wrong.
 3. **Privacy and terms** — written in plain language and accurate to the current

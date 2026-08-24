@@ -9,10 +9,14 @@ export const SITE = {
   url: 'https://frontporchco.com',
   name: 'Front Porch Collective',
   legalName: 'Front Porch Collective LLC',
-  /* DRAFT copy — Leon to confirm or replace (three options filed with the
-     hand-off note). Everything else on this line is his answer already. */
-  promise:
-    'An independent creative company. Apps, websites, stories, and services — built by a small crew that answers the door.',
+  /* The company promise. Leon picked this line on 2026-08-24. */
+  promise: 'We build it properly, then hand you the keys.',
+
+  /* What we do, for machines. The promise is a promise — it is deliberately
+     short, which makes it a poor search description. Structured data and any
+     meta fallback use this instead. */
+  summary:
+    'An independent creative company in Atlanta: custom websites, mobile apps, AI agent templates, marketing copy, and professional TV mounting across metro Atlanta.',
 } as const;
 
 /* --------------------------------------------------------------------------
