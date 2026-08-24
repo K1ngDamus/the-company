@@ -3,9 +3,12 @@
 The front porch of the whole operation: every service findable, understandable,
 and easy to ask for. Built for `frontporchco.com`.
 
-**Status: staged, not deployed.** Nothing has been published, nothing sends,
-nothing has been bought. Deployment is a separate approval from Leon and is not
-part of this build (founding brief §7.5).
+**Status: approved for deployment, not yet published.** Leon approved
+deployment on 2026-08-24 and the pipeline is built and tested, but two gates
+stand in front of it: the forms do not send yet, and GitHub Pages will not
+serve a private repository on a free plan. Both are Leon's to open, and
+**[`DEPLOY.md`](DEPLOY.md)** is the whole list. Nothing has been published,
+nothing sends, nothing has been bought.
 
 ## Running it
 
@@ -15,8 +18,12 @@ npm run dev      # http://localhost:4321
 npm run build    # static output into dist/
 npm run preview  # serve the built site
 
-npm run check    # build + audit + contrast — what CI runs
+npm run check    # build + audit + contrast + mounted rebuild — what CI runs
 ```
+
+`check:mounted` rebuilds the site nested under a path, the way a GitHub Pages
+project URL serves it, and re-audits. It is the only check that catches an
+internal link written as a bare `"/contact"` instead of `link("/contact")`.
 
 ## The checks
 
@@ -60,7 +67,9 @@ a focus-advance enhancement on the forms; everything works without it.
 | `/privacy` `/terms` | Plain-language legal |
 | `/404` | Not found |
 
-Plus `sitemap.xml` and `robots.txt`.
+Plus `sitemap.xml` and `robots.txt`, both generated. A build served anywhere
+other than `frontporchco.com` disallows crawlers outright and carries
+`noindex` on every page, so a preview can never stand in for the real site.
 
 ## Where things live
 
@@ -72,7 +81,14 @@ src/components/       Hero, QuoteForm, Faq, Steps, ProofCard, Blank, Mark…
 src/styles/global.css The design system — canon palette, type, components
 public/brand/         The FPC mark, copied from HQ branding/
 public/fonts/         Self-hosted Playfair Display + Jost
+astro.config.mjs      Where the build will be served from — read from the env
+.github/workflows/    CI on every PR; Deploy on every push to main
 ```
+
+Nothing outside `astro.config.mjs` may hard-code the site's address. Use
+`link()` from `src/data/site.ts` for in-site links and `abs()` for the absolute
+URLs that go in canonicals, the sitemap and structured data — those are what
+make the same commit correct at either address.
 
 **`src/data/site.ts` is the one file to edit for most changes.** Contact
 details, prices, service copy and county lists all live there, and every page
@@ -84,6 +100,8 @@ reads from it.
   where to fill it in. Contact details are done; pricing is deliberately
   quote-only. What remains is proof awaiting permission, and it shows as marked
   gaps on the pages rather than hidden.
+- **[`DEPLOY.md`](DEPLOY.md)** — what publishing needs, what is already
+  wired, and the two gates only Leon can open.
 - **[`FORMS.md`](FORMS.md)** — every form is built and staged. One constant
   turns them all on.
 - **[`docs/DESIGN.md`](docs/DESIGN.md)** — the palette is canon and Clay has a
