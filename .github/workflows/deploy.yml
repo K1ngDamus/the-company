@@ -1,0 +1,81 @@
+name: Deploy
+
+# Publishing the site is a deliberate act, so this is separate from CI.
+#
+#   • workflow_dispatch — publish on demand, from the Actions tab.
+#   • push to main      — every merged change goes live, which is the point of
+#                         having the site on main in the first place.
+#
+# Nothing here can run until GitHub Pages is switched on for this repository
+# with "GitHub Actions" as the source. Until then the job fails at the first
+# step, which is the intended signal rather than a silent no-op. See DEPLOY.md.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+# Least privilege: read the code, write a Pages deployment, and nothing else.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One live site. Queue deployments rather than cancelling them, so a run that
+# is already uploading is never killed half-way and left partly published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Asks Pages where this site will actually live. With a custom domain
+      # configured it answers https://frontporchco.com and a base of "/"; with
+      # no custom domain it answers the project URL and its /the-company/ path.
+      # The build reads both, so one commit is correct at either address and
+      # the address is never written down twice.
+      - name: Read the Pages address
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+
+      # The same gates CI runs, run again against the artifact that is about to
+      # go live — a link that lost its base prefix is a dead link here.
+      - name: Audit pages
+        run: npm run audit
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+
+      - name: Check contrast
+        run: npm run contrast
+
+      - name: Upload
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4

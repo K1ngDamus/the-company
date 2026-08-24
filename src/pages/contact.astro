@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import EmailCapture from '../components/EmailCapture.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { CONTACT, NAP, COUNTIES, SERVICES } from '../data/site';
+import { CONTACT, NAP, COUNTIES, SERVICES, link } from '../data/site';
 import { breadcrumb } from '../lib/schema';
 
 const path = '/contact';
@@ -78,7 +78,7 @@ const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Contact', path
         better answers, same page.
       </p>
       <p class="direct">
-        {SERVICES.map((s) => <a class="btn btn--ghost btn--sm" href={`/${s.slug}${s.anchor}`}>{s.name}</a>)}
+        {SERVICES.map((s) => <a class="btn btn--ghost btn--sm" href={link(`/${s.slug}${s.anchor}`)}>{s.name}</a>)}
       </p>
     </div>
   </section>

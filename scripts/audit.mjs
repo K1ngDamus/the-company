@@ -12,6 +12,10 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, extname } from 'node:path';
 
 const DIST = 'dist';
+/* The build can be mounted under a path (a Pages project URL). Links carry the
+   prefix; the files on disk do not. Read the same env the build read, so a link
+   that forgot its prefix shows up here as a dead link rather than in a browser. */
+const BASE = (process.env.BASE_PATH || '/').replace(/\/$/, '');
 const MARK_PATH = 'M60,26 V94';        // the FPC monogram's stem
 const DESC_MIN = 50, DESC_MAX = 170;   // what search engines actually show
 
@@ -32,14 +36,17 @@ if (pages.length === 0) {
 }
 
 /* Every URL the built site actually serves. */
-const routes = new Set(['/sitemap.xml', '/robots.txt']);
+const routes = new Set();
+const route = (r) => routes.add((BASE + r).replace(/\/$/, '') || '/');
+route('/sitemap.xml');
+route('/robots.txt');
 for (const f of pages) {
   const rel = relative(DIST, f);
-  if (rel === '404.html') { routes.add('/404'); continue; }
-  routes.add(('/' + rel.replace(/index\.html$/, '')).replace(/\/$/, '') || '/');
+  if (rel === '404.html') { route('/404'); continue; }
+  route(('/' + rel.replace(/index\.html$/, '')).replace(/\/$/, '') || '/');
 }
 for (const f of all) {
-  if (extname(f) !== '.html') routes.add('/' + relative(DIST, f));
+  if (extname(f) !== '.html') route('/' + relative(DIST, f));
 }
 
 const findings = [];
@@ -75,8 +82,9 @@ for (const page of pages) {
     const frag = href.includes('#') ? href.split('#')[1] : null;
     if (base && !routes.has(base)) add(page, `dead link → ${href}`);
     if (frag) {
+      const onDisk = !isBare && BASE && base.startsWith(BASE) ? base.slice(BASE.length) || '/' : base;
       const target = isBare ? page
-        : join(DIST, base === '/' ? 'index.html' : base + '/index.html');
+        : join(DIST, onDisk === '/' ? 'index.html' : onDisk + '/index.html');
       try {
         if (!readFileSync(target, 'utf8').includes(`id="${frag}"`))
           add(page, `dead anchor → ${href}`);

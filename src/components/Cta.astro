@@ -1,4 +1,6 @@
 ---
+import { link } from '../data/site';
+
 /* The CTA restated above every form — its own argument, never a bare button
    (playbook §3). */
 interface Props { heading: string; body?: string; href: string; label: string; secondary?: { href: string; label: string }; }
@@ -10,8 +12,8 @@ const { heading, body, href, label, secondary } = Astro.props;
     <h2 id="cta-h">{heading}</h2>
     {body && <p class="lede" style="margin:1rem auto 0">{body}</p>}
     <p class="cta__actions">
-      <a class="btn" href={href}><span class="dot" aria-hidden="true"></span>{label}</a>
-      {secondary && <a class="btn btn--ghost" href={secondary.href}>{secondary.label}</a>}
+      <a class="btn" href={link(href)}><span class="dot" aria-hidden="true"></span>{label}</a>
+      {secondary && <a class="btn btn--ghost" href={link(secondary.href)}>{secondary.label}</a>}
     </p>
   </div>
 </section>

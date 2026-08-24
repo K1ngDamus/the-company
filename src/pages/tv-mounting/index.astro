@@ -8,7 +8,7 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import PriceFrom from '../../components/PriceFrom.astro';
 import Blank from '../../components/Blank.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { COUNTIES, CONTACT, NAP } from '../../data/site';
+import { COUNTIES, CONTACT, NAP, link } from '../../data/site';
 import { TV_FIELDS } from '../../data/forms';
 import { localBusiness, breadcrumb } from '../../lib/schema';
 
@@ -80,7 +80,7 @@ const jsonLd = [
       </p>
       <div class="grid grid--2 grid--3" style="margin-top:2.4rem">
         {COUNTIES.map((c) => (
-          <a class="card" href={`/tv-mounting/${c.slug}`}>
+          <a class="card" href={link(`/tv-mounting/${c.slug}`)}>
             <h3 class="card__title">{c.name}</h3>
             <p style="margin-top:.6rem;color:var(--ash)">{c.towns.slice(0, 5).join(' · ')}{c.towns.length > 5 ? ' and more' : ''}</p>
             <span class="card__arrow">TV mounting in {c.short} <span aria-hidden="true">→</span></span>

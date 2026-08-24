@@ -1,6 +1,6 @@
 ---
 import Lockup from './Lockup.astro';
-import { SITE, NAV, CONTACT, NAP, COUNTIES } from '../data/site';
+import { SITE, NAV, CONTACT, NAP, COUNTIES, link } from '../data/site';
 const year = 2026;
 ---
 <footer class="site-footer section--deep">
@@ -15,23 +15,23 @@ const year = 2026;
         <div>
           <h2 class="site-footer__h">Services</h2>
           <ul>
-            {NAV.slice(0, 5).map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+            {NAV.slice(0, 5).map((i) => <li><a href={link(i.href)}>{i.label}</a></li>)}
           </ul>
         </div>
         <div>
           <h2 class="site-footer__h">Company</h2>
           <ul>
-            <li><a href="/work">Work</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/privacy">Privacy</a></li>
-            <li><a href="/terms">Terms</a></li>
+            <li><a href={link("/work")}>Work</a></li>
+            <li><a href={link("/about")}>About</a></li>
+            <li><a href={link("/contact")}>Contact</a></li>
+            <li><a href={link("/privacy")}>Privacy</a></li>
+            <li><a href={link("/terms")}>Terms</a></li>
           </ul>
         </div>
         <div>
           <h2 class="site-footer__h">TV mounting areas</h2>
           <ul>
-            {COUNTIES.map((c) => <li><a href={`/tv-mounting/${c.slug}`}>{c.name}</a></li>)}
+            {COUNTIES.map((c) => <li><a href={link(`/tv-mounting/${c.slug}`)}>{c.name}</a></li>)}
           </ul>
         </div>
       </div>

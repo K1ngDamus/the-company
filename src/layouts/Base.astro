@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE } from '../data/site';
+import { SITE, IS_CANONICAL, link as url, abs } from '../data/site';
 
 interface Props {
   title: string;          // focused-keyword page title (SEO basics, §5)
@@ -12,8 +12,8 @@ interface Props {
   phoneForward?: boolean; // feature the phone in the header (TV pages)
 }
 const { title, description, path, jsonLd = [], phoneForward = false } = Astro.props;
-const canonical = new URL(path, SITE.url).href;
-const ogImage = new URL('/brand/FPC-appicon-tile.svg', SITE.url).href;
+const canonical = abs(path);
+const ogImage = abs('/brand/FPC-appicon-tile.svg');
 
 /* Organization data sits on every page — one identity, stated once, everywhere. */
 const organization = {
@@ -35,13 +35,16 @@ const organization = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {/* A preview build is not the site. Keep it out of the index entirely so
+        it can never outrank, duplicate, or stand in for frontporchco.com. */}
+    {!IS_CANONICAL && <meta name="robots" content="noindex, nofollow" />}
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/brand/FPC-appicon-tile.svg" />
+    <link rel="icon" href={url("/favicon.svg")} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={url("/brand/FPC-appicon-tile.svg")} />
     <meta name="theme-color" content="#0F0F11" />
 
-    <link rel="preload" href="/fonts/jost-latin-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/playfair-display-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url("/fonts/jost-latin-var.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url("/fonts/playfair-display-latin-var.woff2")} as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />

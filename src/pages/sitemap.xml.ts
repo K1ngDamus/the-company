@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { SITE, COUNTIES, SERVICES } from '../data/site';
+import { COUNTIES, SERVICES, abs } from '../data/site';
 
 /* Hand-built rather than pulled from a plugin: fifteen pages with deliberate
    priorities beats a generated list nobody has read. Legal pages and the 404
@@ -21,7 +21,7 @@ export const GET: APIRoute = () => {
   const urls = pages
     .map(
       (p) => `  <url>
-    <loc>${new URL(p.path, SITE.url).href}</loc>
+    <loc>${abs(p.path)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${p.changefreq}</changefreq>
     <priority>${p.priority}</priority>

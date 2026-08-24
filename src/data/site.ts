@@ -5,8 +5,36 @@
    honest blanks — never invented. Fill them here and every page updates.
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   WHERE THE SITE LIVES.
+
+   Astro hands these back from `site` and `base` in astro.config.mjs, which
+   read the environment. A plain build produces the canonical address below;
+   the deploy workflow can point the same commit at a GitHub Pages project URL
+   for a look before the domain is pointed. Nothing else in the repo may
+   hard-code an address — use `link()` for in-site links and `abs()` for the
+   absolute URLs that go in canonicals, the sitemap and structured data.
+   -------------------------------------------------------------------------- */
+
+/** The canonical home. A build served anywhere else is a preview, not the site. */
+export const CANONICAL_ORIGIN = 'https://frontporchco.com';
+
+const ORIGIN = (import.meta.env.SITE ?? CANONICAL_ORIGIN).replace(/\/$/, '');
+const BASE = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
+
+/** True when this build is being served from its real address. */
+export const IS_CANONICAL = ORIGIN === CANONICAL_ORIGIN && BASE === '';
+
+/** An in-site path ('/contact'), prefixed for wherever the build is mounted. */
+export const link = (p: string) => (p.startsWith('/') ? BASE + p : p);
+
+/** The absolute URL of an in-site path. */
+export const abs = (p: string) => ORIGIN + link(p);
+
 export const SITE = {
-  url: 'https://frontporchco.com',
+  /** The site's home URL, base path included. */
+  url: ORIGIN + BASE,
+  origin: ORIGIN,
   name: 'Front Porch Collective',
   legalName: 'Front Porch Collective LLC',
   /* The company promise. Leon picked this line on 2026-08-24. */
@@ -17,7 +45,7 @@ export const SITE = {
      meta fallback use this instead. */
   summary:
     'An independent creative company in Atlanta: custom websites, mobile apps, AI agent templates, marketing copy, and professional TV mounting across metro Atlanta.',
-} as const;
+};
 
 /* --------------------------------------------------------------------------
    CONTACT — Leon answered the SHAPE (email site-wide, phone featured on the

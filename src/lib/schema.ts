@@ -1,4 +1,4 @@
-import { SITE, NAP, CONTACT, COUNTIES, type County } from '../data/site';
+import { SITE, NAP, CONTACT, COUNTIES, abs, type County } from '../data/site';
 
 /* One builder for the local markup, used by the TV hub and all five county
    pages, so NAP can never drift between them (rule 12). */
@@ -12,12 +12,12 @@ export function localBusiness(opts: { path: string; name: string; description: s
   const node: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'HomeAndConstructionBusiness',
-    '@id': new URL(opts.path, SITE.url).href + '#localbusiness',
+    '@id': abs(opts.path) + '#localbusiness',
     name: opts.name,
     legalName: NAP.name,
     description: opts.description,
-    url: new URL(opts.path, SITE.url).href,
-    image: new URL('/brand/FPC-appicon-tile.svg', SITE.url).href,
+    url: abs(opts.path),
+    image: abs('/brand/FPC-appicon-tile.svg'),
     parentOrganization: { '@id': `${SITE.url}/#organization` },
     /* Service-area business (Leon's ruling, 2026-08-23): the geography is
        carried by areaServed and no street address is published. `address`
@@ -46,7 +46,7 @@ export function breadcrumb(items: { name: string; path: string }[]) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item: new URL(item.path, SITE.url).href,
+      item: abs(item.path),
     })),
   };
 }
@@ -57,7 +57,7 @@ export function service(opts: { path: string; name: string; description: string;
     '@type': 'Service',
     name: opts.name,
     description: opts.description,
-    url: new URL(opts.path, SITE.url).href,
+    url: abs(opts.path),
     provider: { '@id': `${SITE.url}/#organization` },
   };
   if (opts.areaWide) {

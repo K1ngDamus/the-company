@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Front Porch Collective LLC \u2014 the company website. Staged, not deployed.",
+  "description": "Front Porch Collective LLC \u2014 the company website.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "audit": "node scripts/audit.mjs",
     "contrast": "node scripts/contrast.mjs",
-    "check": "npm run build && npm run audit && npm run contrast"
+    "check:mounted": "SITE_URL=https://k1ngdamus.github.io BASE_PATH=/the-company astro build && BASE_PATH=/the-company node scripts/audit.mjs",
+    "check": "npm run build && npm run audit && npm run contrast && npm run check:mounted"
   },
   "dependencies": {
     "astro": "^7.2.4"
