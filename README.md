@@ -3,12 +3,13 @@
 The front porch of the whole operation: every service findable, understandable,
 and easy to ask for. Built for `frontporchco.com`.
 
-**Status: deploying to a preview, not yet at the real address.** Leon approved
-deployment on 2026-08-24 and made the repository public the same day, so the
-site publishes to its GitHub Pages project URL. That build is noindexed and
-cannot be reached by search. One gate stands in front of `frontporchco.com`:
-the forms do not send yet. **[`DEPLOY.md`](DEPLOY.md)** is the whole list.
-Nothing sends, and nothing has been bought.
+**Status: ready to publish, one manual switch away.** Leon approved deployment
+on 2026-08-24 and made the repository public, which clears the way for GitHub
+Pages. The Pages site itself has to be created once by hand — a workflow token
+is not allowed to do it — and then the deploy runs on every push. The build it
+publishes is noindexed until it is served from `frontporchco.com`, and one gate
+stands in front of that: the forms do not send yet.
+**[`DEPLOY.md`](DEPLOY.md)** is the whole list. Nothing has been bought.
 
 ## Running it
 

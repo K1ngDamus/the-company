@@ -49,15 +49,16 @@ jobs:
       # The build reads both, so one commit is correct at either address and
       # the address is never written down twice.
       #
-      # enablement: true means this step also switches Pages on the first time
-      # it runs, rather than failing because nobody had opened Settings yet.
-      # It needs the repository to be public or on a plan that allows Pages,
-      # which is the one thing this workflow genuinely cannot do for itself.
+      # `enablement: true` is deliberately NOT set. It was tried on 2026-08-25
+      # and the run failed with "Create Pages site failed. Error: Resource not
+      # accessible by integration" — the workflow's GITHUB_TOKEN is not allowed
+      # to create a Pages site, whatever permissions the job declares. The site
+      # has to be created once by hand in Settings → Pages. After that this
+      # step finds it every run. Do not re-add the parameter expecting it to
+      # work; it fails at a different line, not an earlier one.
       - name: Read the Pages address
         id: pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Install
         run: npm ci
