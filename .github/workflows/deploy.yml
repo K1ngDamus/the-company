@@ -48,9 +48,16 @@ jobs:
       # no custom domain it answers the project URL and its /the-company/ path.
       # The build reads both, so one commit is correct at either address and
       # the address is never written down twice.
+      #
+      # enablement: true means this step also switches Pages on the first time
+      # it runs, rather than failing because nobody had opened Settings yet.
+      # It needs the repository to be public or on a plan that allows Pages,
+      # which is the one thing this workflow genuinely cannot do for itself.
       - name: Read the Pages address
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Install
         run: npm ci
