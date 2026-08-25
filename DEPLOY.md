@@ -98,11 +98,10 @@ Leon settled on `frontporchbuilds.com` on 2026-08-25, after the earlier
 candidates turned out to be taken. Find where it is registered and where its
 DNS is managed; that is where the records below go.
 
-**If `frontporchco.com` is also yours, keep it and redirect it here.** It was
-the working address through the whole build and may be on cards, in messages,
-or in someone's memory. A redirect costs nothing and the site's canonical tags
-already point every page at one address, so there is no duplicate-content
-risk.
+The address named at the founding interview on 2026-08-23 was never the
+company's — it belongs to someone else, confirmed by Leon on 2026-08-25. It has
+been taken out of this repository so nothing here claims a domain the company
+does not hold. `frontporchbuilds.com` is the only address the site answers to.
 
 Then: Settings → Pages → Custom domain → `frontporchbuilds.com`, and at the DNS
 host add the four `A` records and four `AAAA` records GitHub publishes for

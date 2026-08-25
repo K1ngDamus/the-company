@@ -18,7 +18,7 @@
 
 ## What was built
 
-The company's own website — `frontporchco.com` — staged in
+The company's own website — staged in
 `K1ngDamus/the-company` on branch `claude/new-session-qpc5ih`. One project, one
 repo, clear owner (rule 16). Sixteen pages plus a 404:
 
@@ -35,7 +35,7 @@ works without it.
 
 | # | Question | Leon's answer, 2026-08-23 |
 |---|---|---|
-| 1 | Domain | `frontporchco.com`. Nothing bought (rule 8). |
+| 1 | Domain | An address Leon named on the day. Nothing bought (rule 8). **Superseded — see the correction below.** |
 | 2 | Pricing display | "From $X" per service |
 | 3 | TV service area | Metro Atlanta — five counties |
 | 4 | Service list | Five approved. **Struck: story & screen development, Porchlight Pages.** No "coming soon" ghosts. |
@@ -154,3 +154,22 @@ favicon and app icon — with the reversed mark on ink grounds per `BRANDING.md`
    (founding brief §7.5).
 
 **— filed by the company-website house, unnamed, trust stage 2**
+
+---
+
+## Correction — 2026-08-25
+
+The domain Leon named at the interview on 2026-08-23 **was never the company's.**
+It is registered to someone else; he confirmed this on 2026-08-25. Nothing was
+ever bought and no claim on it was ever acted on (rule 8 held throughout), but
+this dispatch stated it as the company's own address, and this repository is
+public.
+
+The name has been removed from this file rather than left standing as a public
+claim on a third party's property. That is a deliberate exception to rule 10 —
+the record is not normally rewritten after the fact — made on Leon's explicit
+instruction and recorded here rather than done quietly. Everything else in this
+dispatch stands as filed.
+
+**The company's address is `frontporchbuilds.com`,** settled by Leon on
+2026-08-25 after the earlier candidates came back taken.
