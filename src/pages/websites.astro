@@ -9,7 +9,7 @@ import PriceFrom from '../components/PriceFrom.astro';
 import ProofCard from '../components/ProofCard.astro';
 import Blank from '../components/Blank.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { qualifyingFields } from '../data/forms';
+import { qualifyingFields, WEBSITE_VISION } from '../data/forms';
 import { service, breadcrumb } from '../lib/schema';
 
 const path = '/websites';
@@ -46,14 +46,15 @@ const jsonLd = [
         service="websites"
         subject="Website project"
         heading="Tell us about the project."
-        sub="Six quick answers. We reply with scope, a real number, and a date — or an honest no."
+        sub="Six quick answers, then a brainstorm you can take as far as you like. We reply with scope, a real number, and a date — or an honest no."
         submitLabel="Send the brief"
         fields={qualifyingFields({
           projectLabel: 'What kind of site?',
           projectOptions: ['Brand new site', 'Rebuild of an existing one', 'Online store', 'Landing page or funnel', 'Not sure yet'],
           budgetOptions: ['Under $3k', '$3k–$8k', '$8k–$20k', '$20k+', 'Tell me what it should cost'],
           detailLabel: 'What is the site for?',
-          detailPlaceholder: 'Who it is for and what you need it to do. Two sentences is plenty.',
+          detailPlaceholder: 'Who it is for, in a sentence. There is room to go deeper just below.',
+          extra: WEBSITE_VISION,
         })}
       />
     </div>
