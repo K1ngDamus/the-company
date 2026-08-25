@@ -30,12 +30,36 @@ export const TV_FIELDS: Field[] = [
 
 /* Web, app and marketing sit at 7–8: fewer, better-fit projects. Budget and
    timeline are deliberate quality filters — they cost keystrokes on purpose. */
+/* The brainstorm. Everything above it is the qualifying core — six answers,
+   all required, deliberately cheap. This is where someone who has actually
+   pictured the thing gets to say so.
+
+   All optional, and marked so on every label. That is the point: a visitor
+   with no vision yet is not blocked from enquiring, and one who has been
+   thinking about it for months is not handed a two-sentence box and told that
+   is plenty. The prompts ask for the specific over the tasteful, because
+   "the way theirs books appointments" can be built and "clean and modern"
+   cannot. */
+export const WEBSITE_VISION: Field[] = [
+  { kind: 'section', name: 'vision', label: 'The brainstorm',
+    hint: 'All optional. But the more you put here, the closer the first thing we show you lands to what you actually pictured — and the fewer rounds it takes to get there.' },
+  { kind: 'textarea', name: 'vision_do', label: 'What should someone be able to do on it?',
+    placeholder: 'Book you. Buy something. Find your hours. See the work and call. Whatever the site is FOR, in plain terms.' },
+  { kind: 'textarea', name: 'vision_likes', label: 'Sites you like — and what you like about them',
+    placeholder: 'Paste links. "The way theirs books appointments" is worth more than "it looks clean" — the first can be built, the second cannot.' },
+  { kind: 'textarea', name: 'vision_have', label: 'What do you already have?',
+    placeholder: 'Logo, photos, written copy, a domain, an existing site to replace or keep. Also fine to say none of it.' },
+  { kind: 'textarea', name: 'vision_win', label: 'What would make this a win six months from now?',
+    placeholder: 'More calls? Fewer of the same questions in your inbox? Bookings landing without you touching them?' },
+];
+
 export function qualifyingFields(opts: {
   projectLabel: string;
   projectOptions: string[];
   budgetOptions: string[];
   detailLabel: string;
   detailPlaceholder: string;
+  extra?: Field[];
 }): Field[] {
   return [
     { kind: 'choice', name: 'project', label: opts.projectLabel, required: true, options: opts.projectOptions },
@@ -47,5 +71,6 @@ export function qualifyingFields(opts: {
     { kind: 'text', name: 'name', label: 'Your name', required: true, placeholder: 'First and last' },
     { kind: 'email', name: 'email', label: 'Where do we reply?', required: true, placeholder: 'you@company.com' },
     { kind: 'textarea', name: 'detail', label: opts.detailLabel, required: true, placeholder: opts.detailPlaceholder },
+    ...(opts.extra ?? []),
   ];
 }

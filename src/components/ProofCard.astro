@@ -10,8 +10,14 @@ interface Props {
 }
 const { eyebrow, title, href, tags = [], featured = false } = Astro.props;
 const Tag = href ? 'a' : 'div';
+/* A client's live site opens in its own tab. Sending a visitor off our page to
+   look at proof and making them find their way back is resistance we put in
+   their way ourselves. */
+const external = !!href && /^https?:/.test(href);
 ---
-<Tag class:list={['card', 'proof', { 'proof--featured': featured, 'card--link': !!href }]} href={href && link(href)}>
+<Tag class:list={['card', 'proof', { 'proof--featured': featured, 'card--link': !!href }]} href={href && link(href)}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}>
   <p class="eyebrow">{eyebrow}</p>
   <h3 class="card__title" style="margin-top:.8rem">{title}</h3>
   <div class="proof__body"><slot /></div>

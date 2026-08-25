@@ -98,24 +98,65 @@ Leon settled on `frontporchbuilds.com` on 2026-08-25, after the earlier
 candidates turned out to be taken. Find where it is registered and where its
 DNS is managed; that is where the records below go.
 
-**If `frontporchco.com` is also yours, keep it and redirect it here.** It was
-the working address through the whole build and may be on cards, in messages,
-or in someone's memory. A redirect costs nothing and the site's canonical tags
-already point every page at one address, so there is no duplicate-content
-risk.
+The address named at the founding interview on 2026-08-23 was never the
+company's — it belongs to someone else, confirmed by Leon on 2026-08-25. It has
+been taken out of this repository so nothing here claims a domain the company
+does not hold. `frontporchbuilds.com` is the only address the site answers to.
 
-Then: Settings → Pages → Custom domain → `frontporchbuilds.com`, and at the DNS
-host add the four `A` records and four `AAAA` records GitHub publishes for
-apex domains, plus a `CNAME` for `www` pointing at `k1ngdamus.github.io`.
+Settings → Pages → Custom domain → `frontporchbuilds.com`. Then nine records
+at the DNS host — the domain is at **GoDaddy**, so: sign in → Domain Portfolio
+→ `frontporchbuilds.com` → **DNS** → Manage DNS.
 
-Take the record values from GitHub's own page — "Managing a custom domain for
-your GitHub Pages site" — rather than from memory or from me. I could not
-reach that page from this environment to verify the current addresses, and
-these are the kind of numbers that must be right the first time.
+| Type | Name | Value |
+|---|---|---|
+| `A` | `@` | `185.199.108.153` |
+| `A` | `@` | `185.199.109.153` |
+| `A` | `@` | `185.199.110.153` |
+| `A` | `@` | `185.199.111.153` |
+| `AAAA` | `@` | `2606:50c0:8000::153` |
+| `AAAA` | `@` | `2606:50c0:8001::153` |
+| `AAAA` | `@` | `2606:50c0:8002::153` |
+| `AAAA` | `@` | `2606:50c0:8003::153` |
+| `CNAME` | `www` | `k1ngdamus.github.io` |
 
-Once the custom domain is set, the next deploy detects it, drops the
-`/the-company` prefix, restores the indexable `robots.txt`, and the canonicals
-point at `frontporchbuilds.com`. Nothing in the repo needs editing.
+Read out of GitHub's own documentation source
+(`github/docs`, `content/pages/…/managing-a-custom-domain-for-your-github-pages-site.md`,
+commit `0dddeeb`, 2026-08-25) rather than from memory. This environment blocks
+`docs.github.com`, the `/meta` API endpoint and public DNS resolvers, so the
+repository was the one route to an authoritative answer. If these ever stop
+working, that file is where to re-read them.
+
+**Three GoDaddy-specific traps.**
+
+GoDaddy ships every new domain with a **parked `A` record on `@`** pointing at
+its own holding page. That is what answers today. It has to go, or be edited
+into the first record above — four `A` records on `@` is correct, five with a
+parking address is not.
+
+GoDaddy also ships a **default `www` CNAME** pointing back at `@`. Change its
+value to `k1ngdamus.github.io`; do not add a second one alongside it.
+
+And if **Domain Forwarding** is switched on anywhere in that domain's settings,
+turn it off. Forwarding writes its own records and quietly overrides these.
+
+**Then run the deploy again — this step is not optional and nothing warns you
+about it.** What is published right now was built for the project URL: every
+link, stylesheet and font path is prefixed `/the-company/`, and every page
+carries `noindex`. Pages will happily serve that same artifact at the new
+address, where the prefixed paths lead nowhere. The domain would resolve, the
+certificate would issue, and the site would be broken.
+
+Actions → Deploy → Run workflow, after GitHub reports the domain configured.
+That build asks Pages where it lives, gets the custom domain, drops the prefix,
+restores the indexable `robots.txt` and points the canonicals at
+`frontporchbuilds.com`. No file in the repo changes.
+
+**A note on `www`.** Set the custom domain to the bare `frontporchbuilds.com`,
+not `www.frontporchbuilds.com`. The site's canonical address has no `www`, and
+a build served from `www` is treated as a preview — `noindex` on all seventeen
+pages and a `robots.txt` that disallows everything. It would look perfectly
+fine and be invisible to Google. Keep the `www` CNAME anyway: with the apex as
+the custom domain, GitHub redirects `www` to it.
 
 ### 5. Then the things that are not deployment
 

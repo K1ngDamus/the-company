@@ -19,11 +19,28 @@
 /** The canonical home. A build served anywhere else is a preview, not the site. */
 export const CANONICAL_ORIGIN = 'https://frontporchbuilds.com';
 
-const ORIGIN = (import.meta.env.SITE ?? CANONICAL_ORIGIN).replace(/\/$/, '');
+const SERVING = (import.meta.env.SITE ?? CANONICAL_ORIGIN).replace(/\/$/, '');
 const BASE = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 
+const hostOf = (u: string) => { try { return new URL(u).host; } catch { return ''; } };
+
+/* Compare HOSTS, not whole origins.
+ *
+ * GitHub Pages reports the site as `http://` until "Enforce HTTPS" is switched
+ * on, and that cannot be switched on until the certificate issues — up to a
+ * day after the DNS lands. Comparing whole origins treats the real site as a
+ * preview for that entire window: noindex on every page and a robots.txt that
+ * disallows everything, on the live domain, silently. That happened on
+ * 2026-08-25. Do not turn this back into an origin comparison. */
+const SAME_HOST = hostOf(SERVING) === hostOf(CANONICAL_ORIGIN);
+
+/* Emit the canonical https origin whenever the host is right, whatever scheme
+ * the build was handed. https is where the site should be indexed, so that is
+ * what the canonicals, the sitemap and the structured data must say. */
+const ORIGIN = SAME_HOST ? CANONICAL_ORIGIN : SERVING;
+
 /** True when this build is being served from its real address. */
-export const IS_CANONICAL = ORIGIN === CANONICAL_ORIGIN && BASE === '';
+export const IS_CANONICAL = SAME_HOST && BASE === '';
 
 /** An in-site path ('/contact'), prefixed for wherever the build is mounted. */
 export const link = (p: string) => (p.startsWith('/') ? BASE + p : p);

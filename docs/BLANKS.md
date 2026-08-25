@@ -42,7 +42,7 @@ digital download does get a fixed price — set before checkout is connected. Se
 
 | # | Blank | Where | Needs |
 |---|---|---|---|
-| 8 | The Chloe Girls | `/`, `/work`, `/websites` | Leon cleared it to appear (2026-08-23) but no build details or link exist yet. Nothing is written into the slot until they do. |
+| 8 | The Chloe Girls | `/`, `/work`, `/websites` | **Filled 2026-08-25.** The client gave permission and Leon supplied the address: `chloegirlsofficial.com`. All three slots now carry a real card linking to the live site. **No build details are claimed** — the site itself could not be reached from the build environment, so nothing describes what is on it. The link is the proof; a visitor can go and look. If more is ever written about that build, it comes from Leon or from the Web Division, never from inference. |
 | 9 | Atlanta Experience live links | `/work` | The public URL and any store links, confirmed by Leon. We link nothing rather than link wrong. |
 | 10 | Client testimonials | `/`, `/work`, `/websites` | Real quotes, real names, permission. Volume matters here — but zero invented entries. |
 | 11 | TV mounting photos and reviews | `/tv-mounting` | Real installation photos and real customer reviews. Stock photos of someone else's living room prove nothing. |

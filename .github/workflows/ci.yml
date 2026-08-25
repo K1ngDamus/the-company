@@ -53,3 +53,12 @@ jobs:
       # broken preview.
       - name: Build at a mounted path
         run: npm run check:mounted
+
+      # Whether the site lets Google index it is decided by comparing where it
+      # is served against the canonical address. Getting that wrong breaks
+      # nothing visible — the site loads, looks right, and is silently absent
+      # from search. It went wrong once, on 2026-08-25, because GitHub Pages
+      # reports http:// until Enforce HTTPS is on. This builds at four
+      # addresses and asserts the indexing decision each one must produce.
+      - name: Check the canonical address
+        run: npm run check:canonical

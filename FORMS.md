@@ -22,7 +22,7 @@ Push it. The deploy runs itself and every form on the site is live.
 | Form | Where | Fields | Status |
 |---|---|---|---|
 | General request | `/`, `/contact` | 2 choice + name + email + optional detail | Staged |
-| Website project | `/websites` | 3 choice + name + email + detail | Staged |
+| Website project | `/websites` | 3 choice + name + email + detail, then a 4-field optional brainstorm | Staged |
 | App project | `/apps` | 3 choice + name + email + detail | Staged |
 | TV mounting quote | `/tv-mounting` + 5 county pages | 4 choice + ZIP + name + phone | Staged |
 | Marketing enquiry | `/marketing` | 3 choice + name + email + detail | Staged |
@@ -106,7 +106,14 @@ is built and tested.
 | `from_name` | Front Porch Collective | names the sender in the notification |
 | `service` | the routing slug | which page and county the request came from |
 | `botcheck` | absent unless a bot ticks it | honeypot, Web3Forms' own name for it |
+| `vision_*` | the four brainstorm answers on `/websites` | absent entirely when left blank — see below |
 | the answers | whatever the visitor chose and typed | — |
+
+**Blank optional answers are not sent.** The brainstorm is four fields most
+people will skip, and a notification carrying four empty rows is harder to read
+than one without them. The submit handler strips any field whose value is empty
+before posting. The no-JavaScript fallback cannot do this and sends them blank —
+an acceptable difference, since that path is already the degraded one.
 
 ## What the provider has to support
 
