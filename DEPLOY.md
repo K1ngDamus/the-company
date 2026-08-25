@@ -112,9 +112,24 @@ your GitHub Pages site" — rather than from memory or from me. I could not
 reach that page from this environment to verify the current addresses, and
 these are the kind of numbers that must be right the first time.
 
-Once the custom domain is set, the next deploy detects it, drops the
-`/the-company` prefix, restores the indexable `robots.txt`, and the canonicals
-point at `frontporchbuilds.com`. Nothing in the repo needs editing.
+**Then run the deploy again — this step is not optional and nothing warns you
+about it.** What is published right now was built for the project URL: every
+link, stylesheet and font path is prefixed `/the-company/`, and every page
+carries `noindex`. Pages will happily serve that same artifact at the new
+address, where the prefixed paths lead nowhere. The domain would resolve, the
+certificate would issue, and the site would be broken.
+
+Actions → Deploy → Run workflow, after GitHub reports the domain configured.
+That build asks Pages where it lives, gets the custom domain, drops the prefix,
+restores the indexable `robots.txt` and points the canonicals at
+`frontporchbuilds.com`. No file in the repo changes.
+
+**A note on `www`.** Set the custom domain to the bare `frontporchbuilds.com`,
+not `www.frontporchbuilds.com`. The site's canonical address has no `www`, and
+a build served from `www` is treated as a preview — `noindex` on all seventeen
+pages and a `robots.txt` that disallows everything. It would look perfectly
+fine and be invisible to Google. Keep the `www` CNAME anyway: with the apex as
+the custom domain, GitHub redirects `www` to it.
 
 ### 5. Then the things that are not deployment
 
