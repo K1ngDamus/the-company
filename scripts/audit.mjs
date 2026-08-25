@@ -100,7 +100,10 @@ for (const page of pages) {
   for (const input of html.match(/<input[^>]*>/g) ?? []) {
     if (/type="hidden"/.test(input)) continue;
     if (/type="radio"/.test(input)) continue;      // wrapped in <label class="choice">
-    if (/name="_gotcha"/.test(input)) continue;    // honeypot, visually-hidden label
+    /* Honeypots: hidden from people, offered to bots. Matched by the pattern
+       rather than by field name, because the name belongs to whichever form
+       provider is connected and changing it must not silently mute this check. */
+    if (/aria-hidden="true"/.test(input) && /tabindex="-1"/.test(input)) continue;
     if (/aria-label/.test(input)) continue;
     const id = input.match(/id="([^"]+)"/);
     if (!id || !html.includes(`for="${id[1]}"`))
