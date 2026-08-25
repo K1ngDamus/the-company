@@ -1,5 +1,5 @@
 ---
-import { FORM_ENDPOINT } from '../data/site';
+import { FORMS, FORMS_LIVE, SITE } from '../data/site';
 
 /* ---------------------------------------------------------------------------
    The quote form. Playbook §2, physical resistance:
@@ -7,8 +7,8 @@ import { FORM_ENDPOINT } from '../data/site';
    - Multiple choice with the likely answers bucketed. Keystrokes are added
      ONLY as a deliberate quality filter, and each one is marked below.
    - Radio select with auto-advance (progressive enhancement; works without JS).
-   Rule 9: nothing sends. FORM_ENDPOINT is null, so submit is inert and the
-   staging notice is visible. See FORMS.md.
+   Nothing sends until FORMS.accessKey is set: submit is inert and the staging
+   notice is visible. See FORMS.md.
    --------------------------------------------------------------------------- */
 export type Field =
   | { kind: 'choice'; name: string; label: string; hint?: string; options: string[]; required?: boolean }
@@ -18,6 +18,7 @@ export type Field =
 interface Props {
   id?: string;
   service: string;      // routed with the submission
+  subject?: string;     // what Leon reads in the notification, not a slug
   heading: string;      // the CTA restated above the form — its own argument (§3)
   sub?: string;
   fields: Field[];
@@ -26,13 +27,14 @@ interface Props {
 const {
   id = 'quote',
   service,
+  subject,
   heading,
   sub,
   fields,
   submitLabel = 'Send my request',
 } = Astro.props;
 
-const live = FORM_ENDPOINT !== null;
+const live = FORMS_LIVE;
 ---
 <div class="quote" id={id}>
   <div class="quote__head">
@@ -43,15 +45,19 @@ const live = FORM_ENDPOINT !== null;
   <form
     class="form"
     method="post"
-    action={live ? FORM_ENDPOINT : undefined}
-    data-endpoint={live ? FORM_ENDPOINT : undefined}
+    action={live ? FORMS.endpoint : undefined}
+    data-endpoint={live ? FORMS.endpoint : undefined}
     aria-describedby={live ? undefined : `${id}-staged`}
   >
     <input type="hidden" name="service" value={service} />
-    <!-- Honeypot: bots fill it, people never see it -->
-    <p class="visually-hidden" aria-hidden="true">
-      <label>Leave this field empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
-    </p>
+    {live && <input type="hidden" name="access_key" value={FORMS.accessKey} />}
+    {/* Gives the notification email a subject worth reading in a full inbox,
+        rather than a generic one shared by every form on the site. */}
+    {live && <input type="hidden" name="subject" value={subject ?? service} />}
+    {live && <input type="hidden" name="from_name" value={SITE.name} />}
+    {/* Honeypot: bots fill it, people never see it. The name is the
+        provider's — see FORMS.honeypot. */}
+    <input class="visually-hidden" type="checkbox" name={FORMS.honeypot} tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     {fields.map((field, i) =>
       field.kind === 'choice' ? (
@@ -165,10 +171,14 @@ const live = FORM_ENDPOINT !== null;
       event.preventDefault();
       if (!form.reportValidity()) return;
 
-      /* Honeypot: bots fill it, people never see it. Pretend success rather
-         than telling the bot it was caught. */
-      const trap = form.querySelector<HTMLInputElement>('[name="_gotcha"]');
-      if (trap?.value) { form.hidden = true; if (done) { done.hidden = false; } return; }
+      /* Honeypot: bots fill it, people never see it. Matched by the hidden-
+         from-people attributes rather than by name, because the name belongs
+         to the form provider. `.checked`, NOT `.value` — an unchecked checkbox
+         still reports value "on", so testing .value would swallow every real
+         submission and show the visitor a fake success panel. */
+      const trap = form.querySelector<HTMLInputElement>('input[aria-hidden="true"][tabindex="-1"]');
+      /* Pretend success rather than telling the bot it was caught. */
+      if (trap?.checked) { form.hidden = true; if (done) { done.hidden = false; } return; }
 
       if (error) error.hidden = true;
       if (button) button.disabled = true;

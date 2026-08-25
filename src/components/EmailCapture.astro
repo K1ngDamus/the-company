@@ -1,8 +1,8 @@
 ---
 /* "From the Porch" — one field, embedded, on every page (§5 of the brief).
    The welcome and sales sequences are written and HELD, never sent (rule 9). */
-import { FORM_ENDPOINT } from '../data/site';
-const live = FORM_ENDPOINT !== null;
+import { FORMS, FORMS_LIVE, SITE } from '../data/site';
+const live = FORMS_LIVE;
 ---
 <section class="porch" aria-labelledby="porch-h">
   <div class="wrap porch__inner">
@@ -15,14 +15,15 @@ const live = FORM_ENDPOINT !== null;
       </p>
     </div>
     <div>
-      <form class="capture" method="post" action={live ? FORM_ENDPOINT : undefined}
-            data-endpoint={live ? FORM_ENDPOINT : undefined}>
+      <form class="capture" method="post" action={live ? FORMS.endpoint : undefined}
+            data-endpoint={live ? FORMS.endpoint : undefined}>
         <input type="hidden" name="list" value="from-the-porch" />
+        {live && <input type="hidden" name="access_key" value={FORMS.accessKey} />}
+        {live && <input type="hidden" name="subject" value="From the Porch — new subscriber" />}
+        {live && <input type="hidden" name="from_name" value={SITE.name} />}
         <label class="visually-hidden" for="porch-email">Your email address</label>
         <input class="input" id="porch-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
-        <p class="visually-hidden" aria-hidden="true">
-          <label>Leave this field empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
-        </p>
+        <input class="visually-hidden" type="checkbox" name={FORMS.honeypot} tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button class="btn" type="submit" aria-disabled={live ? undefined : 'true'} disabled={!live}>
           <span class="dot" aria-hidden="true"></span><span class="btn__label">Send it</span>
         </button>
@@ -53,8 +54,13 @@ const live = FORM_ENDPOINT !== null;
       event.preventDefault();
       if (!form.reportValidity()) return;
 
-      const trap = form.querySelector<HTMLInputElement>('[name="_gotcha"]');
-      if (trap?.value) { form.hidden = true; return; }
+      /* Honeypot: bots fill it, people never see it. Matched by the hidden-
+         from-people attributes rather than by name, because the name belongs
+         to the form provider. `.checked`, NOT `.value` — an unchecked checkbox
+         still reports value "on", so testing .value would swallow every real
+         submission and show the visitor a fake success panel. */
+      const trap = form.querySelector<HTMLInputElement>('input[aria-hidden="true"][tabindex="-1"]');
+      if (trap?.checked) { form.hidden = true; return; }
 
       if (button) button.disabled = true;
       if (label) label.textContent = 'Sending…';

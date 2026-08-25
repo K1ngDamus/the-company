@@ -73,12 +73,36 @@ export const NAP = {
 } as const;
 
 /* --------------------------------------------------------------------------
-   FORMS — staged, never sending (rule 9).
-   Every form on this site posts to this endpoint. It is null, so submit
-   buttons are inert and each form shows a staging notice. See FORMS.md for
-   exactly what connecting one costs and what it changes.
+   FORMS — Web3Forms (Leon's choice, 2026-08-25).
+
+   Host-independent on purpose: the site is on a GitHub Pages URL today and
+   moves to frontporchco.com later, and this survives that without a second
+   decision. The endpoint and the honeypot name below are Web3Forms' own.
+
+   THE ONE THING LEFT IS `accessKey`. Web3Forms mails a key to whatever
+   address you register. Paste it below and every form on this site turns on
+   at once: submit buttons enable, staging notices disappear, and the privacy
+   page switches from "nothing is collected" to naming the processor.
+
+   Until then nothing sends and every form says so on its face.
    -------------------------------------------------------------------------- */
-export const FORM_ENDPOINT: string | null = null;
+export const FORMS = {
+  endpoint: 'https://api.web3forms.com/submit' as string | null,
+
+  /** Paste the key here. That is the whole integration. */
+  accessKey: null as string | null,
+
+  /* Web3Forms drops any submission where this field is filled in. Renaming it
+     does not break the form — it silently turns the spam check off, which is
+     worse. Leave it alone unless the provider changes. */
+  honeypot: 'botcheck',
+
+  provider: 'Web3Forms',
+} as const;
+
+/** Forms send only with somewhere to send to AND a key to send with. */
+export const FORMS_LIVE: boolean =
+  FORMS.endpoint !== null && FORMS.accessKey !== null;
 
 /* --------------------------------------------------------------------------
    PRICES — quote-only across the board (Leon's ruling, 2026-08-24), which

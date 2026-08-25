@@ -1,10 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { SITE, CONTACT, FORM_ENDPOINT } from '../data/site';
+import { SITE, CONTACT, FORMS, FORMS_LIVE } from '../data/site';
 import { breadcrumb } from '../lib/schema';
 const path = '/privacy';
-const collecting = FORM_ENDPOINT !== null;
+const collecting = FORMS_LIVE;
 ---
 <Base
   title="Privacy Policy | Front Porch Collective"
@@ -33,6 +33,17 @@ const collecting = FORM_ENDPOINT !== null;
 
       <h2>What we do with it</h2>
       <p>We use it to answer you, quote the work, and carry out the job if you hire us. We do not sell it, rent it, trade it, or hand it to anyone else to market to you. If you join the monthly note, we use your email for that note and nothing else.</p>
+
+      {collecting && (
+        <>
+          <h2>Who else sees it</h2>
+          <p>Form submissions are delivered to us by {FORMS.provider}, a form-handling
+          service. What you type reaches their servers before it reaches our inbox — your
+          name, email, phone number if you gave one, and your answers about the work. They
+          process it in order to deliver it to us. They are not permitted to use it for
+          anything else, and we do not send them anything beyond what you submitted.</p>
+        </>
+      )}
 
       <h2>Tracking</h2>
       <p>This site sets no advertising cookies and runs no third-party tracking scripts. Our fonts are served from our own domain rather than a font network, so loading a page here does not announce your visit to another company.</p>
