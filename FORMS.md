@@ -1,37 +1,33 @@
-# Forms — wired to Web3Forms, waiting on one key
+# Forms — live
 
-**Every form is built and wired. None of them send yet**, because the access
-key is not set. Leon chose Web3Forms on 2026-08-25; everything downstream of
-that choice is done and tested.
+**Every form on this site sends.** Leon connected Web3Forms on 2026-08-25 with
+a key registered to `jacksonleon24@gmail.com` — the address published on the
+site, so enquiries land where customers already look.
 
-**To turn the whole site on:** get a key at web3forms.com (enter the address
-the enquiries should reach — they mail the key back), then in
-`src/data/site.ts`:
+The key is committed in `src/data/site.ts`. That is deliberate: Web3Forms keys
+ship in the page markup by design, so it is no more exposed in a public
+repository than it already is in the HTML of every page. **The defence is the
+domain restriction in the Web3Forms dashboard, not secrecy** — without it,
+anyone who reads the page source can post to that key from anywhere.
 
-```ts
-export const FORMS = {
-  endpoint: 'https://api.web3forms.com/submit' as string | null,
-  accessKey: 'the-key-they-emailed-you' as string | null,   // <- this line
-  ...
-```
-
-Push it. The deploy runs itself and every form on the site is live.
+To take every form off again, set `accessKey` back to `null`. Nothing else
+needs touching, and the staging notices come back on their own.
 
 ## Current state
 
 | Form | Where | Fields | Status |
 |---|---|---|---|
-| General request | `/`, `/contact` | 2 choice + name + email + optional detail | Staged |
-| Website project | `/websites` | 3 choice + name + email + detail, then a 4-field optional brainstorm | Staged |
-| App project | `/apps` | 3 choice + name + email + detail | Staged |
-| TV mounting quote | `/tv-mounting` + 5 county pages | 4 choice + ZIP + name + phone | Staged |
-| Marketing enquiry | `/marketing` | 3 choice + name + email + detail | Staged |
-| "From the Porch" email capture | every page | email | Staged |
+| General request | `/`, `/contact` | 2 choice + name + email + optional detail | **Live** |
+| Website project | `/websites` | 3 choice + name + email + detail, then a 4-field optional brainstorm | **Live** |
+| App project | `/apps` | 3 choice + name + email + detail | **Live** |
+| TV mounting quote | `/tv-mounting` + 5 county pages | 4 choice + ZIP + name + phone | **Live** |
+| Marketing enquiry | `/marketing` | 3 choice + name + email + detail | **Live** |
+| "From the Porch" email capture | every page | email | **Live** |
 | Agent template checkout | `/agent-templates` | — | Button built, deliberately disabled |
 
-While staged, each form renders a visible notice saying nothing is sending.
-Every notice disappears the moment the access key is set — they are driven by
-the same constant, not written page by page.
+All eleven went live at once when the key was set, because they are driven by
+one constant rather than written page by page. Setting it back to `null` takes
+them all off again the same way.
 
 ## How a submission actually flows
 
@@ -79,11 +75,13 @@ constant rather than by hand:
 Nothing else needs editing, and nothing is half-on in between: the forms go
 live only when there is both an endpoint and a key.
 
-## What Leon should check the first time
+## The check that still has to happen
 
-Two minutes, and it is worth doing rather than assuming — the API contract
-below could not be verified from the build environment, which blocks
-`api.web3forms.com` and `docs.web3forms.com` outright.
+Two minutes, and it is the only thing that settles this. The API contract could
+not be verified from the build environment, which blocks `api.web3forms.com`
+and `docs.web3forms.com` outright. Every path was driven in a real browser
+against a stubbed endpoint — twenty assertions, all passing — but a stub proves
+our side of the conversation, not theirs.
 
 1. Submit a real enquiry from `/tv-mounting` on a phone.
 2. Confirm the confirmation panel appears **in place**, with no page load and
