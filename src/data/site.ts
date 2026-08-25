@@ -113,12 +113,50 @@ export const FORMS_LIVE: boolean =
    showing a pending blank. Put a number in and that service starts showing a
    "starting at" figure again — nothing else needs editing.
    -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   TV MOUNTING PRICES — Leon's figures, 2026-08-25.
+
+   He gave the four size brackets. The base covers the ordinary job as it was
+   put to him: drywall, cords covered rather than run inside the wall.
+
+   The add-ons below are `null` because he has NOT set them. They render as
+   "Quoted" — honest, and normal for this trade — rather than as invented
+   numbers. Put a figure in and that row shows it; nothing else needs editing.
+
+   Two things he has not answered, deliberately left off the page rather than
+   guessed at, because getting either wrong starts an argument in someone's
+   living room: whether the base includes the bracket, and whether there is a
+   minimum or trip charge for the far counties. See docs/BLANKS.md.
+   -------------------------------------------------------------------------- */
+export const TV_PRICING = {
+  /* Labels match TV_FIELDS in forms.ts exactly. A customer who reads "56–70""
+     on the price table and then picks "56–70"" in the form is looking at the
+     same words both times — a different wording here reads as a different
+     scheme and costs trust at the worst moment. */
+  sizes: [
+    { size: 'Under 40"', price: 99 as number | null },
+    { size: '40–55"', price: 129 as number | null },
+    { size: '56–70"', price: 179 as number | null },
+    { size: '71" or bigger', price: 229 as number | null },
+  ],
+
+  /* Named from the form's own wall_type and cords answers, so the questions a
+     visitor is about to be asked are the ones priced here. */
+  addOns: [
+    { name: 'Brick or stone wall', price: null as number | null },
+    { name: 'Concrete wall', price: null as number | null },
+    { name: 'Over a fireplace', price: null as number | null },
+    { name: 'Cords hidden inside the wall', price: null as number | null },
+    { name: 'New outlet behind the TV', price: null as number | null },
+  ],
+} as const;
+
 export const PRICES: Record<string, number | null> = {
   websites: null,          // quote-only
   apps: null,              // quote-only
-  'tv-mounting': null,     // quote-only FOR NOW — Leon is setting TV prices
-                           // once the site is up. Put the number here and all
-                           // six TV pages show it; nothing else needs editing.
+  'tv-mounting': 99,       // Leon, 2026-08-25 — the lowest bracket in
+                           // TV_PRICING above, so "Starting at $99" and the
+                           // table can never disagree.
   'agent-templates': null, // price set before the shelf opens — see FORMS.md
   marketing: null,         // quote-only
 };

@@ -1,0 +1,83 @@
+---
+/* The TV mounting price table.
+ *
+ * Playbook §2, psychological resistance: the thing standing between someone
+ * and booking a mounter is not effort, it is the fear of being overcharged on
+ * the day. A posted table answers that before the form is ever opened, which
+ * is why this service gets a table and the project services stay quoted.
+ *
+ * Numbers come from TV_PRICING in site.ts and nowhere else. An add-on with no
+ * price set reads "Quoted" — honest, and normal for this trade — rather than
+ * a number nobody agreed to (rule 11).
+ */
+import { TV_PRICING } from '../data/site';
+
+interface Props { note?: string }
+const { note } = Astro.props;
+
+const money = (n: number) => `$${n.toLocaleString('en-US')}`;
+const priced = TV_PRICING.addOns.filter((a) => a.price !== null);
+---
+<div class="prices">
+  <table class="prices__table">
+    <caption class="visually-hidden">TV mounting prices by television size</caption>
+    <tbody>
+      {TV_PRICING.sizes.map((row) => (
+        <tr>
+          <th scope="row">{row.size}</th>
+          <td>{row.price === null ? <span class="prices__quoted">Quoted</span> : money(row.price)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p class="prices__base">
+    That covers the ordinary job — drywall, cords tidied down the wall, one TV.
+  </p>
+
+  <h3 class="prices__h">Anything harder</h3>
+  <table class="prices__table prices__table--sub">
+    <caption class="visually-hidden">Additions priced on top of the mounting price</caption>
+    <tbody>
+      {TV_PRICING.addOns.map((row) => (
+        <tr>
+          <th scope="row">{row.name}</th>
+          <td>{row.price === null ? <span class="prices__quoted">Quoted</span> : `+ ${money(row.price)}`}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p class="prices__note">
+    {priced.length === 0
+      ? 'Brick, stone, concrete, a mount over the fireplace, cords run inside the wall, an outlet added behind the TV — each is priced on the job, because each one genuinely varies. The four taps above tell us which apply, and you get the full figure in writing before we book. Never on the day.'
+      : 'The four taps above tell us which apply, and you get the full figure in writing before we book. Never on the day.'}
+  </p>
+  {note && <p class="small prices__note">{note}</p>}
+</div>
+
+<style>
+  .prices__table { width: 100%; border-collapse: collapse; }
+  .prices__table th,
+  .prices__table td { padding: .75rem 0; border-bottom: 1px solid var(--line); text-align: left; }
+  .prices__table th { font-weight: 500; color: var(--chalk); }
+  .prices__table td {
+    text-align: right;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--chalk);
+    white-space: nowrap;
+  }
+  .prices__table--sub th,
+  .prices__table--sub td { color: var(--ash); font-size: var(--step-0); font-family: inherit; }
+  .prices__quoted { color: var(--ash-dim); font-style: italic; }
+  .prices__base { color: var(--ash); margin-top: .9rem; }
+  .prices__h {
+    font-size: var(--step-0);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--ash-dim);
+    margin-top: 2rem;
+  }
+  .prices__note { color: var(--ash); margin-top: 1rem; }
+</style>

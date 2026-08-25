@@ -5,7 +5,7 @@ import Steps from '../../components/Steps.astro';
 import Faq from '../../components/Faq.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
-import PriceFrom from '../../components/PriceFrom.astro';
+import PriceTable from '../../components/PriceTable.astro';
 import Blank from '../../components/Blank.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { COUNTIES, CONTACT, NAP, link } from '../../data/site';
@@ -95,12 +95,8 @@ const jsonLd = [
     <div class="wrap grid grid--2">
       <div>
         <p class="eyebrow">What it costs</p>
-        <h2 style="margin-top:.7rem">One price, agreed before we drive out.</h2>
-        <PriceFrom
-          slug="tv-mounting"
-          unit="per TV"
-          note="Every mount is quoted from the job in front of it — wall type, TV size and whether the cords go inside the wall. You get the figure in writing before the day, and we tell you which of those moved it."
-        />
+        <h2 style="margin-top:.7rem">Posted, not negotiated on your doorstep.</h2>
+        <PriceTable />
       </div>
       <Blank
         title="Mounting photos and reviews"

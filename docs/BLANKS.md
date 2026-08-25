@@ -15,10 +15,23 @@ rather than a set of numbers.
 | 2 | Public phone number | **`(678) 525-8154`** — header on all six TV pages, footer, `/contact`, schema |
 | 3–7 | Starting prices | **Quote-only across the board.** No starting figures are published; every job is priced from its own scope. This is a decision, not a gap, and the pages say so. |
 
-**TV pricing is coming.** Leon is setting TV mounting prices once the site is
-up. Put the number into `PRICES['tv-mounting']` in `src/data/site.ts` and all six
-TV pages switch from "Priced per job" to a "Starting at $X" figure. Nothing else
-needs editing. The same is true of any other service.
+**TV pricing is set — partly.** Leon gave the four size brackets on 2026-08-25:
+$99 under 40", $129 for 40–55", $179 for 56–70", $229 for 71" and up. All six TV
+pages carry a posted table, and the `priceRange` in the structured data is
+derived from it rather than written twice.
+
+Three things about it are still open, and they are open on purpose rather than
+guessed at:
+
+| # | Item | Why it is blank |
+|---|---|---|
+| 3a | Add-on prices — brick or stone, concrete, over a fireplace, cords inside the wall, a new outlet behind the TV | Leon has not set them. Each renders as **"Quoted"**, which is honest and normal for this trade. Put a number into `TV_PRICING.addOns` and that row shows it |
+| 3b | **Does the base price include the bracket?** | Not answered, and not stated on the page either way. This is the single most common argument on the day — asserting the wrong one is worse than not saying |
+| 3c | **Is there a minimum or trip charge for the far counties?** | Not answered. The county pages currently say "no trip fee inside \<county\>", which was written before prices existed and should be confirmed against whatever he decides |
+
+The base prices are stated as covering the ordinary job — drywall, cords tidied
+down the wall, one TV — which is the framing Leon was answering when he gave
+them. If that was not his intent, it is one line in `TV_PRICING`.
 
 **The templates shelf is a product, not a quote.** `/agent-templates` reads
 "Price announced when the shelf opens" rather than "Priced per job", because a

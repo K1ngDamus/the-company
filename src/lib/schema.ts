@@ -1,4 +1,4 @@
-import { SITE, NAP, CONTACT, COUNTIES, abs, type County } from '../data/site';
+import { SITE, NAP, CONTACT, COUNTIES, TV_PRICING, abs, type County } from '../data/site';
 
 /* One builder for the local markup, used by the TV hub and all five county
    pages, so NAP can never drift between them (rule 12). */
@@ -31,6 +31,16 @@ export function localBusiness(opts: { path: string; name: string; description: s
     areaServed,
     serviceType: 'TV mounting and installation',
   };
+
+  /* Derived from the posted table, never written twice. Google shows a price
+     range on local results, and a business that publishes one there and a
+     different one on the page has told two stories. If the table is ever
+     quote-only again this drops out on its own rather than going stale. */
+  const set = TV_PRICING.sizes.map((r) => r.price).filter((n): n is number => n !== null);
+  if (set.length) {
+    const lo = Math.min(...set), hi = Math.max(...set);
+    node.priceRange = lo === hi ? `$${lo}` : `$${lo}–$${hi}`;
+  }
 
   if (CONTACT.phoneHref) node.telephone = CONTACT.phoneHref;
   if (CONTACT.email) node.email = CONTACT.email;
