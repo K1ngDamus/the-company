@@ -4,11 +4,11 @@ Leon approved deployment on 2026-08-24. This is everything that could be built
 without an account or a card, plus the short list of things that can only be
 done by the person who owns them.
 
-**Read the two gates first.** Neither is optional.
+**One gate is left.** It is not optional.
 
 ---
 
-## Gate 1 — the forms do not send yet
+## The gate — the forms do not send yet
 
 `FORM_ENDPOINT` in `src/data/site.ts` is still `null`. That is correct for a
 staged site: every form shows a visible "Staged, not sending" notice and the
@@ -26,23 +26,19 @@ cost of each, and what changes when it is connected.
 A preview at the GitHub Pages project URL is fine with the forms staged — it is
 noindexed, nobody arrives there by accident, and the notice tells the truth.
 
-## Gate 2 — Pages needs this repository to be public, or a paid plan
+## Settled — the repository is public
 
-`K1ngDamus/the-company` is private. GitHub Pages will not serve a private
-repository on the free plan.
+`K1ngDamus/the-company` was private, and GitHub Pages will not serve a private
+repository on a free plan. Leon made it public on 2026-08-24, which is the free
+route and the one I would have taken. GitHub Pro and hosting the build
+elsewhere (Cloudflare Pages, Netlify) were the alternatives; neither was
+needed, and no account was created and nothing was spent.
 
-Three ways out, in the order I would take them:
-
-1. **Make the repository public.** Free, immediate. The site's source is
-   marketing copy, a palette, and build scripts — there is nothing secret in
-   it. Check first that you are happy with `FORMS.md`, `docs/BLANKS.md` and
-   `dispatch-to-hq/` being readable, since they describe what is unfinished.
-2. **GitHub Pro**, a paid monthly plan, which allows Pages on private repos.
-3. **Another host** — Cloudflare Pages and Netlify both serve a private repo's
-   build on their free tiers. Each needs an account, which is yours to create
-   (rule 8). The build is a plain static `dist/`, so any of them will take it.
-
-I have not created an account or spent anything.
+Before that switch I scanned the repository: no keys, no credentials, no
+`.env`, nothing but site source, docs and build scripts across 64 tracked
+files. The public email and phone were already published on the site by
+design. What is now readable that is worth knowing: `FORMS.md`,
+`docs/BLANKS.md` and `dispatch-to-hq/` all describe what is unfinished.
 
 ---
 
@@ -50,9 +46,10 @@ I have not created an account or spent anything.
 
 The repository can now deploy itself the moment Pages is switched on.
 
-- **`.github/workflows/deploy.yml`** — builds, re-runs the audit and contrast
-  gates against the exact artifact about to go live, and publishes to Pages. It
-  runs on every push to `main` and on demand from the Actions tab.
+- **`.github/workflows/deploy.yml`** — switches Pages on if it is not already,
+  builds, re-runs the audit and contrast gates against the exact artifact about
+  to go live, and publishes. It runs on every push to `main` and on demand from
+  the Actions tab.
 - **The address is no longer hard-coded.** `astro.config.mjs` reads it from the
   environment and the workflow fills it from the Pages settings, so the same
   commit is correct at `frontporchco.com` *or* at the project URL
@@ -73,25 +70,24 @@ these changes — the site itself did not change, only where it can be served.
 
 ## The steps, in order
 
-### 1. Switch Pages on
-
-Settings → Pages → Build and deployment → Source: **GitHub Actions**.
-(If the repo is still private and the plan is free, this is where it refuses —
-see Gate 2.)
-
-### 2. Publish
+### 1. Publish
 
 Actions → Deploy → Run workflow. Or push anything to `main`.
+
+The workflow switches Pages on itself the first time it runs
+(`enablement: true` on the configure-pages step), so there is no Settings
+toggle to find. That only works because the repository is public — it is the
+one thing the workflow cannot do for itself.
 
 It lands at `https://k1ngdamus.github.io/the-company/`. Open it on a phone,
 not just a laptop — most of the TV mounting traffic will be phones.
 
-### 3. Set the form endpoint
+### 2. Set the form endpoint
 
 `FORMS.md`, then one line in `src/data/site.ts`. Push it. Deploy runs again on
 its own. Submit a real test enquiry and confirm it lands in your inbox.
 
-### 4. Only then, the domain
+### 3. Only then, the domain
 
 `frontporchco.com` resolves today — from here it answers on two AWS addresses,
 though the network in this environment blocks me from loading it, so I cannot
@@ -112,7 +108,7 @@ Once the custom domain is set, the next deploy detects it, drops the
 `/the-company` prefix, restores the indexable `robots.txt`, and the canonicals
 point at `frontporchco.com`. Nothing in the repo needs editing.
 
-### 5. Then the things that are not deployment
+### 4. Then the things that are not deployment
 
 - **Get privacy and terms in front of a lawyer.** They are written in plain
   language and accurate to what the site actually does, but nobody qualified

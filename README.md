@@ -3,12 +3,12 @@
 The front porch of the whole operation: every service findable, understandable,
 and easy to ask for. Built for `frontporchco.com`.
 
-**Status: approved for deployment, not yet published.** Leon approved
-deployment on 2026-08-24 and the pipeline is built and tested, but two gates
-stand in front of it: the forms do not send yet, and GitHub Pages will not
-serve a private repository on a free plan. Both are Leon's to open, and
-**[`DEPLOY.md`](DEPLOY.md)** is the whole list. Nothing has been published,
-nothing sends, nothing has been bought.
+**Status: deploying to a preview, not yet at the real address.** Leon approved
+deployment on 2026-08-24 and made the repository public the same day, so the
+site publishes to its GitHub Pages project URL. That build is noindexed and
+cannot be reached by search. One gate stands in front of `frontporchco.com`:
+the forms do not send yet. **[`DEPLOY.md`](DEPLOY.md)** is the whole list.
+Nothing sends, and nothing has been bought.
 
 ## Running it
 
