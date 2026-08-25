@@ -11,7 +11,8 @@
     "audit": "node scripts/audit.mjs",
     "contrast": "node scripts/contrast.mjs",
     "check:mounted": "SITE_URL=https://k1ngdamus.github.io BASE_PATH=/the-company astro build && BASE_PATH=/the-company node scripts/audit.mjs",
-    "check": "npm run build && npm run audit && npm run contrast && npm run check:mounted"
+    "check:canonical": "node scripts/canonical.mjs",
+    "check": "npm run build && npm run audit && npm run contrast && npm run check:mounted && npm run check:canonical"
   },
   "dependencies": {
     "astro": "^7.2.4"
