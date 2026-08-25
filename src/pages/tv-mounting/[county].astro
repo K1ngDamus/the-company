@@ -7,7 +7,7 @@ import QuoteForm from '../../components/QuoteForm.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import PriceTable from '../../components/PriceTable.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { COUNTIES, CONTACT, NAP, type County, link } from '../../data/site';
+import { COUNTIES, CONTACT, NAP, TV_PRICING, type County, link } from '../../data/site';
 import { TV_FIELDS } from '../../data/forms';
 import { localBusiness, breadcrumb } from '../../lib/schema';
 
@@ -18,6 +18,13 @@ export function getStaticPaths() {
 interface Props { county: County }
 const { county } = Astro.props;
 const path = `/tv-mounting/${county.slug}`;
+
+/* The figure comes from TV_PRICING so the hero and the table cannot disagree,
+   and the line drops out on its own if the prices ever come off. */
+const lowest = TV_PRICING.sizes.map((r) => r.price).filter((n): n is number => n !== null);
+const heroPrice = lowest.length
+  ? { figure: `From $${Math.min(...lowest)}`, note: 'per TV, posted below — no doorstep surprises.', href: '#prices' }
+  : undefined;
 const others = COUNTIES.filter((c) => c.slug !== county.slug);
 
 const description = `TV mounting in ${county.name}, Georgia — ${county.towns.slice(0, 4).join(', ')} and across the county. Level, solid, cords out of sight. Get a quote in four taps.`;
@@ -68,6 +75,7 @@ const jsonLd = [
     promise={`${county.line} We mount it level, anchor it into what actually holds, and leave the cords where you cannot see them.`}
     primary={{ href: '#quote', label: 'Get a quote — four taps' }}
     secondary={{ href: '#towns', label: `Towns we cover in ${county.short}` }}
+    priceLead={heroPrice}
   >
     <div slot="aside">
       <QuoteForm
@@ -81,6 +89,14 @@ const jsonLd = [
       />
     </div>
   </Hero>
+
+  <section class="section" id="prices" aria-labelledby="prices-h">
+    <div class="wrap-narrow">
+      <p class="eyebrow">What it costs</p>
+      <h2 id="prices-h" style="margin-top:.7rem">Posted, not negotiated on your doorstep.</h2>
+      <PriceTable note={`The same prices across all five counties — no trip fee inside ${county.short}.`} />
+    </div>
+  </section>
 
   <Steps
     eyebrow="Three steps"
@@ -104,9 +120,6 @@ const jsonLd = [
       <ul class="towns">
         {county.towns.map((town) => <li>{town}</li>)}
       </ul>
-      <div style="margin-top:2.5rem">
-        <PriceTable note={`The same prices across all five counties — no trip fee inside ${county.short}.`} />
-      </div>
     </div>
   </section>
 

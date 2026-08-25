@@ -10,10 +10,14 @@ interface Props {
   promise: string;
   primary: { href: string; label: string };
   secondary?: { href: string; label: string };
+  /* A price stated before the form, not after it. On a phone the form fills
+     the hero, so a page that puts the figure below it asks the visitor to
+     start committing before they know the cost. */
+  priceLead?: { figure: string; note: string; href?: string };
   anchorNote?: string;
   wide?: boolean;
 }
-const { eyebrow, title, promise, primary, secondary, anchorNote, wide = false } = Astro.props;
+const { eyebrow, title, promise, primary, secondary, priceLead, anchorNote, wide = false } = Astro.props;
 const hasAside = Astro.slots.has('aside');
 ---
 <section class:list={['hero', { 'hero--split': hasAside, 'hero--wide': wide }]}>
@@ -22,6 +26,14 @@ const hasAside = Astro.slots.has('aside');
       <p class="eyebrow">{eyebrow}</p>
       <h1>{title}</h1>
       <p class="lede">{promise}</p>
+      {priceLead && (
+        <p class="hero__price">
+          <strong>{priceLead.figure}</strong>
+          {priceLead.href
+            ? <a href={link(priceLead.href)}>{priceLead.note}</a>
+            : <span>{priceLead.note}</span>}
+        </p>
+      )}
       <p class="hero__actions">
         <a class="btn" href={link(primary.href)}><span class="dot" aria-hidden="true"></span>{primary.label}</a>
         {secondary && <a class="btn btn--ghost" href={link(secondary.href)}>{secondary.label}</a>}
@@ -33,6 +45,22 @@ const hasAside = Astro.slots.has('aside');
 </section>
 
 <style>
+  .hero__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .55rem;
+    margin-top: 1.4rem;
+  }
+  .hero__price strong {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 500;
+    color: var(--chalk);
+  }
+  .hero__price a,
+  .hero__price span { color: var(--ash); }
+
   .hero {
     padding-block: clamp(2.5rem, 1.6rem + 4.5vw, 5.5rem) clamp(2.5rem, 1.6rem + 4vw, 5rem);
     background:

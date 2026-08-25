@@ -8,11 +8,18 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import PriceTable from '../../components/PriceTable.astro';
 import Blank from '../../components/Blank.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { COUNTIES, CONTACT, NAP, link } from '../../data/site';
+import { COUNTIES, CONTACT, NAP, TV_PRICING, link } from '../../data/site';
 import { TV_FIELDS } from '../../data/forms';
 import { localBusiness, breadcrumb } from '../../lib/schema';
 
 const path = '/tv-mounting';
+
+/* The figure comes from TV_PRICING so the hero and the table cannot disagree,
+   and the line drops out on its own if the prices ever come off. */
+const lowest = TV_PRICING.sizes.map((r) => r.price).filter((n): n is number => n !== null);
+const heroPrice = lowest.length
+  ? { figure: `From $${Math.min(...lowest)}`, note: 'per TV, posted below — no doorstep surprises.', href: '#prices' }
+  : undefined;
 const description =
   'Professional TV mounting across metro Atlanta — Fulton, DeKalb, Cobb, Gwinnett and Clayton counties. Level, solid, cords out of sight. Get a quote in four taps.';
 
@@ -45,6 +52,7 @@ const jsonLd = [
     promise="Mounted properly the first time — the right anchors for your wall, the right height for your room, and the cables out of sight before we leave."
     primary={{ href: '#quote', label: 'Get a quote — four taps' }}
     secondary={{ href: '#areas', label: 'Check your area' }}
+    priceLead={heroPrice}
   >
     <div slot="aside">
       <QuoteForm
@@ -58,6 +66,14 @@ const jsonLd = [
       />
     </div>
   </Hero>
+
+  <section class="section" id="prices" aria-labelledby="prices-h">
+    <div class="wrap-narrow">
+      <p class="eyebrow">What it costs</p>
+      <h2 id="prices-h" style="margin-top:.7rem">Posted, not negotiated on your doorstep.</h2>
+      <PriceTable />
+    </div>
+  </section>
 
   <Steps
     eyebrow="Three steps"
@@ -91,13 +107,8 @@ const jsonLd = [
     </div>
   </section>
 
-  <section class="section section--band">
-    <div class="wrap grid grid--2">
-      <div>
-        <p class="eyebrow">What it costs</p>
-        <h2 style="margin-top:.7rem">Posted, not negotiated on your doorstep.</h2>
-        <PriceTable />
-      </div>
+  <section class="section">
+    <div class="wrap">
       <Blank
         title="Mounting photos and reviews"
         needs="No installation photos or customer reviews are published here yet. When there are real ones — with permission — they go here. Stock photos of someone else's living room would not be proof of anything."
