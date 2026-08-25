@@ -1,13 +1,13 @@
 # Front Porch Collective — the company website
 
 The front porch of the whole operation: every service findable, understandable,
-and easy to ask for. Built for `frontporchco.com`.
+and easy to ask for. Built for `frontporchbuilds.com`.
 
 **Status: ready to publish, one manual switch away.** Leon approved deployment
 on 2026-08-24 and made the repository public, which clears the way for GitHub
 Pages. The Pages site itself has to be created once by hand — a workflow token
 is not allowed to do it — and then the deploy runs on every push. The build it
-publishes is noindexed until it is served from `frontporchco.com`, and one gate
+publishes is noindexed until it is served from `frontporchbuilds.com`, and one gate
 stands in front of that: the forms do not send yet.
 **[`DEPLOY.md`](DEPLOY.md)** is the whole list. Nothing has been bought.
 
@@ -69,7 +69,7 @@ a focus-advance enhancement on the forms; everything works without it.
 | `/404` | Not found |
 
 Plus `sitemap.xml` and `robots.txt`, both generated. A build served anywhere
-other than `frontporchco.com` disallows crawlers outright and carries
+other than `frontporchbuilds.com` disallows crawlers outright and carries
 `noindex` on every page, so a preview can never stand in for the real site.
 
 ## Where things live
