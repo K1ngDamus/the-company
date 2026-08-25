@@ -46,10 +46,9 @@ design. What is now readable that is worth knowing: `FORMS.md`,
 
 The repository can now deploy itself the moment Pages is switched on.
 
-- **`.github/workflows/deploy.yml`** — switches Pages on if it is not already,
-  builds, re-runs the audit and contrast gates against the exact artifact about
-  to go live, and publishes. It runs on every push to `main` and on demand from
-  the Actions tab.
+- **`.github/workflows/deploy.yml`** — builds, re-runs the audit and contrast
+  gates against the exact artifact about to go live, and publishes to Pages. It
+  runs on every push to `main` and on demand from the Actions tab.
 - **The address is no longer hard-coded.** `astro.config.mjs` reads it from the
   environment and the workflow fills it from the Pages settings, so the same
   commit is correct at `frontporchco.com` *or* at the project URL
@@ -70,24 +69,30 @@ these changes — the site itself did not change, only where it can be served.
 
 ## The steps, in order
 
-### 1. Publish
+### 1. Switch Pages on — once, by hand
+
+Settings → Pages → Build and deployment → Source: **GitHub Actions**.
+
+This cannot be automated. The workflow was given `enablement: true`, which is
+supposed to create the Pages site on its first run; it failed with *"Create
+Pages site failed. Error: Resource not accessible by integration"*. A
+workflow's own token is not allowed to create a Pages site no matter what
+permissions the job declares. Creating it is a one-time click; every run after
+that finds it on its own.
+
+### 2. Publish
 
 Actions → Deploy → Run workflow. Or push anything to `main`.
-
-The workflow switches Pages on itself the first time it runs
-(`enablement: true` on the configure-pages step), so there is no Settings
-toggle to find. That only works because the repository is public — it is the
-one thing the workflow cannot do for itself.
 
 It lands at `https://k1ngdamus.github.io/the-company/`. Open it on a phone,
 not just a laptop — most of the TV mounting traffic will be phones.
 
-### 2. Set the form endpoint
+### 3. Set the form endpoint
 
 `FORMS.md`, then one line in `src/data/site.ts`. Push it. Deploy runs again on
 its own. Submit a real test enquiry and confirm it lands in your inbox.
 
-### 3. Only then, the domain
+### 4. Only then, the domain
 
 `frontporchco.com` resolves today — from here it answers on two AWS addresses,
 though the network in this environment blocks me from loading it, so I cannot
@@ -108,7 +113,7 @@ Once the custom domain is set, the next deploy detects it, drops the
 `/the-company` prefix, restores the indexable `robots.txt`, and the canonicals
 point at `frontporchco.com`. Nothing in the repo needs editing.
 
-### 4. Then the things that are not deployment
+### 5. Then the things that are not deployment
 
 - **Get privacy and terms in front of a lawyer.** They are written in plain
   language and accurate to what the site actually does, but nobody qualified
