@@ -103,14 +103,41 @@ company's — it belongs to someone else, confirmed by Leon on 2026-08-25. It ha
 been taken out of this repository so nothing here claims a domain the company
 does not hold. `frontporchbuilds.com` is the only address the site answers to.
 
-Then: Settings → Pages → Custom domain → `frontporchbuilds.com`, and at the DNS
-host add the four `A` records and four `AAAA` records GitHub publishes for
-apex domains, plus a `CNAME` for `www` pointing at `k1ngdamus.github.io`.
+Settings → Pages → Custom domain → `frontporchbuilds.com`. Then nine records
+at the DNS host — the domain is at **GoDaddy**, so: sign in → Domain Portfolio
+→ `frontporchbuilds.com` → **DNS** → Manage DNS.
 
-Take the record values from GitHub's own page — "Managing a custom domain for
-your GitHub Pages site" — rather than from memory or from me. I could not
-reach that page from this environment to verify the current addresses, and
-these are the kind of numbers that must be right the first time.
+| Type | Name | Value |
+|---|---|---|
+| `A` | `@` | `185.199.108.153` |
+| `A` | `@` | `185.199.109.153` |
+| `A` | `@` | `185.199.110.153` |
+| `A` | `@` | `185.199.111.153` |
+| `AAAA` | `@` | `2606:50c0:8000::153` |
+| `AAAA` | `@` | `2606:50c0:8001::153` |
+| `AAAA` | `@` | `2606:50c0:8002::153` |
+| `AAAA` | `@` | `2606:50c0:8003::153` |
+| `CNAME` | `www` | `k1ngdamus.github.io` |
+
+Read out of GitHub's own documentation source
+(`github/docs`, `content/pages/…/managing-a-custom-domain-for-your-github-pages-site.md`,
+commit `0dddeeb`, 2026-08-25) rather than from memory. This environment blocks
+`docs.github.com`, the `/meta` API endpoint and public DNS resolvers, so the
+repository was the one route to an authoritative answer. If these ever stop
+working, that file is where to re-read them.
+
+**Three GoDaddy-specific traps.**
+
+GoDaddy ships every new domain with a **parked `A` record on `@`** pointing at
+its own holding page. That is what answers today. It has to go, or be edited
+into the first record above — four `A` records on `@` is correct, five with a
+parking address is not.
+
+GoDaddy also ships a **default `www` CNAME** pointing back at `@`. Change its
+value to `k1ngdamus.github.io`; do not add a second one alongside it.
+
+And if **Domain Forwarding** is switched on anywhere in that domain's settings,
+turn it off. Forwarding writes its own records and quietly overrides these.
 
 **Then run the deploy again — this step is not optional and nothing warns you
 about it.** What is published right now was built for the project URL: every
