@@ -100,10 +100,21 @@ const jsonLd = [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Work', path }]
           </p>
         </div>
         <div class="grid" style="gap:1.4rem">
-          <Blank
-            title="Client work — The Chloe Girls"
-            needs="Cleared by the client to appear, but the build details and link have not been supplied yet. Nothing gets written into this space until they are."
-          />
+          <ProofCard
+            eyebrow="Client work"
+            title="The Chloe Girls"
+            tags={['Website', 'Live', 'Built for a client']}
+            href="https://chloegirlsofficial.com"
+          >
+            <p>
+              Built by us and live at <strong>chloegirlsofficial.com</strong>, shown
+              here with the client's permission.
+            </p>
+            <p>
+              The link goes to the real site rather than a screenshot of one. Judge
+              it the way one of their visitors would — on a phone, from cold.
+            </p>
+          </ProofCard>
           <Blank
             title="Testimonials"
             needs="Real, named, permitted quotes only. None are published yet, so this stays empty."
