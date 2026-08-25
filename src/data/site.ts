@@ -106,8 +106,13 @@ export const NAP = {
 export const FORMS = {
   endpoint: 'https://api.web3forms.com/submit' as string | null,
 
-  /** Paste the key here. That is the whole integration. */
-  accessKey: null as string | null,
+  /* Leon's key, 2026-08-25, registered to jacksonleon24@gmail.com — the same
+     address published on the site, so enquiries land where customers already
+     look. It is committed on purpose: Web3Forms keys ship in the page markup
+     by design, so this is no more exposed in a public repo than it is in the
+     HTML. The defence is the domain restriction in their dashboard, not
+     secrecy. */
+  accessKey: '71d1a2de-929c-4555-bf5b-da3fbc8d0a75' as string | null,
 
   /* Web3Forms drops any submission where this field is filled in. Renaming it
      does not break the form — it silently turns the spam check off, which is
