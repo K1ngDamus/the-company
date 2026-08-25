@@ -5,7 +5,7 @@ import Steps from '../../components/Steps.astro';
 import Faq from '../../components/Faq.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
-import PriceFrom from '../../components/PriceFrom.astro';
+import PriceTable from '../../components/PriceTable.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { COUNTIES, CONTACT, NAP, type County, link } from '../../data/site';
 import { TV_FIELDS } from '../../data/forms';
@@ -105,7 +105,7 @@ const jsonLd = [
         {county.towns.map((town) => <li>{town}</li>)}
       </ul>
       <div style="margin-top:2.5rem">
-        <PriceFrom slug="tv-mounting" unit="per TV" note={`Same pricing across all five counties — no trip fee inside ${county.short}. Four taps up top gets you the figure.`} />
+        <PriceTable note={`The same prices across all five counties — no trip fee inside ${county.short}.`} />
       </div>
     </div>
   </section>

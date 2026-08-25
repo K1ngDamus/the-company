@@ -14,7 +14,12 @@ export const TV_FIELDS: Field[] = [
     hint: 'A guess is fine — we confirm on site.',
     options: ['Drywall', 'Brick or stone', 'Concrete', 'Over a fireplace', 'Not sure'] },
   { kind: 'choice', name: 'cords', label: 'What about the cords?', required: true,
-    options: ['Hide them in the wall', 'Cover them neatly', 'Leave them as they are'] },
+    options: [
+      'Hide them in the wall',
+      'Hide them in the wall, plus an outlet behind the TV',
+      'Cover them neatly',
+      'Leave them as they are',
+    ] },
   { kind: 'choice', name: 'timing', label: 'When works for you?', required: true,
     options: ['This week', 'Next week', 'This month', 'Flexible'] },
   { kind: 'text', name: 'zip', label: 'ZIP code', required: true, placeholder: '30303',
