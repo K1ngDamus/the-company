@@ -17,7 +17,7 @@
    -------------------------------------------------------------------------- */
 
 /** The canonical home. A build served anywhere else is a preview, not the site. */
-export const CANONICAL_ORIGIN = 'https://frontporchco.com';
+export const CANONICAL_ORIGIN = 'https://frontporchbuilds.com';
 
 const ORIGIN = (import.meta.env.SITE ?? CANONICAL_ORIGIN).replace(/\/$/, '');
 const BASE = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
@@ -76,7 +76,7 @@ export const NAP = {
    FORMS — Web3Forms (Leon's choice, 2026-08-25).
 
    Host-independent on purpose: the site is on a GitHub Pages URL today and
-   moves to frontporchco.com later, and this survives that without a second
+   moves to frontporchbuilds.com later, and this survives that without a second
    decision. The endpoint and the honeypot name below are Web3Forms' own.
 
    THE ONE THING LEFT IS `accessKey`. Web3Forms mails a key to whatever

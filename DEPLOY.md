@@ -19,7 +19,7 @@ mounting page from a search, decides to book, and the only button on the page
 is greyed out with a note explaining it does not work. They do not phone
 instead — they leave.
 
-So: **do not point frontporchco.com at this until the endpoint is set.**
+So: **do not point frontporchbuilds.com at this until the endpoint is set.**
 Setting it is one line and one free account. `FORMS.md` has the options, the
 cost of each, and what changes when it is connected.
 
@@ -51,10 +51,10 @@ The repository can now deploy itself the moment Pages is switched on.
   runs on every push to `main` and on demand from the Actions tab.
 - **The address is no longer hard-coded.** `astro.config.mjs` reads it from the
   environment and the workflow fills it from the Pages settings, so the same
-  commit is correct at `frontporchco.com` *or* at the project URL
+  commit is correct at `frontporchbuilds.com` *or* at the project URL
   `https://k1ngdamus.github.io/the-company/`, with no file to edit between.
 - **A preview cannot be mistaken for the site.** Any build not served from
-  `frontporchco.com` emits `noindex, nofollow` on every page and a
+  `frontporchbuilds.com` emits `noindex, nofollow` on every page and a
   `robots.txt` that disallows everything. Google will not index the preview,
   so it can never compete with the real site.
 - **CI now proves both addresses work.** `npm run check:mounted` rebuilds the
@@ -94,13 +94,17 @@ its own. Submit a real test enquiry and confirm it lands in your inbox.
 
 ### 4. Only then, the domain
 
-`frontporchco.com` resolves today — from here it answers on two AWS addresses,
-though the network in this environment blocks me from loading it, so I cannot
-tell you what is there or confirm the registration is yours. Find out where the
-domain is registered and where its DNS is managed before changing anything;
-whatever is answering now will stop answering when the records move.
+Leon settled on `frontporchbuilds.com` on 2026-08-25, after the earlier
+candidates turned out to be taken. Find where it is registered and where its
+DNS is managed; that is where the records below go.
 
-Then: Settings → Pages → Custom domain → `frontporchco.com`, and at the DNS
+**If `frontporchco.com` is also yours, keep it and redirect it here.** It was
+the working address through the whole build and may be on cards, in messages,
+or in someone's memory. A redirect costs nothing and the site's canonical tags
+already point every page at one address, so there is no duplicate-content
+risk.
+
+Then: Settings → Pages → Custom domain → `frontporchbuilds.com`, and at the DNS
 host add the four `A` records and four `AAAA` records GitHub publishes for
 apex domains, plus a `CNAME` for `www` pointing at `k1ngdamus.github.io`.
 
@@ -111,7 +115,7 @@ these are the kind of numbers that must be right the first time.
 
 Once the custom domain is set, the next deploy detects it, drops the
 `/the-company` prefix, restores the indexable `robots.txt`, and the canonicals
-point at `frontporchco.com`. Nothing in the repo needs editing.
+point at `frontporchbuilds.com`. Nothing in the repo needs editing.
 
 ### 5. Then the things that are not deployment
 
@@ -134,5 +138,5 @@ The build is static and has no server requirement. Any host needs:
 - `SITE_URL` set to the address it will serve from. Leave `BASE_PATH` unset
   unless the site is nested under a path.
 
-Set `SITE_URL` to `https://frontporchco.com` only when that is genuinely where
+Set `SITE_URL` to `https://frontporchbuilds.com` only when that is genuinely where
 it is being served, since that is the switch that makes a build indexable.

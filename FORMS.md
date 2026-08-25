@@ -123,7 +123,7 @@ visitor gets a page load and someone else's thank-you screen.
 ## Chosen: Web3Forms (2026-08-25)
 
 Host-independent, which mattered: the site is on a GitHub Pages URL today and
-moves to frontporchco.com later, and a host-coupled provider would have had to
+moves to frontporchbuilds.com later, and a host-coupled provider would have had to
 be decided twice. The free tier is the most generous of the shortlist and the
 key arrives by email rather than behind a full account.
 

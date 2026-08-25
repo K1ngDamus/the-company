@@ -44,7 +44,7 @@ jobs:
           cache: npm
 
       # Asks Pages where this site will actually live. With a custom domain
-      # configured it answers https://frontporchco.com and a base of "/"; with
+      # configured it answers https://frontporchbuilds.com and a base of "/"; with
       # no custom domain it answers the project URL and its /the-company/ path.
       # The build reads both, so one commit is correct at either address and
       # the address is never written down twice.
