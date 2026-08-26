@@ -12,6 +12,26 @@ import { PAGES } from './lib/pages.mjs';
 import { CLIENT, FLAGS, HEADSHOT_FILE, IMAGES } from './data/client.mjs';
 
 const OUT = 'dist';
+
+/* -------------------------------------------------------------------------
+   BASE_PATH — serving the preview from a sub-path.
+
+   A GitHub Pages *project* site lives at /<repo>/, not at the root, so every
+   absolute link in the build ("/about/", "/styles.css") would 404 there.
+
+   This is done as ONE post-processing pass over the emitted HTML rather than
+   by threading a link() helper through ~250 call sites, because a helper is
+   something a future edit can forget and this is not. Only root-relative
+   paths are touched: absolute URLs, mailto:, tel: and bare #anchors are left
+   exactly as they are, and so are the canonical/sitemap URLs, which point at
+   her real domain and must never carry a base path.
+
+   Unset (the normal case) it is a no-op.
+   ---------------------------------------------------------------------- */
+const BASE = (process.env.BASE_PATH || '').replace(/\/+$/, '');
+const withBase = (html) =>
+  BASE ? html.replace(/(href|src)="\/(?!\/)/g, `$1="${BASE}/`) : html;
+
 const write = (rel, contents) => {
   const path = join(OUT, rel);
   mkdirSync(dirname(path), { recursive: true });
@@ -22,7 +42,7 @@ rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 
 /* Pages */
-for (const p of PAGES) write(p.file, p.render());
+for (const p of PAGES) write(p.file, withBase(p.render()));
 
 /* Stylesheet and assets, copied verbatim. */
 write('styles.css', readFileSync('lib/styles.css', 'utf8'));
@@ -65,6 +85,7 @@ const urls = PAGES.filter((p) => p.route !== '/404/')
 write('sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 
+if (BASE) console.log(`build: mounted at ${BASE}/ — every root-relative link rewritten`);
 const flags = Object.entries(FLAGS).map(([k, v]) => `${k}=${v}`).join('  ');
 /* Say out loud which gate is open and which is not, every run. A photo that
    silently fails to appear is the kind of thing you discover in the meeting. */

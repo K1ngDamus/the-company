@@ -10,9 +10,14 @@ Here is the honest comparison. All three are free.
 |---|---|---|---|
 | **Cloudflare Pages + Access** | Genuinely private — she gets a one-time code by email to open it | ~15 min, one-off | She has to enter a code. Some people find that reassuring; some find it friction |
 | **Cloudflare Pages, unlisted URL** ⭐ | Obscure, not secret | ~10 min | Anyone with the URL can open it. Already `noindex` + `robots` disallow, so it will not be found by search |
-| **GitHub Pages on this repo** | **Not private at all** | ~5 min | This repo is public, so the preview would be too. Do not use this for an unsigned client |
+| **GitHub Pages, separate repo** ← chosen | **Not private at all** | ~5 min + 2 manual steps | Public and browsable. Cannot go on `the-company` — its Pages already serves the live company site |
 
-**Recommendation: Cloudflare Pages with an unlisted URL.** She is being asked
+> **Decided 2026-08-26: GitHub Pages.** Leon accepted the public-repo trade.
+> The steps are in [`DEPLOY-GITHUB-PAGES.md`](DEPLOY-GITHUB-PAGES.md). The
+> comparison below is kept because it is still the reason Cloudflare would be
+> the better answer if this is ever revisited.
+
+**Recommendation was: Cloudflare Pages with an unlisted URL.** She is being asked
 to look at something in her own time, probably on her phone, probably between
 other things. A login gate is the most likely reason she never opens it. The
 watermark, the `noindex`, the `robots.txt` disallow and the "Not a live site"

@@ -19,6 +19,11 @@ import { join, relative, extname } from 'node:path';
 import { CLIENT, FLAGS } from './data/client.mjs';
 
 const DIST = 'dist';
+/* The build can be mounted under a sub-path (a Pages project URL). Links carry
+   the prefix; the files on disk do not. Read the same env the build read, so a
+   link that lost its prefix shows up here as a dead link rather than in a
+   browser. Same approach as the company site's scripts/audit.mjs. */
+const BASE = (process.env.BASE_PATH || '').replace(/\/+$/, '');
 const MARK_PATH = 'M60,26 V94';   // the FPC monogram's stem — canon geometry
 const DESC_MIN = 50, DESC_MAX = 170;
 
@@ -35,13 +40,15 @@ const all = walk(DIST);
 const pages = all.filter((f) => extname(f) === '.html').sort();
 if (!pages.length) { console.error('No HTML in dist/ — did the build run?'); process.exit(1); }
 
-const routes = new Set(['/robots.txt', '/sitemap.xml']);
+const routes = new Set();
+const route = (r) => routes.add((BASE + r).replace(/\/$/, '') || '/');
+route('/robots.txt'); route('/sitemap.xml');
 for (const f of pages) {
   const rel = relative(DIST, f);
-  if (rel === '404.html') { routes.add('/404'); continue; }
-  routes.add(('/' + rel.replace(/index\.html$/, '')).replace(/\/$/, '') || '/');
+  if (rel === '404.html') { route('/404'); continue; }
+  route(('/' + rel.replace(/index\.html$/, '')).replace(/\/$/, '') || '/');
 }
-for (const f of all) if (extname(f) !== '.html') routes.add('/' + relative(DIST, f).split('\\').join('/'));
+for (const f of all) if (extname(f) !== '.html') route('/' + relative(DIST, f).split('\\').join('/'));
 
 const findings = [];
 const add = (page, msg) => findings.push(`${relative(DIST, page)} — ${msg}`);
@@ -122,8 +129,10 @@ for (const page of pages) {
     const frag = href.includes('#') ? href.split('#')[1] : null;
     if (base && !routes.has(base)) add(page, `dead link → ${href}`);
     if (frag) {
+      /* Strip the base prefix to get back to the path on disk. */
+      const onDisk = !isBare && BASE && base.startsWith(BASE) ? (base.slice(BASE.length) || '/') : base;
       const target = isBare ? page
-        : join(DIST, base === '/' ? 'index.html' : base + '/index.html');
+        : join(DIST, onDisk === '/' ? 'index.html' : onDisk + '/index.html');
       try {
         if (!readFileSync(target, 'utf8').includes(`id="${frag}"`)) add(page, `dead anchor → ${href}`);
       } catch { /* dead base already reported */ }
