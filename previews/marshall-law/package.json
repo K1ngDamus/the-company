@@ -9,6 +9,7 @@
     "audit": "node audit.mjs",
     "contrast": "node contrast.mjs",
     "browsercheck": "node browsercheck.mjs",
-    "check": "node build.mjs && node audit.mjs && node contrast.mjs && node browsercheck.mjs"
+    "check": "node build.mjs && node audit.mjs && node contrast.mjs && node browsercheck.mjs",
+    "verify-qr": "python3 scripts/verify-qr.py"
   }
 }

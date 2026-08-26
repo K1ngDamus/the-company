@@ -1,12 +1,19 @@
 # Open questions — for Leon to take to Keyanna
 
+> ## Send her the form, not this file
+> **`/start/`** in the built preview asks all of this in a form she can fill in
+> one sitting — mostly tapping, nothing required, autosaves in her browser, and
+> sends nothing anywhere. This file is the engineering-side index of the same
+> questions and the reasoning behind each; the form is what she sees.
+
 Every item here renders on the preview as a visible `[awaiting client]`
 placeholder. Nothing on this list has been guessed at, and nothing on it should
 be filled in from Avvo, the press piece, or inference — a wrong fact on a
 lawyer's site is a bar problem, not a typo.
 
 Mirrored in `OPEN` in [`../data/client.mjs`](../data/client.mjs), which is
-where the answers go.
+where the answers go. The form's question set lives in
+[`../data/intake.mjs`](../data/intake.mjs).
 
 ## Blocking the pitch
 
@@ -14,7 +21,7 @@ where the answers go.
 |---|---|---|---|
 | 1 | **What does a first consultation cost?** Free, flat fee, or varies? | The brief wired "Free Consultation" everywhere, but this is unverified. Every CTA currently reads "Request a Consultation" and the audit blocks the word *free*. | `FLAGS.consultIsFree` |
 | 2 | **The confirmed practice-area list.** | Criminal defense is verified. Juvenile appears in **press only** and is not confirmed by her. Publishing a practice area a lawyer has not claimed is not a small error. | `OPEN.practiceAreas` |
-| 3 | **Written OK to use her headshot.** | The image exists on Blinq and GBP; permission does not follow from availability. The portrait frame is sized to the real image so dropping it in shifts nothing. | `FLAGS.hasHeadshot` |
+| 3 | **Written OK to use her headshot, and the file itself.** | The image exists on Blinq and GBP; permission does not follow from availability. Two separate gates — see below. | `FLAGS.headshotPermission` |
 | 4 | **CashApp / Venmo on the website, or card-only?** | Built, styled, shipped hidden. Her card lists both; a card is not a public website. | `FLAGS.showPayments` |
 
 ## Content she has to supply
@@ -48,6 +55,48 @@ all.
 site is against Google's own guidelines, and one review presented as a 5.0
 rating overstates it. The rating is shown on the page instead, always with
 "1 Google review" attached. Every appearance of it carries the count.
+
+## Her headshot — two gates, one drop-in
+
+The photo is the single biggest thing standing between "a website" and "her
+web home", so it is worth being precise about.
+
+1. **The file.** Put it in `previews/marshall-law/assets/` named
+   `keyanna-marshall.jpg` (`.webp`, `.jpeg` and `.png` also work) and rebuild.
+   The build detects it — there is no path to edit. Largest version she has,
+   uncropped.
+2. **Permission.** `FLAGS.headshotPermission` in `data/client.mjs`. Separate on
+   purpose: being able to download something is not being allowed to publish
+   it. Set it true only when she has actually said yes, and note who heard her.
+
+Her face renders only when **both** are true. `node build.mjs` prints which of
+the two is missing on every run, so it can never be a silent no-op.
+
+Verified end-to-end with a stand-in image: the frame is `4/5` and the `<img>`
+carries its intrinsic dimensions, so dropping the real file in measured
+**CLS 0** — no layout shift at all.
+
+## The review card
+
+`/review-card/` is a printable card whose QR opens her Google review box in one
+tap. It is complimentary — she keeps it whether or not she signs.
+
+**It needs one thing to be real: her direct Google review link** (question 12
+above). Until that arrives the QR encodes her website and the card is flagged
+"Sample" on its face — never a fake review URL.
+
+The QR is encoded straight to the destination by `lib/qr.mjs` rather than
+routed through a QR website. That matters for a law office: a free generator's
+code points at *their* domain, so it can expire, start charging, or log every
+client who scans a card in her waiting room.
+
+**There is deliberately no pre-written review text**, and the card says why.
+Supplying the words a client submits as their own breaks Google's content
+policy, the FTC's endorsement rule and GA Rule 7.1 — and Google's spam
+detection specifically clusters near-identical reviews and removes them, which
+would cost her the reviews she has. The card solves the real friction instead:
+one tap to the box, and a clear note that a star-only review with no text is
+complete and counts.
 
 ## The one that is not a question
 

@@ -202,6 +202,8 @@ const footer = () => `<footer class="footer">
           <h3>For the pitch</h3>
           <ul>
             <li><a href="/exposure/">How we get you found</a></li>
+            <li><a href="/start/">Getting started — the questions</a></li>
+            <li><a href="/review-card/">The review card</a></li>
             <li><a href="${attr(CLIENT.websiteUrl)}" rel="noopener">${esc(CLIENT.website)}</a></li>
           </ul>
         </div>
@@ -220,8 +222,18 @@ const watermark = () => `<div class="watermark-field" aria-hidden="true"></div>
   ${fpcMark(84, `Design preview by ${FPC.name} — not a live site`).replace('class="fpc-mark"', 'class="fpc-mark watermark"')}
   <p class="watermark__caption" aria-hidden="true">Preview<br>Front Porch</p>`;
 
+/* Chrome for the pages that are FROM Front Porch rather than part of her site
+   — the intake form and the review card. Different hat, same palette: it must
+   be obvious at a glance that this is our document, not a page of hers. */
+const fpcTop = (forLabel) => `<div class="intake-top">
+    <div class="wrap intake-top__inner">
+      <span class="intake-top__brand">${fpcMark(22)} ${esc(FPC.name)}</span>
+      <span class="intake-top__for">${esc(forLabel)}</span>
+    </div>
+  </div>`;
+
 /* --- the page shell ------------------------------------------------------ */
-export const page = ({ route, title, description, body, breadcrumbs = null }) => {
+export const page = ({ route, title, description, body, breadcrumbs = null, chrome = 'client', chromeLabel = '' }) => {
   const canonical = CLIENT.websiteUrl + route;
   return `<!doctype html>
 <html lang="en">
@@ -241,17 +253,18 @@ ${FLAGS.isPreview ? '<meta name="robots" content="noindex, nofollow">\n<!-- PREV
 <link rel="preload" href="/assets/fonts/jost-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/styles.css">
+${chrome === 'fpc' ? '<style>body { padding-bottom: 0 } .watermark { bottom: clamp(.85rem, 2vw, 1.75rem) } .watermark__caption { bottom: calc(clamp(.85rem, 2vw, 1.75rem) + clamp(52px, 7vw, 84px) + .4rem); transform: none }</style>' : ''}
 ${schema(canonical)}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-${header(route)}
+${chrome === 'fpc' ? fpcTop(chromeLabel) : header(route)}
 ${breadcrumbs ? `<div class="wrap breadcrumbs">${breadcrumbs}</div>` : ''}
 <main id="main">
 ${body}
 </main>
 ${footer()}
-${callbar()}
+${chrome === 'fpc' ? '' : callbar()}
 ${watermark()}
 </body>
 </html>

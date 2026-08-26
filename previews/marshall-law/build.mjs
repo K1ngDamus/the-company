@@ -9,7 +9,7 @@
 import { mkdirSync, writeFileSync, rmSync, cpSync, readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { PAGES } from './lib/pages.mjs';
-import { CLIENT, FLAGS } from './data/client.mjs';
+import { CLIENT, FLAGS, HEADSHOT_FILE } from './data/client.mjs';
 
 const OUT = 'dist';
 const write = (rel, contents) => {
@@ -26,6 +26,9 @@ for (const p of PAGES) write(p.file, p.render());
 
 /* Stylesheet and assets, copied verbatim. */
 write('styles.css', readFileSync('lib/styles.css', 'utf8'));
+/* The one script that ships. /start/ works fully without it — it adds autosave
+   and the copyable summary, nothing more. */
+write('intake.js', readFileSync('lib/intake.js', 'utf8'));
 cpSync('assets', join(OUT, 'assets'), { recursive: true });
 
 /* Favicon — her scales glyph in the rose, matching the header mark. Written
@@ -48,6 +51,9 @@ write('sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 
 const flags = Object.entries(FLAGS).map(([k, v]) => `${k}=${v}`).join('  ');
+console.log(`build: headshot ${HEADSHOT_FILE ? `file assets/${HEADSHOT_FILE} found` : 'no file in assets/'}` +
+            `, permission ${FLAGS.headshotPermission ? 'given' : 'NOT given'}` +
+            ` → ${FLAGS.hasHeadshot ? 'RENDERING her photo' : 'rendering the placeholder frame'}`);
 console.log(`build: ${PAGES.length} pages → ${OUT}/`);
 console.log(`build: flags  ${flags}`);
 if (!existsSync(join(OUT, 'assets/fonts/jost-latin-var.woff2')))

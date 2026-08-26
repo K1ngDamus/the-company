@@ -77,12 +77,17 @@ Three layers, so removing it is a deliberate act rather than an accident:
 ## Where things live
 
 ```
-data/client.mjs    Every fact, every flag, every open question. The one file to edit.
-lib/render.mjs     Page shell, header, footer, watermark, schema, the blank renderer
-lib/pages.mjs      All eight pages and the consult form
-lib/styles.css     The design system — palette, type, components
-build.mjs          Renders dist/, plus robots.txt, sitemap.xml and the favicon
-assets/            Self-hosted Playfair Display + Jost, the FPC monogram
+data/client.mjs      Every fact, every flag, every open question. The one file to edit.
+data/intake.mjs      The intake form's question set
+lib/render.mjs       Page shell, both chromes, watermark, schema, the blank renderer
+lib/pages.mjs        Her eight pages and the consult form
+lib/intake-pages.mjs /start/ and /review-card/ — the two pages that are FROM us
+lib/qr.mjs           A dependency-free QR encoder (+ generated qr-tables.mjs)
+lib/intake.js        The only script that ships: autosave and the answer summary
+lib/styles.css       The design system — palette, type, components
+build.mjs            Renders dist/, plus robots.txt, sitemap.xml and the favicon
+assets/              Self-hosted Playfair Display + Jost, the FPC monogram
+scripts/verify-qr.py Dev-only: proves the QR encoder against a reference + a decoder
 ```
 
 `data/client.mjs` is the single source of truth. Every verified fact is
@@ -99,13 +104,63 @@ Each defaults to the honest state, not the flattering one.
 |---|---|---|
 | `showPayments` | `false` | She says CashApp/Venmo belong on a public website |
 | `consultIsFree` | `false` | She confirms the consult is free — **and log who confirmed** |
-| `hasHeadshot` | `false` | Written permission to use her headshot arrives |
+| `headshotPermission` | `false` | She gives written permission to publish her likeness |
 | `isPreview` | `true` | She has signed AND there is a real domain |
 
 `consultIsFree` is the one to be careful with. The brief wired a "Free
 Consultation" CTA everywhere, but consult cost is unverified. Asserting *free*
 on a lawyer's site without her word is an invented claim, so every CTA reads
 "Request a Consultation" until she says otherwise. The audit enforces it.
+
+## Her headshot
+
+Two gates, deliberately separate: **the file** (drop it in `assets/` as
+`keyanna-marshall.jpg` — auto-detected, no path to edit) and **permission**
+(`FLAGS.headshotPermission`). Being able to download a photo is not being
+allowed to publish it. Her face renders only when both hold, and
+`node build.mjs` prints which one is missing on every run.
+
+Tested with a stand-in image: dropping the real file in measures **CLS 0**.
+
+## The two pages that are FROM us
+
+Both wear FPC chrome rather than her branding, so neither can be mistaken for
+a page of her site.
+
+- **`/start/`** — the intake form. Every open question, asked in a form she can
+  finish in one sitting: mostly tapping, "Not sure" on everything, nothing
+  required. It autosaves to her own browser and **sends nothing anywhere** —
+  no handler, no tracking. A "gather my answers" step produces text she copies
+  or prints. It works fully with JavaScript off; the script only adds the
+  autosave and the summary.
+- **`/review-card/`** — a printable card whose QR opens her Google review box.
+  Complimentary; she keeps it either way.
+
+### About the QR
+
+`lib/qr.mjs` is a ~300-line byte-mode encoder with no dependencies. It exists
+rather than a QR website because a free generator encodes a redirect on *their*
+domain: it can expire, start charging, and logs everyone who scans a card in a
+law office's waiting room. Encoding the destination directly is permanent and
+private.
+
+The spec tables in `qr-tables.mjs` are **generated** from a reference encoder,
+never hand-typed — one wrong number produces a QR that looks perfectly normal
+and silently does not scan. `scripts/verify-qr.py` checks every matrix
+module-for-module against that reference **and** decodes each one back with
+OpenCV: 32/32 matrices identical, and every code OpenCV can read reads back
+correctly.
+
+### Why there is no pre-written review text
+
+It was asked for and deliberately left out. Supplying the words a client
+submits as their own review breaks Google's content policy, the FTC's 2024
+endorsement rule and GA Rule of Professional Conduct 7.1. The practical risk is
+larger than the legal one: Google's spam detection clusters near-identical
+reviews and removes them, which would cost her the reviews she already has —
+starting from one. The card solves the real friction instead: one tap to the
+box, prompts rather than scripts, and a clear note that a **star-only review
+with no text is complete and counts**.
 
 ## Design direction
 

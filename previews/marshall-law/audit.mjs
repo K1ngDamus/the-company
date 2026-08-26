@@ -95,8 +95,13 @@ for (const page of pages) {
      that nobody catches by reading. */
   if (html.includes(CLIENT.nap.street) && !html.includes(CLIENT.nap.zip))
     add(page, 'address appears without the ZIP — NAP must be identical everywhere');
+  /* Her number must never drift. Two other numbers are legitimately on the
+     build: the example in the form's placeholder, and Front Porch's own number
+     on the pages that are FROM us (/start/, /review-card/). Both are listed
+     explicitly so a genuinely wrong number still fails. */
+  const ALLOWED_PHONES = new Set([CLIENT.phone, '(762) 555-0123', '(678) 525-8154']);
   for (const m of html.matchAll(/\(\d{3}\)\s?\d{3}-\d{4}/g))
-    if (m[0] !== CLIENT.phone && m[0] !== '(762) 555-0123')   // the placeholder in the form
+    if (!ALLOWED_PHONES.has(m[0]))
       add(page, `phone drift: "${m[0]}" is not ${CLIENT.phone}`);
 
   /* --- structure -------------------------------------------------------- */
@@ -129,9 +134,16 @@ for (const page of pages) {
     if (!/aria-hidden|aria-label|role="img"/.test(svg))
       add(page, `<svg> with no accessible name or aria-hidden: ${svg.slice(0, 60)}…`);
 
+  /* Chip controls wrap their input inside the <label>, which is a valid
+     labelling method with no `for` to find. Exempt the ones that ACTUALLY sit
+     inside such a label rather than exempting a type wholesale — a stray radio
+     or checkbox outside a chip is still a real finding. */
+  const wrapped = new Set(
+    [...html.matchAll(/<label class="(?:choice|check)"[^>]*>\s*(<input[^>]*>)/g)].map((m) => m[1]),
+  );
   for (const input of html.match(/<input[^>]*>/g) ?? []) {
     if (/type="hidden"/.test(input)) continue;
-    if (/type="radio"/.test(input)) continue;                    // wrapped in <label class="choice">
+    if (wrapped.has(input)) continue;
     if (/aria-hidden="true"/.test(input) && /tabindex="-1"/.test(input)) continue;  // honeypot
     if (/aria-label/.test(input)) continue;
     const id = input.match(/id="([^"]+)"/);

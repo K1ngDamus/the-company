@@ -40,7 +40,7 @@ await new Promise((r) => server.listen(0, r));
 const base = `http://127.0.0.1:${server.address().port}`;
 
 const ROUTES = ['/', '/about/', '/practice-areas/', '/practice-areas/criminal-defense/',
-  '/results/', '/contact/', '/exposure/'];
+  '/results/', '/contact/', '/exposure/', '/start/', '/review-card/'];
 const VIEWS = [
   { name: 'mobile', width: 390, height: 844, isMobile: true },
   { name: 'desktop', width: 1440, height: 900, isMobile: false },

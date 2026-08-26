@@ -13,7 +13,7 @@
  *     do tonight — which is true of defense practice generally and promises
  *     nothing about her outcomes.
  */
-import { CLIENT, FLAGS, OPEN, MARKET, isAsk } from '../data/client.mjs';
+import { CLIENT, FLAGS, OPEN, MARKET, isAsk, HEADSHOT_SRC } from '../data/client.mjs';
 import { esc, attr, ICONS, blank, consultLabel, ratingBlock, page, paymentsBlock } from './render.mjs';
 
 /* ==========================================================================
@@ -152,10 +152,11 @@ const home = () => {
     </div>
     <div>
       ${FLAGS.hasHeadshot
-        ? `<figure class="portrait"><img src="/assets/keyanna-marshall.jpg" width="800" height="1000" alt="${attr(CLIENT.attorney)}, ${attr(CLIENT.credential)}"><span class="portrait__frame"></span></figure>`
+        ? `<figure class="portrait"><img src="${attr(HEADSHOT_SRC)}" width="800" height="1000" loading="eager" decoding="async" alt="${attr(CLIENT.attorney)}, ${attr(CLIENT.credential)}"><span class="portrait__frame"></span></figure>`
         : `<div class="portrait portrait--empty">
-             <p class="portrait__label"><strong>[awaiting client]</strong><br>Headshot — usage rights pending.
-             This frame is sized to the real image, so dropping the file in shifts nothing.</p>
+             <p class="portrait__label"><strong>[awaiting client]</strong><br>Headshot — ${
+               HEADSHOT_SRC ? 'file received, awaiting written permission to publish it' : 'usage rights and file pending'
+             }. This frame is sized to the real image, so dropping it in shifts nothing.</p>
              <span class="portrait__frame"></span>
            </div>`}
     </div>
@@ -309,9 +310,11 @@ const about = () => {
     </div>
     <div>
       ${FLAGS.hasHeadshot
-        ? `<figure class="portrait"><img src="/assets/keyanna-marshall.jpg" width="800" height="1000" alt="${attr(CLIENT.attorney)}, ${attr(CLIENT.credential)}"><span class="portrait__frame"></span></figure>`
+        ? `<figure class="portrait"><img src="${attr(HEADSHOT_SRC)}" width="800" height="1000" loading="eager" decoding="async" alt="${attr(CLIENT.attorney)}, ${attr(CLIENT.credential)}"><span class="portrait__frame"></span></figure>`
         : `<div class="portrait portrait--empty">
-             <p class="portrait__label"><strong>[awaiting client]</strong><br>Headshot — usage rights pending.</p>
+             <p class="portrait__label"><strong>[awaiting client]</strong><br>Headshot — ${
+               HEADSHOT_SRC ? 'file received, awaiting written permission' : 'usage rights and file pending'
+             }.</p>
              <span class="portrait__frame"></span>
            </div>`}
     </div>
@@ -506,7 +509,7 @@ const results = () => {
     <div class="todo">
       <span class="todo__tag">The plan</span>
       <strong>One review today. Her competitors have ${esc(MARKET.reviewGap.competitorRange)}.</strong>
-      <p>That gap is the single biggest lever on this whole engagement, and it is not a website problem — it is a process problem with a website component. The full plan is on the <a href="/exposure/">exposure page</a>.</p>
+      <p>That gap is the single biggest lever on this whole engagement, and it is not a website problem — it is a process problem with a website component. The full plan is on the <a href="/exposure/">exposure page</a>, and <a href="/review-card/">the review card</a> is already made.</p>
     </div>
   </div>
 </section>
@@ -582,6 +585,7 @@ const exposure = () => {
     step('A reviews engine', `<p>She has <strong>${MARKET.reviewGap.hers}</strong>. Her competitors have <strong>${esc(MARKET.reviewGap.competitorRange)}</strong>. Nothing else on this list moves the needle as hard.</p>
       <ul><li>A simple post-case text or email with the direct review link — the fewer taps between "thank you" and the review box, the more reviews exist.</li>
       <li>Target: 25+ reviews in six months.</li>
+      <li>The card is already made — see <a href="/review-card/">the review card</a>. It is yours either way.</li>
       <li><strong>Her ethical call, not ours.</strong> Georgia's advertising rules govern how a lawyer may solicit and use client reviews. The flow gets built to whatever she is comfortable with, and she sees it before it sends anything.</li></ul>`),
     step('Local schema on every page', `<p>She currently has none. This preview already ships it: <code>Attorney</code> JSON-LD with the NAP, hours, area served, and the firm's canonical URL, on every single page.</p>
       <ul><li>Two things are deliberately left out until she confirms them: <strong>geo coordinates</strong> (a guessed pin puts her in the wrong building) and <strong>aggregate rating</strong> (self-serving review markup is against Google's own guidelines, and one review presented as a rating overstates it).</li>
@@ -628,7 +632,8 @@ const exposure = () => {
     <h2>Where this starts</h2>
     <p>The review gap and the Avvo ZIP mismatch are the two items that cost nothing to fix and change the most. Everything else compounds on top of them.</p>
     <div class="btn-row">
-      <a class="btn" href="/contact/#consult">${esc(consultLabel())}</a>
+      <a class="btn" href="/start/">Start the questions</a>
+      <a class="btn btn--ghost" href="/review-card/">See the review card</a>
       <a class="btn btn--ghost" href="/">Back to the site</a>
     </div>
   </div>
@@ -664,6 +669,8 @@ const notFound = () => page({
 </section>`,
 });
 
+import { startPage, reviewCardPage } from './intake-pages.mjs';
+
 export const PAGES = [
   { route: '/', file: 'index.html', render: home },
   { route: '/about/', file: 'about/index.html', render: about },
@@ -672,5 +679,9 @@ export const PAGES = [
   { route: '/results/', file: 'results/index.html', render: results },
   { route: '/contact/', file: 'contact/index.html', render: contact },
   { route: '/exposure/', file: 'exposure/index.html', render: exposure },
+  /* From Front Porch rather than part of her site — FPC chrome, noindex like
+     everything else here, and linked from the pitch rather than her nav. */
+  { route: '/start/', file: 'start/index.html', render: startPage },
+  { route: '/review-card/', file: 'review-card/index.html', render: reviewCardPage },
   { route: '/404/', file: '404.html', render: notFound },
 ];

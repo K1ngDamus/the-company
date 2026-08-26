@@ -14,8 +14,27 @@
  */
 
 /** A question only Keyanna can answer. Renders as a labeled gap on the page. */
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 export const ask = (question, note = '') => ({ __ask: true, question, note });
 export const isAsk = (v) => Boolean(v && v.__ask);
+
+/* -------------------------------------------------------------------------
+   HER HEADSHOT — drop the file in and rebuild. That is the whole procedure.
+
+   Detected at build time so nobody has to remember to flip a flag as well as
+   copy a file. But detection is only half the gate: PERMISSION is separate and
+   stays explicit below, because a file being on disk is not her saying yes.
+   Both must be true before her face appears anywhere.
+   ---------------------------------------------------------------------- */
+const HEADSHOT_NAMES = [
+  'keyanna-marshall.webp', 'keyanna-marshall.jpg',
+  'keyanna-marshall.jpeg', 'keyanna-marshall.png',
+];
+const assetPath = (name) => fileURLToPath(new URL(`../assets/${name}`, import.meta.url));
+export const HEADSHOT_FILE = HEADSHOT_NAMES.find((n) => existsSync(assetPath(n))) || null;
+export const HEADSHOT_SRC = HEADSHOT_FILE ? `/assets/${HEADSHOT_FILE}` : null;
 
 /* -------------------------------------------------------------------------
    FEATURE FLAGS — the switches Leon flips as answers come back.
@@ -33,16 +52,24 @@ export const FLAGS = {
    *  placeholder. Flip to true ONLY on her confirmation, and log who confirmed. */
   consultIsFree: false,
 
-  /** Her headshot exists on Blinq/GBP. Usage rights unconfirmed, so nothing of
-   *  hers is copied. OFF renders a portrait frame sized to the real image, so
-   *  dropping the file in later causes zero layout shift. */
-  hasHeadshot: false,
+  /** Written permission to use her likeness. This is a SEPARATE gate from the
+   *  file existing — her photo is on Blinq and GBP, and being able to download
+   *  something is not permission to publish it. Set true only when she has
+   *  actually said yes, and note who heard her say it.
+   *
+   *  The rendered result is `FLAGS.hasHeadshot`, computed below: permission
+   *  AND a file present. Until both hold, the page shows a frame sized to the
+   *  real image, so dropping the file in later shifts nothing on the page. */
+  headshotPermission: false,
 
   /** Preview builds are noindex + robots-disallow, always. This exists to make
    *  that a deliberate, visible decision rather than an oversight. Turning it
    *  off requires a signed client and a real domain. */
   isPreview: true,
 };
+
+/** Her face appears only when BOTH gates are open. */
+FLAGS.hasHeadshot = FLAGS.headshotPermission && HEADSHOT_SRC !== null;
 
 /* -------------------------------------------------------------------------
    VERIFIED — reproduce exactly. Source noted for every line.
@@ -136,6 +163,51 @@ export const OPEN = {
     'Deliberately NOT in the schema. Coordinates are trivial to guess and wrong coordinates put her pin in the wrong building — read off her claimed GBP, never estimated.',
   ),
   barAssociations: ask('Bar associations and memberships', 'Feeds both the About page and the local-link plan.'),
+  reviewLink: ask(
+    'Her direct Google review link',
+    'From Google Business Profile → "Ask for reviews" (a g.page/r/…/review short link), or built from her Place ID. Needed before the review card QR is real rather than a sample.',
+  ),
+};
+
+/* -------------------------------------------------------------------------
+   THE REVIEW CARD — /review-card/
+   A printable card whose QR opens her Google review box in one tap.
+
+   WHAT THIS DELIBERATELY DOES NOT DO: supply the review text.
+
+   Pre-written review copy that a customer submits as their own breaks Google's
+   content policy (reviews must reflect genuine first-hand experience), the
+   FTC's 2024 endorsement rule (16 CFR 465), and GA Rule of Professional
+   Conduct 7.1 — a lawyer may not cause a misleading communication to be made,
+   and a testimonial the firm wrote is exactly that.
+
+   The practical risk is worse than the legal one. Google's spam detection
+   specifically clusters near-identical reviews, and the usual outcome is that
+   the reviews are REMOVED and the profile suppressed — which would destroy the
+   review base this whole plan exists to build, starting from one.
+
+   The friction it was meant to solve is real, though, and there are two honest
+   fixes for it: Google accepts a STAR-ONLY review with no text at all, and a
+   few prompt questions jog memory without putting words in anyone's mouth.
+   Both are on the card.
+   ---------------------------------------------------------------------- */
+export const REVIEW = {
+  /** Replace with her real link (OPEN.reviewLink). Until then the card renders
+   *  as a clearly-labelled sample encoding her website, which is real and
+   *  harmless — never a fake review URL. */
+  link: null,
+
+  /** Prompts, not scripts. Every one is a question about the reader's own
+   *  experience; none of them suggests an answer or a rating. */
+  prompts: [
+    'What were you facing when you first called?',
+    'What were you most worried about?',
+    'How did Keyanna explain your options?',
+    'What would you tell someone in the same position?',
+  ],
+
+  /** The line that removes the actual friction. */
+  starOnly: 'Not one for writing? A star rating on its own counts. Tap the stars, tap Post, done.',
 };
 
 /* -------------------------------------------------------------------------

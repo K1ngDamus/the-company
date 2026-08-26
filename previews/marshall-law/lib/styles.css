@@ -542,3 +542,141 @@ td strong { color: var(--ink); }
 .breadcrumbs a { color: var(--slate); display: inline-flex; align-items: center; min-height: 44px; }
 .breadcrumbs a:hover { color: var(--ink); }
 .breadcrumbs span[aria-current] { color: var(--ink); }
+
+/* ==========================================================================
+   CLIENT INTAKE — /start/
+   This page is FROM Front Porch, not part of her site, so it wears a different
+   hat: ink header bar, FPC mark, no client nav. Same palette underneath so it
+   still feels like one piece of work.
+   ========================================================================== */
+.intake-top { background: var(--ink); color: var(--on-ink); padding-block: 1rem; position: sticky; top: 0; z-index: 60; }
+.intake-top__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.intake-top__brand { display: flex; align-items: center; gap: .7rem; font-weight: 600; }
+.intake-top__brand .fpc-mark { color: var(--rose-bright); flex: none; }
+.intake-top__for { font-size: var(--step--1); color: var(--on-ink-dim); }
+
+.intake-hero { padding-block: clamp(2.25rem, 1.8rem + 2.5vw, 4rem) clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem); }
+.intake-hero h1 { max-width: 18ch; }
+.intake-hero .lede { max-width: 56ch; }
+
+/* Save state — reassurance that a long form is not about to be lost. */
+.savebar {
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: .8rem 1.1rem; font-size: var(--step--1); color: var(--slate);
+}
+.savebar__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); flex: none; }
+.savebar[data-state="saved"] .savebar__dot { background: var(--rose); }
+.savebar strong { color: var(--ink); }
+
+.intake-nav { display: flex; flex-wrap: wrap; gap: .5rem; }
+.intake-nav a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: .5rem 1rem;
+  border: 1.5px solid var(--line-strong); border-radius: 999px; background: var(--card);
+  text-decoration: none; font-size: var(--step--1); font-weight: 500; color: var(--ink);
+}
+.intake-nav a:hover { border-color: var(--rose); color: var(--rose); }
+
+.qsection { border-top: 2px solid var(--ink); padding-top: 1.5rem; }
+.qsection + .qsection { margin-top: clamp(2.5rem, 2rem + 2vw, 4rem); }
+.qsection__num {
+  font-size: var(--step--1); font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--rose); display: block; margin-bottom: .4rem;
+}
+.qsection__blurb { color: var(--slate); max-width: 62ch; margin-top: .7rem; }
+.qsection__body { margin-top: 2rem; display: grid; gap: 2rem; }
+
+.q { display: grid; gap: .65rem; }
+.q > .label { font-weight: 600; font-size: var(--step-0); color: var(--ink); max-width: 58ch; }
+.q .hint { font-size: var(--step--1); color: var(--slate); max-width: 62ch; line-height: 1.55; }
+
+/* Checkbox chips — same shape as the radio chips so the whole form reads as
+   one control language. */
+.check { position: relative; }
+.check input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; margin: 0; }
+.check span {
+  display: flex; align-items: center; gap: .5em; min-height: 44px; padding: .6em 1.1em;
+  border: 1.5px solid var(--line-strong); border-radius: 999px; background: var(--card);
+  color: var(--ink); font-size: var(--step--1); font-weight: 500;
+  transition: all .16s var(--ease); user-select: none;
+}
+.check span::before {
+  content: ""; width: 16px; height: 16px; flex: none; border-radius: 4px;
+  border: 1.5px solid var(--line-strong); background: var(--porcelain);
+}
+.check input:hover + span { border-color: var(--rose); }
+.check input:focus-visible + span { outline: 3px solid var(--rose); outline-offset: 3px; }
+.check input:checked + span { background: var(--rose); color: var(--card); border-color: var(--rose); font-weight: 600; }
+.check input:checked + span::before {
+  background: var(--card); border-color: var(--card);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B3195C' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-size: 12px; background-position: center; background-repeat: no-repeat;
+}
+
+/* A note block — context we owe her before she answers, not a question. */
+.notebox {
+  border-left: 3px solid var(--gold); background: var(--blush);
+  padding: 1.1rem 1.25rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.notebox strong { display: block; color: var(--ink); margin-bottom: .35rem; }
+.notebox p { color: var(--slate); font-size: var(--step--1); line-height: 1.6; }
+
+/* The offer menu — one row per thing, three priorities. */
+.prio { display: grid; gap: .75rem; }
+.prio__row {
+  display: grid; gap: .85rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.1rem 1.15rem;
+}
+@media (min-width: 780px) { .prio__row { grid-template-columns: 1fr auto; align-items: start; } }
+.prio__label { font-weight: 600; color: var(--ink); }
+.prio__desc { font-size: var(--step--1); color: var(--slate); margin-top: .3rem; line-height: 1.55; max-width: 60ch; }
+.prio__choices { display: flex; gap: .4rem; flex-wrap: wrap; }
+/* 44px here too. These were 40px to keep the offer rows compact, which the
+   browser check correctly rejected — the floor does not bend for density. */
+.prio__choices .choice span { min-height: 44px; padding: .4em .9em; font-size: .82rem; }
+
+/* Review-and-copy step */
+.summary {
+  width: 100%; min-height: 16rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .82rem; line-height: 1.55; background: var(--porcelain);
+  border: 1.5px solid var(--line-strong); border-radius: var(--radius-sm); padding: 1rem;
+  color: var(--ink); resize: vertical;
+}
+
+/* ==========================================================================
+   REVIEW CARD — /review-card/
+   A physical thing. Screen layout is a preview of the print layout.
+   ========================================================================== */
+.rcard {
+  background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+  display: grid; gap: 1.4rem; max-width: 26rem; box-shadow: var(--shadow);
+}
+@media (min-width: 640px) { .rcard--wide { max-width: 40rem; grid-template-columns: auto 1fr; align-items: center; } }
+.rcard__qr { width: clamp(150px, 40vw, 190px); height: auto; margin-inline: auto; }
+.rcard__qr svg { width: 100%; height: auto; display: block; }
+.rcard__head { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.1; color: var(--ink); }
+.rcard__sub { font-size: var(--step--1); color: var(--slate); margin-top: .4rem; }
+.rcard__steps { display: grid; gap: .5rem; margin-top: .3rem; font-size: var(--step--1); color: var(--slate); }
+.rcard__steps li { list-style: none; display: flex; gap: .6rem; }
+.rcard__steps b { color: var(--rose); flex: none; font-variant-numeric: tabular-nums; }
+.rcard__foot { font-size: var(--step--1); color: var(--slate-dim); border-top: 1px solid var(--line); padding-top: .9rem; }
+
+.sample-flag {
+  display: inline-flex; align-items: center; gap: .5em; font-size: .68rem; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 600; color: var(--card); background: var(--gold);
+  padding: .3em .7em; border-radius: 3px;
+}
+
+.prompts { display: grid; gap: .6rem; }
+.prompts li { list-style: none; padding-left: 1.4rem; position: relative; color: var(--slate); }
+.prompts li::before { content: "?"; position: absolute; left: 0; color: var(--rose); font-weight: 700; }
+
+@media print {
+  .intake-top, .intake-nav, .savebar, .btn, .staged { display: none !important; }
+  .qsection { break-inside: avoid; }
+  .q { break-inside: avoid; }
+  .rcard { box-shadow: none; border: 1px solid #999; break-inside: avoid; page-break-inside: avoid; }
+  .input, .textarea { border: 1px solid #999 !important; min-height: 2.2rem; }
+  .textarea { min-height: 5rem; }
+}
