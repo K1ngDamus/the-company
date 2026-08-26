@@ -1,23 +1,32 @@
 #!/usr/bin/env bash
-# Publish the Marshall Law preview to GitHub Pages.
+# Republish the Marshall Law preview to GitHub Pages.
 #
-# WHY THIS NEEDS ITS OWN REPOSITORY
+# The site is already live at https://k1ngdamus.github.io/fpc-preview-mlp/.
+# This script updates it. Both one-time setup steps are done:
+#   • the repo exists (a GitHub App token cannot create one — 403 "Resource
+#     not accessible by integration")
+#   • Actions is enabled on it, which is what was silently blocking the first
+#     deploy: the workflow was pushed and readable through the API, but the
+#     repository reported zero workflow runs AND zero registered workflows
+#
+# WHY ITS OWN REPOSITORY
 # GitHub Pages serves ONE site per repository, and K1ngDamus/the-company's
-# Pages is already serving the live company site at frontporchbuilds.com.
-# Publishing the preview there would take the company site down. So the
-# preview gets its own repo, and the company site is never touched.
+# Pages already serves the live company site at frontporchbuilds.com.
+# Publishing the preview there would take the company site down.
 #
-# WHAT YOU HAVE TO DO BY HAND (two steps, both one-time)
-#   1. Create an EMPTY public repo. Suggested name: fpc-preview-mlp
-#      github.com/new — public, no README, no .gitignore, no licence.
-#      (A GitHub App token cannot create repositories: 403 "Resource not
-#      accessible by integration". Same reason a workflow could not create
-#      this account's Pages site — see deploy.yml in the-company.)
-#   2. After the first run of this script, switch Pages on:
-#      repo → Settings → Pages → Source: "Deploy from a branch"
-#             → Branch: main → folder: / (root) → Save
+# HOW IT PUBLISHES
+# Not from the "Deploy from a branch" setting — from a workflow committed in
+# the preview repo at .github/workflows/pages.yml. This script pushes that
+# workflow alongside the built output and Actions does the deploying.
 #
-# Then, from previews/marshall-law/:
+# THE WORKFLOW MUST BE PUSHED WITH THE SITE. This script force-pushes a tree
+# built from scratch, so anything not written into that tree is deleted from
+# the repo. An earlier version copied only dist/ — which would have removed
+# the workflow and left the site frozen at whatever was last deployed, with
+# nothing to redeploy it. deploy/pages-workflow.yml is the canonical copy and
+# is copied in below; edit it there, never in the published repo.
+#
+# From previews/marshall-law/:
 #   ./scripts/deploy-github-pages.sh            # uses fpc-preview-mlp
 #   REPO=some-other-name ./scripts/deploy-github-pages.sh
 set -euo pipefail
@@ -42,6 +51,11 @@ WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 cp -a dist/. "$WORK/"
 
+# The deploy workflow ships WITH the site. Without this the force-push below
+# removes it from the repo and nothing can ever redeploy.
+mkdir -p "$WORK/.github/workflows"
+cp deploy/pages-workflow.yml "$WORK/.github/workflows/pages.yml"
+
 cat > "$WORK/README.md" <<NOTE
 # Design preview — not a live site
 
@@ -64,13 +78,10 @@ git push -f origin main
 
 cat <<NOTE
 
-==> Pushed.
+==> Pushed. Actions will redeploy on its own; watch it here:
+  https://github.com/$OWNER/$REPO/actions
 
-If this was the first run, switch Pages on now:
-  https://github.com/$OWNER/$REPO/settings/pages
-  Source: "Deploy from a branch" → Branch: main → / (root) → Save
-
-Your link (live a minute or two after that switch):
+Your link (live a minute or so after that run goes green):
   https://$OWNER.github.io/$REPO/
 
 Check before sending it:
