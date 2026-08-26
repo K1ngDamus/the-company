@@ -1,74 +1,109 @@
-# Prompt for Smokey
+# Handoff — Smokey drafts the email to Ms. Marshall
 
-Copy everything in the block below into Smokey's session.
+Everything is ready. Copy the block below into Smokey's session.
+
+**State as of 2026-08-26:** the preview is live, the email draft is complete
+with the real link in it, and the three attachments regenerate with one
+command. Two things are still missing from Ms. Marshall herself — her photo and
+her Google review link — and both are handled honestly in the copy rather than
+blocking the send.
 
 ---
 
 ```
-Smokey — assembling the Marshall Law outreach for Leon to send.
+Smokey — assemble the Marshall Law outreach email for Leon to send.
 
 CONTEXT
 Leon met Keyanna A. Marshall (Marshall Law Practice, LLC — criminal defense,
 Columbus GA) about representation for a friend. He then looked at her website
-and card, saw the state of it, and had a full preview site built on spec. This
-is the email that goes to her. It is the first touch, it is from Leon
-personally, and it is a real business proposal, not a campaign.
+and card, saw the state of it, and had a full preview site built on spec.
 
-She has NOT signed. Nothing has been sent to her yet.
+This is the first touch. It is from Leon personally, to one person, and it is a
+real business proposal rather than a campaign. She has NOT signed, and nothing
+has been sent to her yet.
 
 YOUR JOB
-Assemble one email, ready for Leon to send from his own address. Do not send
-it. Do not contact her. Hand Leon a finished draft and the attachments.
+Hand Leon a finished email he can send from his own address: subject, body, and
+three attachments. Do NOT send it. Do NOT contact her.
 
-SOURCE MATERIAL — in previews/marshall-law/
-  docs/outreach/EMAIL-DRAFT.md        the body copy, subject lines, rationale
-  docs/outreach/PREVIEW-HOSTING.md    the link options and what each one means
-  outbox/Marshall-Law-Design-Preview.pdf      look book, 9 pages
-  outbox/Marshall-Law-Getting-Started-FORM.pdf    the questions, 9 pages
-  outbox/Marshall-Law-Review-Card.pdf         the QR review card, 2 pages
-  outbox/shots/                       the raw screenshots, if you need them
+SOURCE MATERIAL — all under previews/marshall-law/
+  docs/outreach/EMAIL-DRAFT.md          the body copy, subject lines, rationale
+  docs/outreach/DEPLOY-GITHUB-PAGES.md  how the live preview is published
+  outbox/Marshall-Law-Design-Preview.pdf         look book, 9 pages
+  outbox/Marshall-Law-Getting-Started-FORM.pdf   the questions, 9 pages
+  outbox/Marshall-Law-Review-Card.pdf            the QR review card, 2 pages
 
-If outbox/ is empty, regenerate everything with `npm run outbox`.
+If outbox/ is empty or you have any doubt the PDFs are current, regenerate all
+three with `npm run outbox` from previews/marshall-law/. It takes under a
+minute and is always safe.
 
-BUILD IT LIKE THIS
+ASSEMBLE IT LIKE THIS
 1. Subject: "Following up from the other day — I built you something"
    unless Leon has picked one of the alternatives in EMAIL-DRAFT.md.
-2. Body: the plain-text block in EMAIL-DRAFT.md, verbatim. It is already in
-   Leon's voice, from his own words. Do not rewrite it into marketing copy.
-3. Attach all three PDFs.
-4. The preview link is live and already in the draft:
-   https://k1ngdamus.github.io/fpc-preview-mlp/
-   Open it once and confirm it loads before you attach anything. If it 404s,
-   STOP and tell Leon — do not send an email pointing at a dead link.
-5. Plain text, not HTML. One recipient. No BCC, no mail-merge, no tracking
-   pixel, no link shortener.
+2. Body: the plain-text block in EMAIL-DRAFT.md, VERBATIM. It is already in
+   Leon's voice, built from his own opening line. Do not rewrite it into
+   marketing copy and do not "improve" it.
+3. Attach all three PDFs. Open each one first and confirm it renders.
+4. The preview link is live and already in the body:
+      https://k1ngdamus.github.io/fpc-preview-mlp/
+   Open it before you hand anything over. If it 404s, STOP and tell Leon —
+   never send an email pointing at a dead link.
+5. Send as plain text, not HTML. One recipient: Keyanna@themarshall-law.com.
+   No BCC, no mail-merge, no tracking pixel, no link shortener. A designed
+   email from a stranger reads as marketing; a plain one reads as a person, and
+   the attachments do the showing.
+
+TWO THINGS ARE KNOWINGLY INCOMPLETE — leave both exactly as written
+  • Her photo. The preview shows a labelled "[awaiting client]" frame where her
+    headshot goes. We have permission to use it in the preview but not the
+    file. This is not a defect to apologise for or hide.
+  • Her Google review link. The attached review card is marked "sample" and its
+    QR currently points at her website. The email says so plainly and turns it
+    into a ten-second ask. Do NOT quietly drop that paragraph, and do NOT claim
+    the card is finished.
 
 HARD RULES — these are the ones that matter
-- Nothing goes to Keyanna without Leon's explicit go-ahead on the final text.
-- Do not add a price, a package, a retainer figure, or a discount.
+- Nothing goes to Ms. Marshall without Leon's explicit go-ahead on the final
+  text.
+- Do not add a price, package, retainer figure, or discount. Price is a
+  conversation after she wants the thing, and a reason to say no before then.
 - Do not add any claim about Ms. Marshall's record, results, experience, or how
-  long she has practised. None of that is verified, and a false claim on a
+  long she has practised. None of it is verified, and a false claim on a
   lawyer's marketing is a bar problem rather than a typo.
-- Do not add testimonials or reviews. There are none we are allowed to use.
-- Do not promise to write Ms. Marshall's biography or About page. We do not
-  write a lawyer's About page for them; she provides it if she wants to go
-  ahead.
-- Do not soften or remove the paragraph explaining what is true on the site and
-  what is marked blank. For a lawyer, that paragraph is the trust.
-- Do not remove the review card giveaway or attach conditions to it.
-- Keep every number checkable: Ms. Marshall's 5.0 rating and 1 review, the
-  competitors' 74-282, the Avvo ZIP mismatch. Add no others.
-- Every attachment is watermarked and every page says "Not a live site."
-  Do not produce clean unwatermarked versions.
+- Do not add testimonials or reviews. There are none we are permitted to use.
+- Do not promise to write Ms. Marshall's biography or her About page. We do not
+  write a lawyer's About page for them; she provides it if she goes ahead.
+- Do not soften or cut the paragraph explaining what on the site is true and
+  what is marked blank. For a lawyer, that paragraph is the whole basis of
+  trust, and it is the reason this email works at all.
+- Do not remove the review-card giveaway or attach conditions to it.
+- Keep every number checkable: her 5.0 rating and 1 review, the competitors'
+  74-282, the Avvo ZIP mismatch. Add no others.
+- Refer to her as Ms. Marshall in the third person; the body already addresses
+  her directly as "you".
+- Every attachment is watermarked and every page says "Not a live site." Never
+  produce clean unwatermarked versions.
 
-WHEN YOU ARE DONE
-Give Leon:
+WHEN YOU ARE DONE, GIVE LEON
   - the final subject and body, ready to paste
-  - the three attachments, confirmed present and opening correctly
-  - one line on anything you changed and why
-  - the outstanding items from PREVIEW-HOSTING.md, so he knows what is still
-    missing (the link, her photo, her Google review link)
+  - the three attachments, each confirmed to open
+  - confirmation the preview link loads
+  - one line on anything you changed, and why
+  - a reminder that her photo and her Google review link are still outstanding
 
 If anything is ambiguous, ask Leon before assembling. An email to a prospective
 client is not the place to guess.
 ```
+
+---
+
+## After she replies
+
+- **Her photo** → drop it at `previews/marshall-law/assets/keyanna-marshall.jpg`
+  and rebuild. Auto-detected; no path to edit. Measured CLS 0.
+- **Her Google review link** → set `REVIEW.link` in `data/client.mjs`. The QR
+  re-encodes and the "Sample" flag disappears on the next build.
+- **Her form answers** → into `data/client.mjs`; the `[awaiting client]`
+  placeholders become content.
+- **Republish the preview** → `npm run deploy:pages` from
+  `previews/marshall-law/`. Nothing to touch in GitHub settings.

@@ -71,12 +71,18 @@ ZIP code than your business card. Google compares your listings against each
 other, so a mismatch like that quietly works against you. That one is worth
 fixing whatever you decide about the rest.
 
-There is also a review card attached. It is a printable card with a QR code
-that takes a client straight to your Google review box in one tap. You have
-one review; the firms showing up above you have between 74 and 282, and that
-gap is the single biggest thing standing between you and the top of those
-search results. The card is yours to keep and use either way — no strings on
-that one.
+There is also a review card attached — a printable card with a QR code that
+takes a client straight to your Google review box in one tap. You have one
+review; the firms showing up above you have between 74 and 282, and closing
+that gap would do more for you than anything else on the list.
+
+The copy attached is marked "sample" and its code currently points at your
+website, because there is one thing I need from you to finish it: your Google
+Business Profile has an "Ask for reviews" link, and with that the code points
+where it should. It takes about ten seconds to find. I would rather send you
+something honest than something that looks finished.
+
+Either way the card is yours — no strings on that one.
 
 The third attachment is a short set of questions. If you want to go further,
 answering what you can is genuinely all I would need to finish this. Most of
