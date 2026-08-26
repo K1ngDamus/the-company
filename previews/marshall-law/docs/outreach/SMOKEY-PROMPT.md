@@ -51,9 +51,10 @@ always safe.
 ASSEMBLE IT LIKE THIS
 1. Subject: "Following up from the other day — I built you something"
    unless Leon has picked one of the alternatives in EMAIL-DRAFT.md.
-2. Body: the VERSION A block in EMAIL-DRAFT.md, VERBATIM. It is already in
-   Leon's voice, built from his own opening line. Do not rewrite it into
-   marketing copy and do not "improve" it.
+2. Body: the block under THE BODY below, VERBATIM. It is reproduced here in
+   full so you do not need the repo. It is already in Leon's voice, built from
+   his own opening line. Do not rewrite it into marketing copy and do not
+   "improve" it.
 3. NO ATTACHMENTS. Version A carries none, on purpose. Do not helpfully add
    the PDFs back — that is the one change most likely to put this email in her
    junk folder. Version B exists for the follow-up.
@@ -65,6 +66,68 @@ ASSEMBLE IT LIKE THIS
    No BCC, no mail-merge, no tracking pixel, and paste the full URL — a link
    shortener is itself a spam signal. A designed email from a stranger reads as
    marketing; a plain one reads as a person.
+
+THE BODY — paste this verbatim, between the markers, markers excluded
+-----8<----- BEGIN BODY -----8<-----
+Keyanna,
+
+This is Leon Jackson. We spoke the other day about representation for a
+friend of mine.
+
+After that conversation I spent some time on your website and the links on
+your card, and I came away thinking I might be able to return the favour.
+What I do is build websites, and I thought I could give yours and everything
+it connects to a single, seamless front door — and a proper facelift while
+I was at it.
+
+Rather than describe it, I built it.
+
+    https://k1ngdamus.github.io/fpc-preview-mlp/
+
+That is a working preview of a new site for Marshall Law Practice — not a
+mock-up or a template with your name dropped in. Open it on your phone: tap
+the call button, open the menu, fill in the form. It all works.
+
+A few things worth saying up front, because I would want to know them:
+
+Everything on it is either true or clearly marked as blank. Your name, your
+address, your hours, your tagline and your 5.0 Google rating are exactly as
+they appear on your own card and listing. Everywhere something needed to come
+from you — your biography, your practice areas, anything a client has said
+about you — the page says so plainly instead of guessing. There are no
+invented reviews and no case results anywhere on it. I would not put a word
+in your mouth, and I would never write a lawyer's About page for them.
+
+Your Lady Justice mark and your colours are still yours. I kept the pink as
+the identity and deepened it slightly so it holds up as body text and passes
+contrast standards, which the current shade does not.
+
+One thing I noticed while I was looking: your Avvo profile lists a different
+ZIP code than your business card. Google compares your listings against each
+other, so a mismatch like that quietly works against you. That one is worth
+fixing whatever you decide about the rest.
+
+I have also made you a review card — a printable card with a QR code that
+takes a client straight to your Google review box in one tap. You have one
+review; the firms showing up above you have between 74 and 282, and closing
+that gap would do more for you than anything else I could do.
+
+It needs about ten seconds from you to be finished. Your Google Business
+Profile has an "Ask for reviews" link, and that is what the code needs to
+point at; until I have it, my copy points at your website and is marked
+"sample" on the front. I would rather hand you something honest than
+something that looks finished. The card is yours to keep either way, no
+strings. I will bring it when we talk.
+
+If any of it is worth a conversation, I am happy to walk you through it on a
+call or in person, whenever suits you. And if the answer is no, that is
+completely fine — fix the ZIP code and I have enjoyed the exercise.
+
+Leon Jackson
+Front Porch Collective LLC
+(678) 525-8154
+jacksonleon24@gmail.com
+-----8<----- END BODY -----8<-----
 
 TWO THINGS ARE KNOWINGLY INCOMPLETE — leave both exactly as written
   • Her photo. The preview shows a labelled "[awaiting client]" frame where her

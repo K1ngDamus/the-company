@@ -89,8 +89,14 @@ fixing whatever you decide about the rest.
 I have also made you a review card — a printable card with a QR code that
 takes a client straight to your Google review box in one tap. You have one
 review; the firms showing up above you have between 74 and 282, and closing
-that gap would do more for you than anything else I could do. The card is
-yours to keep either way, no strings. I will bring it when we talk.
+that gap would do more for you than anything else I could do.
+
+It needs about ten seconds from you to be finished. Your Google Business
+Profile has an "Ask for reviews" link, and that is what the code needs to
+point at; until I have it, my copy points at your website and is marked
+"sample" on the front. I would rather hand you something honest than
+something that looks finished. The card is yours to keep either way, no
+strings. I will bring it when we talk.
 
 If any of it is worth a conversation, I am happy to walk you through it on a
 call or in person, whenever suits you. And if the answer is no, that is
