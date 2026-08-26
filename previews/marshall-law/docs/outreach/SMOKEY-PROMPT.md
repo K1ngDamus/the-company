@@ -36,9 +36,10 @@ BUILD IT LIKE THIS
 2. Body: the plain-text block in EMAIL-DRAFT.md, verbatim. It is already in
    Leon's voice, from his own words. Do not rewrite it into marketing copy.
 3. Attach all three PDFs.
-4. Replace [ PREVIEW LINK ] with the real URL once Leon has chosen a hosting
-   option. If he has not chosen yet, STOP and ask him — do not send an email
-   with a dead placeholder in it, and do not quietly drop the paragraph.
+4. The preview link is live and already in the draft:
+   https://k1ngdamus.github.io/fpc-preview-mlp/
+   Open it once and confirm it loads before you attach anything. If it 404s,
+   STOP and tell Leon — do not send an email pointing at a dead link.
 5. Plain text, not HTML. One recipient. No BCC, no mail-merge, no tracking
    pixel, no link shortener.
 

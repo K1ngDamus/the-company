@@ -30,26 +30,37 @@ Public. **No** README, **no** .gitignore, **no** licence — it must be empty.
 > a workflow could not create its own Pages site (see the comment in
 > `.github/workflows/deploy.yml`).
 
-### 2. Publish, then switch Pages on
+### 2. Publish
 
-From `previews/marshall-law/`:
+**Done — the site went live on 2026-08-26 at https://k1ngdamus.github.io/fpc-preview-mlp/**
+
+It was published by **GitHub Actions**, not by the "Deploy from a branch" form
+this section originally described. Recorded here because the difference matters
+for anyone republishing later.
+
+What actually happened: the Pages Source on this repository was already set to
+**GitHub Actions**, and the branch form turned out to be genuinely hard to
+complete on a phone — the Save button wraps off-screen. So the preview carries
+its own workflow at `.github/workflows/pages.yml`, and Actions does the
+deploying.
+
+The first attempt still failed silently: the workflow was pushed and readable
+through the API, but **zero** workflow runs appeared, because Actions was
+disabled for the repository. Enabling it under **Settings → Actions → General →
+Allow all actions and reusable workflows** was the step that unblocked
+everything.
+
+**To republish after a change:**
 
 ```bash
-npm run deploy:pages
+cd previews/marshall-law
+REPO=fpc-preview-mlp ./scripts/deploy-github-pages.sh
 ```
 
-Then: repo → **Settings → Pages** → Source: **Deploy from a branch** →
-Branch: **main** → folder: **/ (root)** → **Save**.
+That rebuilds mounted at `/fpc-preview-mlp/` and force-pushes the output; the
+workflow then redeploys on its own. Nothing needs touching in Settings again.
 
-The link goes live a minute or two later:
-
-```
-https://k1ngdamus.github.io/fpc-preview-mlp/
-```
-
-**That is the URL for the email.** Paste it in place of `[ PREVIEW LINK ]`.
-
-Re-running `npm run deploy:pages` republishes; the Pages switch stays set.
+`npm run deploy:pages` does the same thing with the default repo name.
 
 ## Why the build has to know the repo name
 

@@ -50,7 +50,7 @@ Practice. Not a mock-up or a template with your name dropped in — real pages
 you can open on your phone, tap the call button, and fill in the form. You
 can see it here:
 
-    [ PREVIEW LINK ]
+    https://k1ngdamus.github.io/fpc-preview-mlp/
 
 A few things worth saying up front, because I would want to know them:
 
@@ -126,9 +126,10 @@ jacksonleon24@gmail.com
 
 ## Before you send — checklist
 
-1. **The link.** `[ PREVIEW LINK ]` is a placeholder. The preview is not hosted
-   anywhere yet, on purpose — putting it online is a deploy, and that is Leon's
-   call. See [`PREVIEW-HOSTING.md`](PREVIEW-HOSTING.md) for the options.
+1. **The link is live** — https://k1ngdamus.github.io/fpc-preview-mlp/
+   Published 2026-08-26. Open it on a phone before sending: tap the call button
+   and confirm it offers to dial (762) 266-0767, check the watermark is in the
+   bottom-right corner, and check a nav link (Contact) loads rather than 404s.
 2. **Attach all three PDFs** from `outbox/`.
 3. **Read the whole thing aloud once.** It is Leon's name on it and it should
    sound like him. Change anything that does not.
