@@ -21,20 +21,26 @@ export const ask = (question, note = '') => ({ __ask: true, question, note });
 export const isAsk = (v) => Boolean(v && v.__ask);
 
 /* -------------------------------------------------------------------------
-   HER HEADSHOT — drop the file in and rebuild. That is the whole procedure.
+   IMAGE SLOTS — drop a file in `assets/` and rebuild. That is the procedure.
 
    Detected at build time so nobody has to remember to flip a flag as well as
-   copy a file. But detection is only half the gate: PERMISSION is separate and
-   stays explicit below, because a file being on disk is not her saying yes.
-   Both must be true before her face appears anywhere.
+   copy a file. Every slot accepts several extensions; the first one found
+   wins, webp first so an optimised file beats an unoptimised one automatically.
    ---------------------------------------------------------------------- */
-const HEADSHOT_NAMES = [
-  'keyanna-marshall.webp', 'keyanna-marshall.jpg',
-  'keyanna-marshall.jpeg', 'keyanna-marshall.png',
-];
 const assetPath = (name) => fileURLToPath(new URL(`../assets/${name}`, import.meta.url));
-export const HEADSHOT_FILE = HEADSHOT_NAMES.find((n) => existsSync(assetPath(n))) || null;
-export const HEADSHOT_SRC = HEADSHOT_FILE ? `/assets/${HEADSHOT_FILE}` : null;
+const findAsset = (base) => {
+  const name = ['webp', 'jpg', 'jpeg', 'png'].map((e) => `${base}.${e}`).find((n) => existsSync(assetPath(n)));
+  return name ? { file: name, src: `/assets/${name}` } : { file: null, src: null };
+};
+
+/** Named slots. Add a row here and a file, and it renders — no other edit. */
+export const IMAGES = {
+  headshot: findAsset('keyanna-marshall'),   // hero + About
+  office:   findAsset('office'),             // Contact — a real office beats stock
+};
+
+export const HEADSHOT_FILE = IMAGES.headshot.file;
+export const HEADSHOT_SRC = IMAGES.headshot.src;
 
 /* -------------------------------------------------------------------------
    FEATURE FLAGS — the switches Leon flips as answers come back.
@@ -52,15 +58,25 @@ export const FLAGS = {
    *  placeholder. Flip to true ONLY on her confirmation, and log who confirmed. */
   consultIsFree: false,
 
-  /** Written permission to use her likeness. This is a SEPARATE gate from the
-   *  file existing — her photo is on Blinq and GBP, and being able to download
-   *  something is not permission to publish it. Set true only when she has
-   *  actually said yes, and note who heard her say it.
+  /* --- her likeness: two different permissions, deliberately not one -------
    *
-   *  The rendered result is `FLAGS.hasHeadshot`, computed below: permission
-   *  AND a file present. Until both hold, the page shows a frame sized to the
-   *  real image, so dropping the file in later shifts nothing on the page. */
-  headshotPermission: false,
+   * A private pitch document and a public website are not the same act, and
+   * collapsing them into one boolean is how a photo nobody cleared ends up on
+   * a live site. So there are two.
+   */
+
+  /** Use her photo in THIS PREVIEW — a private, watermarked, noindex,
+   *  never-deployed document shown to her in a pitch. Leon's call, made
+   *  2026-08-26: a prospect cannot picture her own web home without her face
+   *  in it, and that is most of what the preview is for. */
+  headshotPreviewUse: true,
+
+  /** Publish her likeness on the LIVE site. Still false, and it stays false
+   *  until she says yes in writing — showing someone a mockup of their own
+   *  face is not the same as them licensing it to the open internet. This is
+   *  the gate that matters once FLAGS.isPreview goes false, and question 3 on
+   *  /start/ is what clears it. */
+  headshotPublishRights: false,
 
   /** Preview builds are noindex + robots-disallow, always. This exists to make
    *  that a deliberate, visible decision rather than an oversight. Turning it
@@ -68,8 +84,13 @@ export const FLAGS = {
   isPreview: true,
 };
 
-/** Her face appears only when BOTH gates are open. */
-FLAGS.hasHeadshot = FLAGS.headshotPermission && HEADSHOT_SRC !== null;
+/** Her face appears when the file exists AND the permission that applies to
+ *  THIS build is given. A preview uses the preview permission; a live build
+ *  demands the publishing rights and ignores the preview one entirely, so
+ *  turning off isPreview can never silently carry a pitch-only allowance onto
+ *  the real site. */
+FLAGS.hasHeadshot = HEADSHOT_SRC !== null &&
+  (FLAGS.isPreview ? FLAGS.headshotPreviewUse : FLAGS.headshotPublishRights);
 
 /* -------------------------------------------------------------------------
    VERIFIED — reproduce exactly. Source noted for every line.

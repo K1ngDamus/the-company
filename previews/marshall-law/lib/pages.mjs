@@ -13,7 +13,7 @@
  *     do tonight — which is true of defense practice generally and promises
  *     nothing about her outcomes.
  */
-import { CLIENT, FLAGS, OPEN, MARKET, isAsk, HEADSHOT_SRC } from '../data/client.mjs';
+import { CLIENT, FLAGS, OPEN, MARKET, isAsk, HEADSHOT_SRC, IMAGES } from '../data/client.mjs';
 import { esc, attr, ICONS, blank, consultLabel, ratingBlock, page, paymentsBlock } from './render.mjs';
 
 /* ==========================================================================
@@ -155,8 +155,8 @@ const home = () => {
         ? `<figure class="portrait"><img src="${attr(HEADSHOT_SRC)}" width="800" height="1000" loading="eager" decoding="async" alt="${attr(CLIENT.attorney)}, ${attr(CLIENT.credential)}"><span class="portrait__frame"></span></figure>`
         : `<div class="portrait portrait--empty">
              <p class="portrait__label"><strong>[awaiting client]</strong><br>Headshot — ${
-               HEADSHOT_SRC ? 'file received, awaiting written permission to publish it' : 'usage rights and file pending'
-             }. This frame is sized to the real image, so dropping it in shifts nothing.</p>
+               HEADSHOT_SRC ? 'awaiting permission' : 'we need the image file'
+             }. This frame is sized to the real photo, so dropping it in shifts nothing on the page.</p>
              <span class="portrait__frame"></span>
            </div>`}
     </div>
@@ -313,7 +313,7 @@ const about = () => {
         ? `<figure class="portrait"><img src="${attr(HEADSHOT_SRC)}" width="800" height="1000" loading="eager" decoding="async" alt="${attr(CLIENT.attorney)}, ${attr(CLIENT.credential)}"><span class="portrait__frame"></span></figure>`
         : `<div class="portrait portrait--empty">
              <p class="portrait__label"><strong>[awaiting client]</strong><br>Headshot — ${
-               HEADSHOT_SRC ? 'file received, awaiting written permission' : 'usage rights and file pending'
+               HEADSHOT_SRC ? 'awaiting permission' : 'we need the image file'
              }.</p>
              <span class="portrait__frame"></span>
            </div>`}
@@ -554,11 +554,23 @@ const contact = () => {
 </section>
 
 <section class="section">
-  <div class="wrap-narrow">
-    ${consultForm('contact', {
-      heading: 'Send a message',
-      blurb: 'Four taps and two fields. Under thirty seconds on a phone.',
-    })}
+  <div class="wrap">
+    <div class="grid grid--2" style="align-items:start">
+      <div>
+        ${IMAGES.office.src
+          ? `<figure class="officeshot"><img src="${attr(IMAGES.office.src)}" width="1200" height="800" loading="lazy" decoding="async" alt="The ${attr(CLIENT.firm)} office in ${attr(CLIENT.cityState)}"><figcaption class="small">${esc(CLIENT.nap.street)} ${esc(CLIENT.nap.suite)}</figcaption></figure>`
+          : `<div class="officeshot officeshot--empty">
+               <p class="portrait__label"><strong>[awaiting client]</strong><br>A photo of the office or the building entrance.
+               Real photos of a real office beat stock photography every time — people are deciding whether to walk in.</p>
+             </div>`}
+      </div>
+      <div>
+        ${consultForm('contact', {
+          heading: 'Send a message',
+          blurb: 'Four taps and two fields. Under thirty seconds on a phone.',
+        })}
+      </div>
+    </div>
   </div>
 </section>`;
 

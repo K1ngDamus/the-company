@@ -680,3 +680,15 @@ td strong { color: var(--ink); }
   .input, .textarea { border: 1px solid #999 !important; min-height: 2.2rem; }
   .textarea { min-height: 5rem; }
 }
+
+/* Office photo slot — Contact. Same discipline as the portrait: the frame
+   holds its aspect whether or not a file exists, so dropping one in later
+   shifts nothing. */
+.officeshot { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+.officeshot img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.officeshot figcaption { padding: .8rem 1rem; color: var(--slate); }
+.officeshot--empty {
+  aspect-ratio: 3 / 2; display: grid; place-items: center; text-align: center;
+  padding: 1.5rem; border-style: dashed; border-width: 1.5px; border-color: var(--line-strong);
+  background: repeating-linear-gradient(135deg, var(--card), var(--card) 10px, var(--blush) 10px, var(--blush) 20px);
+}

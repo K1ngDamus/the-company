@@ -21,7 +21,7 @@ where the answers go. The form's question set lives in
 |---|---|---|---|
 | 1 | **What does a first consultation cost?** Free, flat fee, or varies? | The brief wired "Free Consultation" everywhere, but this is unverified. Every CTA currently reads "Request a Consultation" and the audit blocks the word *free*. | `FLAGS.consultIsFree` |
 | 2 | **The confirmed practice-area list.** | Criminal defense is verified. Juvenile appears in **press only** and is not confirmed by her. Publishing a practice area a lawyer has not claimed is not a small error. | `OPEN.practiceAreas` |
-| 3 | **Written OK to use her headshot, and the file itself.** | The image exists on Blinq and GBP; permission does not follow from availability. Two separate gates — see below. | `FLAGS.headshotPermission` |
+| 3 | **The image files**, and written OK to use her likeness on the LIVE site. | Preview use is settled (Leon, 2026-08-26) — but we still need the actual file, which we have no way to obtain ourselves. Publishing rights are a separate question and still open. | `FLAGS.headshotPublishRights` |
 | 4 | **CashApp / Venmo on the website, or card-only?** | Built, styled, shipped hidden. Her card lists both; a card is not a public website. | `FLAGS.showPayments` |
 
 ## Content she has to supply
@@ -56,21 +56,34 @@ site is against Google's own guidelines, and one review presented as a 5.0
 rating overstates it. The rating is shown on the page instead, always with
 "1 Google review" attached. Every appearance of it carries the count.
 
-## Her headshot — two gates, one drop-in
+## Photos — what is settled and what is still needed
 
-The photo is the single biggest thing standing between "a website" and "her
-web home", so it is worth being precise about.
+The photo is the single biggest thing standing between "a website" and "her web
+home", so it is worth being precise.
 
-1. **The file.** Put it in `previews/marshall-law/assets/` named
-   `keyanna-marshall.jpg` (`.webp`, `.jpeg` and `.png` also work) and rebuild.
-   The build detects it — there is no path to edit. Largest version she has,
-   uncropped.
-2. **Permission.** `FLAGS.headshotPermission` in `data/client.mjs`. Separate on
-   purpose: being able to download something is not being allowed to publish
-   it. Set it true only when she has actually said yes, and note who heard her.
+**Settled:** her photo may appear in **this preview**
+(`FLAGS.headshotPreviewUse`, Leon's call 2026-08-26). The preview is private,
+watermarked, noindex and never deployed, and a prospect cannot picture her own
+web home without her face in it.
 
-Her face renders only when **both** are true. `node build.mjs` prints which of
-the two is missing on every run, so it can never be a silent no-op.
+**Still needed, and blocking:**
+
+1. **The file itself.** We have no way to obtain it — it cannot be taken from
+   her Blinq card or Google listing, and nothing here can fetch it. Put it at
+   `previews/marshall-law/assets/keyanna-marshall.jpg` (`.webp`, `.jpeg`,
+   `.png` also work) and rebuild. Largest version available, uncropped.
+2. **Rights to publish it on the LIVE site**
+   (`FLAGS.headshotPublishRights`). Separate from preview use on purpose:
+   showing someone a mockup of their own face is not them licensing it to the
+   open internet. A live build checks this flag and ignores the preview one, so
+   the pitch-only allowance cannot leak onto the real site.
+
+`node build.mjs` prints which gate is open and which file is missing on every
+run, so neither can be a silent no-op.
+
+**Other photo slots.** `assets/office.*` renders on the Contact page. The form
+asks her what else she has and where she would like it — a real office beats
+stock photography every time, because the reader is deciding whether to walk in.
 
 Verified end-to-end with a stand-in image: the frame is `4/5` and the `<img>`
 carries its intrinsic dimensions, so dropping the real file in measured

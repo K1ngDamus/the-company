@@ -106,25 +106,57 @@ export const INTAKE = {
     /* ---------------------------------------------------------------- */
     {
       id: 'photos',
-      title: 'Your photo',
-      blurb: 'This is the single biggest difference between a website and a web home. People hiring a defense lawyer want to see who they are calling.',
+      title: 'Photos',
+      blurb: 'This is the single biggest difference between a website and a web home. Someone deciding whether to hand you their case wants to see who they are calling and where they would be walking in.',
       questions: [
         {
           id: 'headshot-permission', type: 'choice',
-          label: 'May we use your headshot on the site?',
-          hint: 'Your photo exists on your Blinq card and Google listing, but we have not used it — permission does not follow from it being findable. The page already has the space reserved at the right shape, so the day you say yes it drops straight in.',
-          options: ['Yes — use the one you have seen', 'Yes — I will send a better file', 'I want new photos taken first', 'Not yet'],
+          label: 'May we use your headshot on the live site?',
+          hint: 'You have already seen it in the preview. This question is about the public site, which is a different thing — a mockup we showed you is not the same as licensing your face to the open internet, so we ask separately rather than assuming.',
+          options: ['Yes — use the one in the preview', 'Yes — I will send a better file', 'Yes, once I have new photos taken', 'Not yet'],
+        },
+        {
+          id: 'photos-new', type: 'choice',
+          label: 'Do you have newer or better photos you would rather we used?',
+          hint: 'Anything from the last couple of years. Straight off a phone is fine — please do not crop them first, we would rather have the whole frame to work from.',
+          options: ['Yes, I will send them', 'Yes, but they need finding', 'No, the current one is fine', 'I would like new ones taken'],
+        },
+        {
+          id: 'photos-have', type: 'multi',
+          label: 'What do you already have? Tick anything that exists.',
+          hint: 'Even phone snaps. We can work with more than people expect.',
+          options: ['Headshot / portrait', 'Office interior', 'The building or signage outside', 'You at your desk or working',
+                    'You in a suit, formal', 'Team or staff', 'Community events or speaking', 'Awards or press photos',
+                    'Video of any kind', 'Nothing at the moment'],
+        },
+        {
+          id: 'photos-where', type: 'multi',
+          label: 'Where would you like photos to appear?',
+          hint: 'Tick anywhere that appeals. Each spot is already built to take one — nothing needs redesigning, we just drop the picture in.',
+          options: ['The top of the home page', 'The About page', 'Beside the contact details, so people can find the door',
+                    'On each practice-area page', 'A band across the middle of the home page', 'Wherever you think best',
+                    'Keep it minimal — one photo is plenty'],
+        },
+        {
+          id: 'photos-specific', type: 'textarea', rows: 3,
+          label: 'Anything specific you want photographed, or shown?',
+          hint: 'The building entrance so people can find it, a particular room, a certificate on the wall, you in front of the courthouse — whatever you would want a nervous person to see before they call.',
+        },
+        {
+          id: 'photos-avoid', type: 'text',
+          label: 'Anything you would rather NOT have photographed or shown?',
+          placeholder: 'e.g. no photos of the waiting area',
+        },
+        {
+          id: 'photoshoot', type: 'choice',
+          label: 'Would you like us to arrange a proper photoshoot?',
+          hint: 'A local photographer, a couple of hours, headshots plus the office. It is the single upgrade that changes how a site feels the most, and it is quoted separately — say yes here and we will price it, not book it.',
+          options: ['Yes, please quote it', 'Maybe later', 'No — I have a photographer', 'No'],
         },
         {
           id: 'headshot-file', type: 'note',
-          label: 'Sending the file',
-          body: 'Email the largest version you have to Front Porch — straight off the camera or phone is ideal, and please do not crop it first. If the only copy is the one on your Blinq card we can work from that, it will just be softer on a big screen.',
-        },
-        {
-          id: 'office-photos', type: 'choice',
-          label: 'Photos of the office or of you at work?',
-          hint: 'Real photos of a real office beat stock photography every time. Stock photos of someone else’s courtroom prove nothing and people can tell.',
-          options: ['Yes, I have some', 'Happy for them to be taken', 'Rather not', 'Not sure'],
+          label: 'Sending the files',
+          body: 'Email them to Front Porch at whatever size they came out of the camera or phone — the bigger the better, and uncropped. If they are too large to email, say so and we will send you somewhere to drop them. We handle the resizing, the cropping and the optimising; you never need to worry about file formats.',
         },
         {
           id: 'logo-files', type: 'choice',

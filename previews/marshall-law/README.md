@@ -112,15 +112,40 @@ Consultation" CTA everywhere, but consult cost is unverified. Asserting *free*
 on a lawyer's site without her word is an invented claim, so every CTA reads
 "Request a Consultation" until she says otherwise. The audit enforces it.
 
-## Her headshot
+## Photos
 
-Two gates, deliberately separate: **the file** (drop it in `assets/` as
-`keyanna-marshall.jpg` — auto-detected, no path to edit) and **permission**
-(`FLAGS.headshotPermission`). Being able to download a photo is not being
-allowed to publish it. Her face renders only when both hold, and
-`node build.mjs` prints which one is missing on every run.
+Drop a file in `assets/` and rebuild. That is the whole procedure — the build
+detects it, and there is no path to edit anywhere. Each slot takes `.webp`,
+`.jpg`, `.jpeg` or `.png`, webp first so an optimised file automatically wins.
 
-Tested with a stand-in image: dropping the real file in measures **CLS 0**.
+| Slot | File | Appears |
+|---|---|---|
+| headshot | `assets/keyanna-marshall.*` | Home hero, About |
+| office | `assets/office.*` | Contact |
+
+Add a row to `IMAGES` in `data/client.mjs` and a file, and a new slot renders.
+Every frame holds its aspect ratio whether or not a file exists, so dropping
+one in later shifts nothing — verified with stand-in images at **CLS 0**.
+
+### Her likeness: two permissions, deliberately not one
+
+A private pitch document and a public website are not the same act, and
+collapsing them into one boolean is how a photo nobody cleared ends up on a
+live site.
+
+| Flag | State | Means |
+|---|---|---|
+| `headshotPreviewUse` | **true** | Her photo may appear in THIS preview — watermarked, noindex, never deployed, shown to her in a pitch. Leon's call, 2026-08-26: a prospect cannot picture her own web home without her face in it. |
+| `headshotPublishRights` | **false** | Her photo may appear on the LIVE site. Stays false until she says yes in writing. Question 1 of the photos section on `/start/` is what clears it. |
+
+A preview build checks the first; a live build checks the second **and ignores
+the first entirely**, so turning `isPreview` off can never carry a pitch-only
+allowance onto the real site. Verified by simulating a live build with the
+photo present: it still refuses.
+
+`node build.mjs` prints which gate is open and which file is missing on every
+run — a photo that silently fails to appear is the kind of thing you find out
+about in the meeting.
 
 ## The two pages that are FROM us
 

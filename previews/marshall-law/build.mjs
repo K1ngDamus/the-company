@@ -9,7 +9,7 @@
 import { mkdirSync, writeFileSync, rmSync, cpSync, readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { PAGES } from './lib/pages.mjs';
-import { CLIENT, FLAGS, HEADSHOT_FILE } from './data/client.mjs';
+import { CLIENT, FLAGS, HEADSHOT_FILE, IMAGES } from './data/client.mjs';
 
 const OUT = 'dist';
 const write = (rel, contents) => {
@@ -51,9 +51,17 @@ write('sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 
 const flags = Object.entries(FLAGS).map(([k, v]) => `${k}=${v}`).join('  ');
-console.log(`build: headshot ${HEADSHOT_FILE ? `file assets/${HEADSHOT_FILE} found` : 'no file in assets/'}` +
-            `, permission ${FLAGS.headshotPermission ? 'given' : 'NOT given'}` +
-            ` → ${FLAGS.hasHeadshot ? 'RENDERING her photo' : 'rendering the placeholder frame'}`);
+/* Say out loud which gate is open and which is not, every run. A photo that
+   silently fails to appear is the kind of thing you discover in the meeting. */
+const gate = FLAGS.isPreview ? FLAGS.headshotPreviewUse : FLAGS.headshotPublishRights;
+const gateName = FLAGS.isPreview ? 'preview use' : 'PUBLISH rights';
+console.log(`build: headshot — file ${HEADSHOT_FILE ? `assets/${HEADSHOT_FILE} ✓` : '✗ none in assets/'}` +
+            `, ${gateName} ${gate ? '✓' : '✗'}` +
+            ` → ${FLAGS.hasHeadshot ? 'RENDERING her photo' : 'placeholder frame'}`);
+if (!HEADSHOT_FILE && gate)
+  console.log('build:   ↳ permission is given; drop the image at assets/keyanna-marshall.jpg and rebuild.');
+for (const [slot, img] of Object.entries(IMAGES))
+  if (slot !== 'headshot') console.log(`build: image slot "${slot}" — ${img.file ? `assets/${img.file} ✓` : 'empty'}`);
 console.log(`build: ${PAGES.length} pages → ${OUT}/`);
 console.log(`build: flags  ${flags}`);
 if (!existsSync(join(OUT, 'assets/fonts/jost-latin-var.woff2')))
