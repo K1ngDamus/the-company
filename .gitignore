@@ -11,3 +11,7 @@ node_modules/
 
 # os
 .DS_Store
+
+# preview build output and check artifacts — regenerate with `node build.mjs`
+previews/*/dist/
+previews/*/shots/
