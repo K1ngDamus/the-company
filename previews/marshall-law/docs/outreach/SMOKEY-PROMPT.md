@@ -2,10 +2,19 @@
 
 Everything is ready. Copy the block below into Smokey's session.
 
-**State as of 2026-08-26:** the preview is live, the email draft is complete
-with the real link in it, and the three attachments regenerate with one
-command. Two things are still missing from Ms. Marshall herself — her photo and
-her Google review link — and both are handled honestly in the copy rather than
+**State as of 2026-08-26:** the preview is BUILT, gated and LIVE at
+https://k1ngdamus.github.io/fpc-preview-mlp/ — 10 pages, watermarked, noindex,
+all four gates green. The email draft is complete with that link in it.
+
+**Send version A: the link, no attachments.** Smokey's call and the right one.
+Three PDFs at ~3MB in a cold email from an unknown sender is a spam-filter
+signal, and the best email in the world is worth nothing in a junk folder. The
+form and the review card are things Ms. Marshall wants *after* she is
+interested; leading with them asks for work before she has agreed to anything.
+Version B (with attachments) exists for the follow-up or the meeting.
+
+Two things are still missing from Ms. Marshall herself — her photo file and her
+Google review link — and both are handled honestly in the copy rather than
 blocking the send.
 
 ---
@@ -27,40 +36,44 @@ Hand Leon a finished email he can send from his own address: subject, body, and
 three attachments. Do NOT send it. Do NOT contact her.
 
 SOURCE MATERIAL — all under previews/marshall-law/
-  docs/outreach/EMAIL-DRAFT.md          the body copy, subject lines, rationale
+  docs/outreach/EMAIL-DRAFT.md          both versions, subject lines, rationale
   docs/outreach/DEPLOY-GITHUB-PAGES.md  how the live preview is published
+
+  For the FOLLOW-UP only, not this email:
   outbox/Marshall-Law-Design-Preview.pdf         look book, 9 pages
   outbox/Marshall-Law-Getting-Started-FORM.pdf   the questions, 9 pages
   outbox/Marshall-Law-Review-Card.pdf            the QR review card, 2 pages
 
-If outbox/ is empty or you have any doubt the PDFs are current, regenerate all
-three with `npm run outbox` from previews/marshall-law/. It takes under a
-minute and is always safe.
+Regenerate those with `npm run outbox` when they are needed. Under a minute,
+always safe.
 
 ASSEMBLE IT LIKE THIS
 1. Subject: "Following up from the other day — I built you something"
    unless Leon has picked one of the alternatives in EMAIL-DRAFT.md.
-2. Body: the plain-text block in EMAIL-DRAFT.md, VERBATIM. It is already in
+2. Body: the VERSION A block in EMAIL-DRAFT.md, VERBATIM. It is already in
    Leon's voice, built from his own opening line. Do not rewrite it into
    marketing copy and do not "improve" it.
-3. Attach all three PDFs. Open each one first and confirm it renders.
+3. NO ATTACHMENTS. Version A carries none, on purpose. Do not helpfully add
+   the PDFs back — that is the one change most likely to put this email in her
+   junk folder. Version B exists for the follow-up.
 4. The preview link is live and already in the body:
       https://k1ngdamus.github.io/fpc-preview-mlp/
    Open it before you hand anything over. If it 404s, STOP and tell Leon —
    never send an email pointing at a dead link.
 5. Send as plain text, not HTML. One recipient: Keyanna@themarshall-law.com.
-   No BCC, no mail-merge, no tracking pixel, no link shortener. A designed
-   email from a stranger reads as marketing; a plain one reads as a person, and
-   the attachments do the showing.
+   No BCC, no mail-merge, no tracking pixel, and paste the full URL — a link
+   shortener is itself a spam signal. A designed email from a stranger reads as
+   marketing; a plain one reads as a person.
 
 TWO THINGS ARE KNOWINGLY INCOMPLETE — leave both exactly as written
   • Her photo. The preview shows a labelled "[awaiting client]" frame where her
     headshot goes. We have permission to use it in the preview but not the
     file. This is not a defect to apologise for or hide.
-  • Her Google review link. The attached review card is marked "sample" and its
-    QR currently points at her website. The email says so plainly and turns it
-    into a ten-second ask. Do NOT quietly drop that paragraph, and do NOT claim
-    the card is finished.
+  • Her Google review link. The review card's QR still points at her website
+    until she supplies it. Version A does not attach the card and does not
+    claim it is finished — it says the card exists, that it is hers either way,
+    and that Leon will bring it. Do NOT quietly drop that paragraph: it is what
+    turns a giveaway into a reason to meet.
 
 HARD RULES — these are the ones that matter
 - Nothing goes to Ms. Marshall without Leon's explicit go-ahead on the final
@@ -85,8 +98,7 @@ HARD RULES — these are the ones that matter
   produce clean unwatermarked versions.
 
 WHEN YOU ARE DONE, GIVE LEON
-  - the final subject and body, ready to paste
-  - the three attachments, each confirmed to open
+  - the final subject and body, ready to paste — version A, no attachments
   - confirmation the preview link loads
   - one line on anything you changed, and why
   - a reminder that her photo and her Google review link are still outstanding
