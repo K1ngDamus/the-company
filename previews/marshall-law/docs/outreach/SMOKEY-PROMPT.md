@@ -32,8 +32,9 @@ real business proposal rather than a campaign. She has NOT signed, and nothing
 has been sent to her yet.
 
 YOUR JOB
-Hand Leon a finished email he can send from his own address: subject, body, and
-three attachments. Do NOT send it. Do NOT contact her.
+Hand Leon a finished email he can send from his own address: a subject and a
+body. NO attachments — see rule 3; that is deliberate, not an omission to fix.
+Do NOT send it. Do NOT contact her.
 
 SOURCE MATERIAL — all under previews/marshall-law/
   docs/outreach/EMAIL-DRAFT.md          both versions, subject lines, rationale
@@ -94,8 +95,9 @@ HARD RULES — these are the ones that matter
   74-282, the Avvo ZIP mismatch. Add no others.
 - Refer to her as Ms. Marshall in the third person; the body already addresses
   her directly as "you".
-- Every attachment is watermarked and every page says "Not a live site." Never
-  produce clean unwatermarked versions.
+- Every page of the preview, and every PDF that exists for version B, is
+  watermarked and says "Not a live site." Never produce clean unwatermarked
+  versions.
 
 WHEN YOU ARE DONE, GIVE LEON
   - the final subject and body, ready to paste — version A, no attachments
