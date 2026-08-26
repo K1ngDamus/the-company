@@ -1,0 +1,14 @@
+{
+  "name": "marshall-law-preview",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Marshall Law Practice, LLC — client preview by Front Porch Collective. Unsigned client: watermarked, noindex, never deployed.",
+  "scripts": {
+    "build": "node build.mjs",
+    "audit": "node audit.mjs",
+    "contrast": "node contrast.mjs",
+    "browsercheck": "node browsercheck.mjs",
+    "check": "node build.mjs && node audit.mjs && node contrast.mjs && node browsercheck.mjs"
+  }
+}
