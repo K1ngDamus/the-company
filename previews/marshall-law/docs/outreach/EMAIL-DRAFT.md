@@ -60,7 +60,7 @@ they appear on your own card and listing. Everywhere something needed to come
 from you — your biography, your practice areas, anything a client has said
 about you — the page says so plainly instead of guessing. There are no
 invented reviews and no case results anywhere on it. I would not put a word
-in your mouth, and I would never write a lawyer's About page for her.
+in your mouth, and I would never write a lawyer's About page for them.
 
 Your Lady Justice mark and your colours are still yours. I kept the pink as
 the identity and deepened it slightly so it holds up as body text and passes
@@ -98,14 +98,14 @@ jacksonleon24@gmail.com
 
 ## Why it is written this way
 
-- **It opens with the connection, not the pitch.** She has met him; that is the
-  only reason this email gets read instead of deleted.
+- **It opens with the connection, not the pitch.** Ms. Marshall has met him;
+  that is the only reason this email gets read instead of deleted.
 - **It leads with the thing itself.** "Rather than describe it, I built it" is
   the whole advantage over every other agency email she gets. Spending the
   first paragraph on credentials would waste it.
-- **It gives her a reason to trust the work before she opens it** — the
-  paragraph on what is true and what is marked blank. For a lawyer, "I did not
-  make anything up" is a stronger opening than any design claim.
+- **It gives Ms. Marshall a reason to trust the work before she opens it** —
+  the paragraph on what is true and what is marked blank. For a lawyer, "I did
+  not make anything up" is a stronger opening than any design claim.
 - **It gives something away with no hook attached.** The review card costs
   nothing and is useful whether or not she signs. So is the ZIP-code catch.
   Both prove the work is real rather than a lead magnet.
@@ -116,11 +116,11 @@ jacksonleon24@gmail.com
 ## Things deliberately not in it
 
 - No prices, packages or retainers.
-- No claim about her results, her record, or her experience.
+- No claim about Ms. Marshall's results, record, or experience.
 - No "guaranteed", no "#1 on Google", no traffic figures. Every number in the
-  email is one that can be checked: her rating, her review count, the
+  email is one that can be checked: Ms. Marshall's rating and review count, the
   competitors' review counts, the ZIP mismatch.
-- No mention of writing her biography or her About page for her.
+- No mention of writing Ms. Marshall's biography or About page for her.
 
 ---
 

@@ -98,6 +98,12 @@ FLAGS.hasHeadshot = HEADSHOT_SRC !== null &&
 export const CLIENT = {
   attorney: 'Keyanna A. Marshall',
   attorneyShort: 'Keyanna Marshall',
+  /* How the site refers to her in the third person, to people reading it.
+     A defense client reading a page about their lawyer should meet a
+     professional, not a pronoun — so the copy names her rather than leaning
+     on "she" and "her". Pronouns still follow the name inside a passage,
+     because repeating the surname every clause reads like a court filing. */
+  attorneyFormal: 'Ms. Marshall',
   credential: 'Attorney at Law',
   firm: 'Marshall Law Practice, LLC',
 

@@ -213,7 +213,7 @@ const home = () => {
     <div class="section__head">
       <span class="eyebrow">Proof</span>
       <h2>What the record actually shows.</h2>
-      <p class="small">Everything on this page is verifiable. Nothing here is written by us on her behalf.</p>
+      <p class="small">Everything on this page is verifiable. Nothing here is written by us on ${esc(CLIENT.attorneyFormal)}’s behalf.</p>
     </div>
     <div class="grid grid--3">
       <div class="card">
@@ -323,8 +323,8 @@ const about = () => {
 
 <section class="section section--band">
   <div class="wrap-narrow stack" style="--flow:1.5rem">
-    <h2>Her story, in her words</h2>
-    <p class="small">This page is built and waiting. Every fact below comes from her or it does not appear — we do not write a lawyer's biography for her.</p>
+    <h2>${esc(CLIENT.attorneyFormal)}’s story, in her own words</h2>
+    <p class="small">This page is built and waiting. Every fact below comes from ${esc(CLIENT.attorneyFormal)} or it does not appear — we do not write a lawyer's biography for them.</p>
     ${blank(OPEN.bio, { heading: 'Biography' })}
     ${blank(OPEN.yearsLicensed, { heading: 'Year admitted to the State Bar of Georgia' })}
     ${blank(OPEN.barAssociations, { heading: 'Bar associations and memberships' })}
@@ -369,7 +369,7 @@ const practiceHub = () => {
   <div class="wrap-narrow stack" style="--flow:1.1rem">
     <span class="eyebrow">Practice areas</span>
     <h1>What ${esc(CLIENT.attorneyShort)} handles</h1>
-    <p class="lede">Criminal defense is confirmed. The rest of this section is built and waiting on her list — we do not publish a practice area a lawyer has not told us she practices.</p>
+    <p class="lede">Criminal defense is confirmed. The rest of this section is built and waiting on ${esc(CLIENT.attorneyFormal)}’s list — we do not publish a practice area a lawyer has not told us they practise.</p>
   </div>
 </section>
 
@@ -426,13 +426,13 @@ const criminalDefense = () => {
     <h2>What representation actually involves</h2>
     <p>Defense work is mostly the parts nobody sees: reading the file properly, finding what the State can and cannot prove, filing what needs filing before the deadline passes, and telling you the truth about your options rather than the version you want to hear.</p>
     <p>It also means you stop being the one who has to talk to the prosecutor, guess at the process, or work out what a filing deadline means at midnight.</p>
-    <h3>What she needs from you</h3>
+    <h3>What ${esc(CLIENT.attorneyFormal)} needs from you</h3>
     <ul style="color:var(--muted);padding-left:1.15rem">
       <li style="margin-bottom:.5rem">Every piece of paper you have been given — citation, bond, arrest paperwork, court notice.</li>
       <li style="margin-bottom:.5rem">The date, if you have one. It is usually the urgent part.</li>
-      <li style="margin-bottom:.5rem">The whole story, including the parts you would rather leave out. She cannot defend what she does not know.</li>
+      <li style="margin-bottom:.5rem">The whole story, including the parts you would rather leave out. ${esc(CLIENT.attorneyFormal)} cannot defend what she does not know.</li>
     </ul>
-    ${blank(OPEN.practiceAreas, { heading: 'The specific charge types she takes' })}
+    ${blank(OPEN.practiceAreas, { heading: `The specific charge types ${CLIENT.attorneyFormal} takes` })}
   </div>
 </section>
 
@@ -443,7 +443,7 @@ const criminalDefense = () => {
       { q: 'I have not been charged yet — is it too early to call?', a: '<p>No. Before charges is often the most useful time to have a lawyer, because it is the point where the most is still moveable.</p>' },
       { q: 'Should I just explain my side to the officer?', a: '<p>You are not required to, and you have the right to have a lawyer present. That right exists precisely because explaining yourself without one so often makes things worse.</p>' },
       { q: 'What does it cost?', a: FLAGS.consultIsFree ? '<p>The first consultation is free. Fees for representation depend on the charge and are discussed on that call.</p>' : blank(OPEN.consultCost, { heading: 'Fees and consultation cost' }) },
-      { q: 'Which courts does she appear in?', a: `<p>${esc(CLIENT.nap.county)} and the surrounding area. ${esc(CLIENT.addressOneLine)}.</p>` },
+      { q: `Which courts does ${CLIENT.attorneyFormal} appear in?`, a: `<p>${esc(CLIENT.nap.county)} and the surrounding area. ${esc(CLIENT.addressOneLine)}.</p>` },
     ])}
   </div>
 </section>
@@ -499,7 +499,7 @@ const results = () => {
     <div class="todo">
       <span class="todo__tag">Deliberately absent</span>
       <strong>Case results</strong>
-      <p>No case results appear on this site, and none will be added without her instruction and her review. Georgia's advertising rules govern how outcomes may be described, and an outcome stated the wrong way creates an expectation she then has to live with. This is a decision, not a gap.</p>
+      <p>No case results appear on this site, and none will be added without ${esc(CLIENT.attorneyFormal)}’s instruction and review. Georgia's advertising rules govern how outcomes may be described, and an outcome stated the wrong way creates an expectation she then has to live with. This is a decision, not a gap.</p>
     </div>
   </div>
 </section>
@@ -549,7 +549,7 @@ const contact = () => {
 <section class="section section--band">
   <div class="wrap">
     ${contactChannels()}
-    ${FLAGS.showPayments ? '' : `<p class="small" style="margin-top:1.25rem">Payment handles from her card (CashApp, Venmo) are built as a component and shipped hidden — awaiting her word on whether they belong on a public website. One flag turns them on.</p>`}
+    ${FLAGS.showPayments ? '' : `<p class="small" style="margin-top:1.25rem">Payment handles from ${esc(CLIENT.attorneyFormal)}’s card (CashApp, Venmo) are built as a component and shipped hidden — awaiting her word on whether they belong on a public website. One flag turns them on.</p>`}
   </div>
 </section>
 
@@ -589,18 +589,18 @@ const contact = () => {
 const exposure = () => {
   const step = (title, body) => ({ title, body });
   const steps = [
-    step('Google Business Profile', `<p>The profile is what shows up when someone in ${esc(CLIENT.nap.city)} searches on a phone at 11pm. It outranks the website for her own name.</p>
+    step('Google Business Profile', `<p>The profile is what shows up when someone in ${esc(CLIENT.nap.city)} searches on a phone at 11pm. It outranks the website for ${esc(CLIENT.attorneyFormal)}’s own name.</p>
       <ul><li>Claim and verify it${isAsk(OPEN.gbpClaimed) ? ' — <strong>status unconfirmed;</strong> the first job is finding out which of these it is' : ''}.</li>
       <li>Complete every field: services, hours, service area, attributes, description.</li>
       <li>A weekly photo or post, so the profile reads as active rather than abandoned.</li>
       <li>Q&amp;A seeded with the questions people actually ask — the same ones in the site's FAQ.</li></ul>`),
-    step('A reviews engine', `<p>She has <strong>${MARKET.reviewGap.hers}</strong>. Her competitors have <strong>${esc(MARKET.reviewGap.competitorRange)}</strong>. Nothing else on this list moves the needle as hard.</p>
+    step('A reviews engine', `<p>${esc(CLIENT.attorneyFormal)} has <strong>${MARKET.reviewGap.hers}</strong>. Her competitors have <strong>${esc(MARKET.reviewGap.competitorRange)}</strong>. Nothing else on this list moves the needle as hard.</p>
       <ul><li>A simple post-case text or email with the direct review link — the fewer taps between "thank you" and the review box, the more reviews exist.</li>
       <li>Target: 25+ reviews in six months.</li>
       <li>The card is already made — see <a href="/review-card/">the review card</a>. It is yours either way.</li>
-      <li><strong>Her ethical call, not ours.</strong> Georgia's advertising rules govern how a lawyer may solicit and use client reviews. The flow gets built to whatever she is comfortable with, and she sees it before it sends anything.</li></ul>`),
+      <li><strong>${esc(CLIENT.attorneyFormal)}’s call, not ours.</strong> Georgia's advertising rules govern how a lawyer may solicit and use client reviews. The flow gets built to whatever she is comfortable with, and she sees it before it sends anything.</li></ul>`),
     step('Local schema on every page', `<p>She currently has none. This preview already ships it: <code>Attorney</code> JSON-LD with the NAP, hours, area served, and the firm's canonical URL, on every single page.</p>
-      <ul><li>Two things are deliberately left out until she confirms them: <strong>geo coordinates</strong> (a guessed pin puts her in the wrong building) and <strong>aggregate rating</strong> (self-serving review markup is against Google's own guidelines, and one review presented as a rating overstates it).</li>
+      <ul><li>Two things are deliberately left out until ${esc(CLIENT.attorneyFormal)} confirms them: <strong>geo coordinates</strong> (a guessed pin drops the map marker on the wrong building) and <strong>aggregate rating</strong> (self-serving review markup is against Google's own guidelines, and one review presented as a rating overstates it).</li>
       <li>Both are one data edit away the moment the answers land.</li></ul>`),
     step('Citations, all NAP-identical', `<p>Every listing has to state the address character-for-character the same way, or they stop reinforcing each other.</p>
       <ul><li><strong>Fix Avvo first</strong> — it lists ZIP 31909; the card says ${esc(CLIENT.nap.zip)}. One of them is wrong, and it must be fixed at the source before anything else is built on top of it.</li>
@@ -616,7 +616,7 @@ const exposure = () => {
     step('Speed, Core Web Vitals, and local links', `<p>This preview is static HTML with self-hosted fonts and no framework — it loads before a builder-based site has finished deciding what to load.</p>
       <ul><li>Her existing press is a link opportunity that already exists and is not being used.</li>
       <li>Columbus directories and ${esc(CLIENT.nap.county)} business listings.</li>
-      <li>Bar associations and legal organisations — ${isAsk(OPEN.barAssociations) ? 'pending her list of memberships' : ''}.</li></ul>`),
+      <li>Bar associations and legal organisations — ${isAsk(OPEN.barAssociations) ? `pending ${CLIENT.attorneyFormal}’s list of memberships` : ''}.</li></ul>`),
   ];
 
   const body = `

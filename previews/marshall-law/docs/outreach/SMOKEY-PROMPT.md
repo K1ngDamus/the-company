@@ -45,17 +45,18 @@ BUILD IT LIKE THIS
 HARD RULES — these are the ones that matter
 - Nothing goes to Keyanna without Leon's explicit go-ahead on the final text.
 - Do not add a price, a package, a retainer figure, or a discount.
-- Do not add any claim about her record, her results, her experience, or how
+- Do not add any claim about Ms. Marshall's record, results, experience, or how
   long she has practised. None of that is verified, and a false claim on a
   lawyer's marketing is a bar problem rather than a typo.
 - Do not add testimonials or reviews. There are none we are allowed to use.
-- Do not promise to write her biography or her About page. We do not write a
-  lawyer's About page for her; she provides it if she wants to go ahead.
+- Do not promise to write Ms. Marshall's biography or About page. We do not
+  write a lawyer's About page for them; she provides it if she wants to go
+  ahead.
 - Do not soften or remove the paragraph explaining what is true on the site and
   what is marked blank. For a lawyer, that paragraph is the trust.
 - Do not remove the review card giveaway or attach conditions to it.
-- Keep every number checkable: her 5.0 rating and 1 review, the competitors'
-  74-282, the Avvo ZIP mismatch. Add no others.
+- Keep every number checkable: Ms. Marshall's 5.0 rating and 1 review, the
+  competitors' 74-282, the Avvo ZIP mismatch. Add no others.
 - Every attachment is watermarked and every page says "Not a live site."
   Do not produce clean unwatermarked versions.
 

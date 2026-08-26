@@ -36,6 +36,21 @@ cpSync('assets', join(OUT, 'assets'), { recursive: true });
 write('assets/favicon.svg',
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#F49AC1" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="24" height="24" rx="5" fill="#1F1823" stroke="none"/><g transform="translate(2.4 2.4) scale(0.8)"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></g></svg>`);
 
+/* _headers — Cloudflare Pages reads this and sends the headers on every
+   response. Belt and braces on top of the <meta robots> and robots.txt: an
+   X-Robots-Tag header is obeyed even for a file type that cannot carry a meta
+   tag (the PDFs, the SVGs), and it applies even if someone links straight to
+   an asset. Harmless anywhere else — a static host that does not understand
+   the file just serves it as a text file nobody requests. */
+if (FLAGS.isPreview) write('_headers', [
+  '/*',
+  '  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet',
+  '  X-Frame-Options: SAMEORIGIN',
+  '  Referrer-Policy: no-referrer',
+  '  Cache-Control: no-store',
+  '',
+].join('\n'));
+
 /* robots.txt — a preview is never crawlable. This is not a toggle to forget:
    FLAGS.isPreview also drives the noindex meta on every page, and audit.mjs
    asserts the two agree with each other. */

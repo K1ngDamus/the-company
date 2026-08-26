@@ -188,7 +188,7 @@ export const reviewCardPage = () => {
     <div>
       ${isSample ? `<p><span class="sample-flag">Sample</span></p>` : ''}
       <p class="rcard__head">Was I any help?</p>
-      <p class="rcard__sub">If ${esc(CLIENT.attorneyShort)} did right by you, thirty seconds of your time helps the next person find her.</p>
+      <p class="rcard__sub">If ${esc(CLIENT.attorneyFormal)} did right by you, thirty seconds of your time helps the next person find her.</p>
       <ul class="rcard__steps">
         <li><b>1</b> Point your camera at the square.</li>
         <li><b>2</b> Tap the stars.</li>
@@ -214,7 +214,7 @@ export const reviewCardPage = () => {
     ${isSample ? `<div class="todo">
       <span class="todo__tag">Awaiting client</span>
       <strong>This QR is a sample — it currently opens ${esc(CLIENT.website)}</strong>
-      <p>A real review card needs her direct Google review link, which comes from her Business Profile under "Ask for reviews" (a <code>g.page/r/…/review</code> short link). Send us that link and the card is final — the design does not change, only what the square points at.</p>
+      <p>A real review card needs ${esc(CLIENT.attorneyFormal)}’s direct Google review link, which comes from her Google Business Profile under &ldquo;Ask for reviews&rdquo; (a <code>g.page/r/…/review</code> short link). Send us that link and the card is final — the design does not change, only what the square points at.</p>
       <p style="margin-top:.6rem">We encode the destination straight into the square rather than routing it through a QR website. That means it never expires, nobody starts charging for it later, and no third party gets a log of your clients scanning a code in your office.</p>
     </div>` : ''}
   </div>
