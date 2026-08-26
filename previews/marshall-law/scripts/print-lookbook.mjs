@@ -1,0 +1,17 @@
+import { createServer } from 'node:http';
+import { readFileSync, existsSync } from 'node:fs';
+import { join, extname } from 'node:path';
+import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+const T={'.html':'text/html','.css':'text/css','.png':'image/png','.woff2':'font/woff2','.svg':'image/svg+xml'};
+const s=createServer((q,r)=>{let p=decodeURIComponent(q.url.split('?')[0]);let f=join('outbox',p);if(p==='/')f='outbox/lookbook.html';if(!existsSync(f)){r.writeHead(404);return r.end()}r.writeHead(200,{'content-type':T[extname(f)]||'application/octet-stream'});r.end(readFileSync(f))});
+await new Promise(r=>s.listen(0,r));
+const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'});
+const c=await b.newContext({viewport:{width:1000,height:1400}});
+const pg=await c.newPage();
+const errs=[]; pg.on('requestfailed',r=>errs.push(r.url()));
+await pg.goto(`http://127.0.0.1:${s.address().port}/`,{waitUntil:'networkidle'});
+await pg.evaluate(()=>document.fonts.ready);
+await pg.emulateMedia({media:'print'});
+await pg.pdf({path:'outbox/Marshall-Law-Design-Preview.pdf',format:'A4',printBackground:true,margin:{top:0,bottom:0,left:0,right:0}});
+await b.close(); s.close();
+console.log(errs.length? 'FAILED REQUESTS: '+errs.join(', ') : 'lookbook PDF written, all assets loaded');

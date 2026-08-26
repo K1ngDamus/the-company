@@ -72,7 +72,7 @@ export const INTAKE = {
     {
       id: 'about',
       title: 'About you',
-      blurb: 'The About page is built and waiting. We do not write a lawyer’s biography for her, so this is the one part only you can fill in.',
+      blurb: 'The About page is built and waiting. We do not write a lawyer’s biography for them, so this is the one part only you can fill in.',
       questions: [
         {
           id: 'bio', type: 'textarea', rows: 6,

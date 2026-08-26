@@ -42,8 +42,11 @@ const control = (sectionId, q) => {
       <legend class="label">${esc(q.label)}</legend>
       ${q.hint ? `<span class="hint">${esc(q.hint)}</span>` : ''}
       <div class="choices">
-        ${q.options.map((opt, i) => `<label class="choice"><input type="radio" name="${attr(id)}" value="${attr(opt)}" data-save><span>${esc(opt)}</span></label>`).join('\n        ')}
-        <label class="choice"><input type="radio" name="${attr(id)}" value="Not sure" data-save><span>Not sure</span></label>
+        ${/* "Not sure" is offered on every single-choice question — a guessed
+              answer is worse than a blank. Appended only when the question does
+              not already carry one, or it renders twice (it did). */
+          [...q.options, ...(q.options.includes('Not sure') ? [] : ['Not sure'])]
+            .map((opt) => `<label class="choice"><input type="radio" name="${attr(id)}" value="${attr(opt)}" data-save><span>${esc(opt)}</span></label>`).join('\n        ')}
       </div>
     </fieldset>`;
   }

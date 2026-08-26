@@ -15,3 +15,9 @@ node_modules/
 # preview build output and check artifacts — regenerate with `node build.mjs`
 previews/*/dist/
 previews/*/shots/
+
+# outbox — generated pitch artifacts. Rebuild with `npm run outbox`.
+previews/*/outbox/*.pdf
+previews/*/outbox/*.html
+previews/*/outbox/shots/
+previews/*/outbox/fonts/
