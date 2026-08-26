@@ -1,0 +1,19 @@
+{
+  "name": "marshall-law-preview",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Marshall Law Practice, LLC \u2014 client preview by Front Porch Collective. Unsigned client: watermarked, noindex, never deployed.",
+  "scripts": {
+    "build": "node build.mjs",
+    "audit": "node audit.mjs",
+    "contrast": "node contrast.mjs",
+    "browsercheck": "node browsercheck.mjs",
+    "check": "node build.mjs && node audit.mjs && node contrast.mjs && node browsercheck.mjs",
+    "verify-qr": "python3 scripts/verify-qr.py",
+    "outbox": "node build.mjs && mkdir -p outbox/shots outbox/fonts && cp assets/fonts/*.woff2 outbox/fonts/ && node scripts/capture.mjs && node scripts/lookbook.mjs && node scripts/print-lookbook.mjs",
+    "deploy:preview": "bash scripts/deploy-cloudflare.sh",
+    "deploy:pages": "bash scripts/deploy-github-pages.sh",
+    "build:mounted": "BASE_PATH=\"/${REPO:-fpc-preview-mlp}\" node build.mjs && BASE_PATH=\"/${REPO:-fpc-preview-mlp}\" node audit.mjs"
+  }
+}

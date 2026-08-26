@@ -1,0 +1,745 @@
+/* ==========================================================================
+   Marshall Law Practice, LLC — design system
+   PREVIEW BUILD by Front Porch Collective. Client has not signed.
+
+   Direction (Leon, 2026-08-26): light-first — warm porcelain and blush, deep
+   rose, restrained gold, with ink kept as the dark undertone in the type and
+   the footer. Deliberately NOT the company site's dark shell: this is her
+   practice, not ours. Warm first, authoritative underneath.
+
+   Every ratio in this file was MEASURED before the color was chosen, by
+   ../contrast.mjs, which parses these tokens rather than repeating them.
+   Change a token and the check re-measures it. Do not hand-edit a ratio.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('./assets/fonts/playfair-display-latin-var.woff2') format('woff2-variations');
+  font-weight: 400 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Jost';
+  src: url('./assets/fonts/jost-latin-var.woff2') format('woff2-variations');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* --- grounds — light-first --- */
+  --porcelain: #FDFBFC;  /* page ground — warm off-white */
+  --blush:     #FBF1F5;  /* alternating band — the softest tint of her pink */
+  --card:      #FFFFFF;  /* raised surfaces — cards, form panels */
+
+  /* --- ink — the dark undertone, kept deliberately ---
+     One value doing two jobs: primary text on every light ground, AND the
+     ground of the footer. That is what keeps the page from going saccharine. */
+  --ink:      #1F1823;  /* 16.80:1 on porcelain */
+  --slate:    #5C5266;  /* secondary text — 7.14:1 on porcelain, 6.66:1 on blush */
+  --slate-dim:#6B5F75;  /* tertiary — 5.79:1 on porcelain. Do not go lighter. */
+  --on-ink:     #FDFBFC;  /* text on the ink footer — 16.80:1 */
+  --on-ink-dim: #C9BFD2;  /* secondary text on the ink footer — 9.78:1 */
+
+  /* --- accents ---
+     Her brand pink #f02491 measures 3.80:1 on porcelain and 3.91:1 on white —
+     it fails AA on a LIGHT ground as well as a dark one. It is an ornament
+     colour, not a text colour, and that is true of her site today too.
+     --rose is that hue taken deeper until it carries text: 6.35:1 on
+     porcelain, and white sits on it at 6.54:1 so it works as a button fill.
+     --rose-bright keeps her actual pink alive where nothing has to be read
+     small: the footer accent, and fills that take ink text (6.03:1). */
+  --rose:        #B3195C;
+  --rose-bright: #F06AA6;
+  --rose-wash:   #F7E4EC;
+  --gold:        #7D6329;  /* scales detail + rating stars — 5.53:1 on porcelain */
+  --gold-bright: #C9A961;  /* gold on the ink footer — 7.69:1 */
+
+  /* --- derived by opacity only, never new hues --- */
+  --line:        rgba(31, 24, 35, 0.13);
+  --line-strong: rgba(31, 24, 35, 0.24);
+  --wash:        rgba(31, 24, 35, 0.035);
+  --rose-glow:   rgba(179, 25, 92, 0.20);
+  --line-on-ink: rgba(253, 251, 252, 0.16);
+
+  --font-display: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --font-ui: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  --step--1: clamp(0.83rem, 0.80rem + 0.15vw, 0.92rem);
+  --step-0:  clamp(1.00rem, 0.96rem + 0.20vw, 1.13rem);
+  --step-1:  clamp(1.25rem, 1.16rem + 0.44vw, 1.50rem);
+  --step-2:  clamp(1.56rem, 1.39rem + 0.85vw, 2.00rem);
+  --step-3:  clamp(1.95rem, 1.64rem + 1.55vw, 2.67rem);
+  --step-4:  clamp(2.44rem, 1.92rem + 2.60vw, 3.55rem);
+  --step-5:  clamp(2.60rem, 1.95rem + 3.40vw, 4.20rem);
+
+  --measure: 62ch;
+  --gutter: clamp(1.15rem, 0.85rem + 1.6vw, 2.5rem);
+  --section-y: clamp(3.25rem, 2.3rem + 5vw, 6.5rem);
+  --radius: 14px;
+  --radius-sm: 9px;
+  --shadow: 0 2px 6px rgba(31,24,35,.06), 0 22px 48px -24px rgba(31,24,35,.35);
+  --ease: cubic-bezier(.22,.61,.36,1);
+
+  /* Height of the mobile call bar, so page bottom padding can clear it. */
+  --callbar-h: 4.35rem;
+}
+
+/* --- reset -------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+* { margin: 0; }
+html {
+  -webkit-text-size-adjust: 100%; scroll-behavior: smooth; background: var(--porcelain);
+  /* Anchored sections must clear the sticky header, or a jump lands with the
+     heading hidden underneath it. */
+  scroll-padding-top: 5.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important; scroll-behavior: auto !important;
+  }
+}
+body {
+  background: var(--porcelain); color: var(--ink);
+  font-family: var(--font-ui); font-size: var(--step-0);
+  font-weight: 400; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img, svg, video { display: block; max-width: 100%; height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+::selection { background: var(--rose); color: var(--porcelain); }
+
+/* --- type --------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display); font-weight: 600; line-height: 1.09;
+  letter-spacing: -0.015em; text-wrap: balance; color: var(--ink);
+}
+h1 { font-size: var(--step-5); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-1); }
+p, li { text-wrap: pretty; }
+p { max-width: var(--measure); }
+a { color: inherit; text-decoration-color: var(--rose); text-underline-offset: 0.18em; text-decoration-thickness: 1.5px; }
+a:hover { text-decoration-thickness: 3px; }
+
+.eyebrow {
+  font-size: var(--step--1); font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--slate); display: block;
+}
+.eyebrow::before {
+  content: ""; display: inline-block; vertical-align: middle;
+  width: 22px; height: 1.5px; background: var(--rose);
+  margin-right: 0.7em; margin-bottom: 0.22em;
+}
+.lede { font-size: var(--step-1); line-height: 1.45; color: var(--slate); max-width: 48ch; }
+.small { font-size: var(--step--1); color: var(--slate); }
+.serif { font-family: var(--font-display); }
+
+/* --- layout ------------------------------------------------------------- */
+.wrap { width: min(100% - (var(--gutter) * 2), 1160px); margin-inline: auto; }
+.wrap-narrow { width: min(100% - (var(--gutter) * 2), 760px); margin-inline: auto; }
+.section { padding-block: var(--section-y); }
+.section--band { background: var(--blush); }
+.section--deep { background: var(--ink); color: var(--on-ink); }
+.stack > * + * { margin-top: var(--flow, 1rem); }
+.grid { display: grid; gap: clamp(1rem, 0.6rem + 1.6vw, 2rem); }
+@media (min-width: 640px) { .grid--2 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .grid--3 { grid-template-columns: repeat(3, 1fr); } }
+.section__head { max-width: 54ch; margin-bottom: clamp(2rem, 1.4rem + 2vw, 3.25rem); }
+.section__head > * + * { margin-top: .8rem; }
+
+/* --- focus -------------------------------------------------------------- */
+:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; border-radius: 3px; }
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 200;
+  background: var(--rose); color: var(--porcelain);
+  padding: 0.75rem 1.25rem; border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  text-decoration: none; font-weight: 600; transition: top .18s var(--ease);
+}
+.skip:focus { top: 0; }
+
+/* --- buttons ------------------------------------------------------------
+   THE RULE INVERTED WHEN THE THEME DID. On the old dark ground a rose fill
+   took ink text. On this light ground the rose is deep, so a rose fill takes
+   PORCELAIN text at 6.35:1 — and ink on it now measures 2.65:1 and FAILS.
+   Both directions are checked by ../contrast.mjs; neither is taste. */
+.btn {
+  --btn-bg: var(--rose); --btn-fg: var(--porcelain);
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55em;
+  background: var(--btn-bg); color: var(--btn-fg);
+  font-weight: 600; letter-spacing: 0.01em;
+  padding: 0.92em 1.55em; border: 2px solid var(--btn-bg); border-radius: 999px;
+  text-decoration: none; text-align: center; line-height: 1.2;
+  transition: transform .18s var(--ease), box-shadow .18s var(--ease), filter .18s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 12px 30px -14px rgba(179,25,92,.55); }
+.btn:active { transform: translateY(0); }
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--ink); border-color: var(--line-strong); }
+.btn--ghost:hover { background: var(--ink); color: var(--porcelain); border-color: var(--ink); box-shadow: none; }
+.btn--lg { padding: 1.05em 1.9em; font-size: var(--step-1); }
+.btn--block { display: flex; width: 100%; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center; }
+
+/* --- cards -------------------------------------------------------------- */
+.card {
+  background: var(--card); border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(31,24,35,.04), 0 12px 28px -22px rgba(31,24,35,.28);
+  border-radius: var(--radius); padding: clamp(1.35rem, 1rem + 1.2vw, 2rem);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+}
+a.card { text-decoration: none; display: block; }
+a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--rose); }
+.card__title { font-family: var(--font-display); font-size: var(--step-1); font-weight: 600; }
+.card__arrow { color: var(--ink); font-weight: 500; margin-top: 1.1rem; display: inline-flex; gap: .4em; align-items: center; }
+a.card:hover .card__arrow { gap: .8em; }
+.card__icon { color: var(--gold); margin-bottom: 1rem; }
+
+/* --- rules -------------------------------------------------------------- */
+.rule { border: 0; height: 1px; background: var(--line); }
+.rule--rose { height: 3px; width: 54px; background: var(--rose); border-radius: 2px; border: 0; }
+
+/* ==========================================================================
+   HEADER — phone and the consult CTA are visible at every scroll position on
+   desktop (brief §2). On mobile the call action moves to the fixed bar below,
+   so it is never more than one tap away there either.
+   ========================================================================== */
+.header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(253, 251, 252, 0.86);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header__inner { display: flex; align-items: center; gap: 1.25rem; padding-block: 0.7rem; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; flex: none; min-height: 44px; }
+.brand__mark { flex: none; color: var(--rose); }
+.brand__text { display: flex; flex-direction: column; line-height: 1.12; }
+.brand__name { font-family: var(--font-display); font-weight: 600; font-size: 1.06rem; color: var(--ink); letter-spacing: -0.01em; }
+.brand__sub { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate); font-weight: 500; }
+.nav { display: none; margin-left: auto; }
+/* nowrap is not cosmetic: without it "About Keyanna" and "Results & Reviews"
+   broke onto a second line at 1440px and the whole header grew to two rows. */
+.nav a { color: var(--slate); text-decoration: none; font-size: var(--step--1); font-weight: 500; letter-spacing: .01em; white-space: nowrap; padding-block: .5rem; }
+.nav a:hover, .nav a[aria-current="page"] { color: var(--ink); }
+.nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--rose); text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.header__actions { display: flex; align-items: center; gap: 0.9rem; margin-left: auto; }
+.header__phone { display: none; text-decoration: none; font-weight: 600; color: var(--ink); white-space: nowrap; align-items: center; gap: .45em; }
+.header__phone:hover { color: var(--rose); }
+/* nowrap: "Request a Consultation" broke onto two lines and pushed the sticky
+   header to 109px, which eats the fold on every page. */
+.header__cta { display: none; white-space: nowrap; }
+.header__phone { white-space: nowrap; }
+/* Mobile menu — the disclosure, zero JavaScript. */
+.mobilenav { margin-left: auto; position: relative; }
+.mobilenav summary {
+  list-style: none; cursor: pointer; width: 44px; height: 44px;
+  display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.mobilenav summary::-webkit-details-marker { display: none; }
+.bars, .bars::before, .bars::after { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; }
+.bars { position: relative; }
+.bars::before, .bars::after { content: ""; position: absolute; left: 0; }
+.bars::before { top: -6px; }
+.bars::after { top: 6px; background: var(--rose); }
+.mobilenav[open] summary { background: var(--rose); border-color: var(--rose); }
+.mobilenav[open] .bars { background: transparent; }
+.mobilenav[open] .bars::before { top: 0; transform: rotate(45deg); background: var(--porcelain); }
+.mobilenav[open] .bars::after { top: 0; transform: rotate(-45deg); background: var(--porcelain); }
+.mobilenav__panel {
+  position: absolute; right: 0; top: calc(100% + .7rem); width: min(80vw, 275px);
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: .6rem; display: grid; gap: .55rem; z-index: 80;
+}
+.mobilenav__panel ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.mobilenav__panel a:not(.btn) {
+  display: flex; align-items: center; min-height: 44px; padding: .6rem .8rem;
+  text-decoration: none; border-radius: var(--radius-sm); font-weight: 500;
+}
+.mobilenav__panel a:hover:not(.btn) { background: var(--blush); }
+.mobilenav__panel a[aria-current="page"] { background: var(--blush); box-shadow: inset 3px 0 0 var(--rose); }
+
+/* 1024px, matching the company site's Header.astro rather than picking a
+   second breakpoint for the same decision. */
+@media (min-width: 1024px) {
+  .nav { display: flex; gap: 1.5rem; align-items: center; }
+  .header__phone { display: inline-flex; }
+  .header__cta { display: inline-flex; padding: 0.72em 1.3em; font-size: var(--step--1); }
+  .header__actions { margin-left: .5rem; }
+  .mobilenav { display: none; }
+}
+
+/* ==========================================================================
+   STICKY CALL BAR — mobile only. One tap to dial from any scroll position.
+   ========================================================================== */
+.callbar {
+  position: fixed; inset: auto 0 0 0; z-index: 70;
+  display: grid; grid-template-columns: 1fr 1fr; gap: .6rem;
+  padding: .6rem var(--gutter) calc(.6rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 -8px 28px -18px rgba(31, 24, 35, .45);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-top: 1px solid var(--line-strong);
+}
+.callbar .btn { padding: .78em 1em; font-size: .95rem; }
+body { padding-bottom: var(--callbar-h); }
+@media (min-width: 900px) { .callbar { display: none; } body { padding-bottom: 0; } }
+
+/* ==========================================================================
+   HERO — above the fold on a phone: name, what + where, the promise, the
+   rating, the CALL, and the form anchor. No carousel. No stock courtroom.
+   ========================================================================== */
+.hero { padding-block: clamp(2.5rem, 1.8rem + 3.5vw, 5rem) clamp(2.5rem, 2rem + 3vw, 4.5rem); position: relative; overflow: hidden; }
+.hero::after {
+  content: ""; position: absolute; inset: auto -20% -60% auto; width: 70vw; height: 70vw;
+  max-width: 640px; max-height: 640px; border-radius: 50%;
+  background: radial-gradient(circle, var(--rose-wash) 0%, transparent 68%);
+  pointer-events: none; z-index: 0;
+}
+.hero__inner { position: relative; z-index: 1; display: grid; gap: clamp(2rem, 1.5rem + 3vw, 3.5rem); }
+@media (min-width: 940px) { .hero__inner { grid-template-columns: 1.15fr 0.85fr; align-items: center; } }
+.hero__name { font-size: var(--step-5); margin-bottom: .1em; }
+.hero__role { font-size: var(--step-1); color: var(--rose); font-weight: 500; letter-spacing: .01em; margin-bottom: 1.1rem; }
+.hero__promise { font-size: var(--step-1); color: var(--slate); line-height: 1.45; max-width: 34ch; }
+.hero__cta { margin-top: 1.75rem; }
+.hero__reassure { margin-top: 1rem; font-size: var(--step--1); color: var(--slate-dim); display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; }
+
+/* Rating — always carries its count. "5.0 stars" alone would overstate one
+   review, and overstating on a lawyer's site is the deal-killer. */
+.rating { display: inline-flex; align-items: center; gap: .55rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+.rating__stars { display: inline-flex; gap: .12rem; color: var(--gold); }
+.rating__text { font-size: var(--step--1); color: var(--slate); }
+.rating__text strong { color: var(--ink); font-weight: 600; }
+
+/* Portrait — the frame is sized to the real image so dropping her headshot in
+   later shifts nothing. Aspect ratio holds whether or not the file exists. */
+.portrait { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 5; background: var(--card); border: 1px solid var(--line); }
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
+.portrait--empty { display: grid; place-items: center; padding: 1.5rem; text-align: center; background: repeating-linear-gradient(135deg, var(--card), var(--card) 10px, var(--blush) 10px, var(--blush) 20px); }
+.portrait--empty .portrait__label { font-size: var(--step--1); color: var(--slate); max-width: 26ch; }
+.portrait__frame { position: absolute; inset: 0; border: 1px solid var(--line-strong); border-radius: var(--radius); pointer-events: none; }
+.portrait__badge { position: absolute; left: 0; right: 0; bottom: 0; padding: .9rem 1.1rem; background: linear-gradient(to top, rgba(31,24,35,.9), transparent); color: var(--on-ink); font-size: var(--step--1); }
+
+/* ==========================================================================
+   URGENCY — the arrested-in-the-last-48-hours panel.
+   ========================================================================== */
+.urgent { border-left: 3px solid var(--rose); background: var(--rose-wash); padding: clamp(1.3rem, 1rem + 1.4vw, 2.1rem); border-radius: 0 var(--radius) var(--radius) 0; }
+.urgent h2 { font-size: var(--step-2); }
+.urgent p { color: var(--ink); }
+.urgent ul { color: var(--slate); padding-left: 1.1rem; }
+.urgent li + li { margin-top: .5rem; }
+
+/* --- steps -------------------------------------------------------------- */
+.steps { counter-reset: step; display: grid; gap: clamp(1.4rem, 1rem + 1.5vw, 2.5rem); }
+@media (min-width: 760px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+.step { counter-increment: step; }
+.step__n { font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; color: var(--rose); line-height: 1; display: block; margin-bottom: .55rem; }
+.step__n::before { content: counter(step, decimal-leading-zero); }
+.step h3 { margin-bottom: .4rem; }
+.step p { color: var(--slate); }
+
+/* --- forms -------------------------------------------------------------- */
+.formpanel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(1.4rem, 1.1rem + 1.3vw, 2.25rem); }
+.formpanel__head { margin-bottom: 1.5rem; }
+.formpanel__head h2, .formpanel__head h3 { font-size: var(--step-2); margin-bottom: .45rem; }
+.form { display: grid; gap: 1.3rem; }
+.field { display: grid; gap: 0.5rem; }
+.field > .label { font-weight: 600; font-size: var(--step-0); color: var(--ink); }
+.field .hint { font-size: var(--step--1); color: var(--slate); }
+.input, .textarea {
+  width: 100%; background: var(--porcelain); color: var(--ink);
+  border: 1.5px solid var(--line); border-radius: var(--radius-sm); padding: 0.85em 1em;
+  transition: border-color .16s var(--ease), box-shadow .16s var(--ease), background .16s var(--ease);
+}
+.input::placeholder, .textarea::placeholder { color: var(--on-ink-dim); }
+.input:hover, .textarea:hover { border-color: var(--line-strong); }
+.input:focus, .textarea:focus { border-color: var(--rose); box-shadow: 0 0 0 3px var(--rose-glow); outline: none; background: var(--card); }
+.textarea { min-height: 6.5rem; resize: vertical; }
+.field-row { display: grid; gap: 1.3rem; }
+@media (min-width: 560px) { .field-row { grid-template-columns: 1fr 1fr; } }
+
+/* Choice chips — tapping beats typing. Every keystroke saved is a lead kept. */
+.choices { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.choice { position: relative; }
+.choice input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; margin: 0; }
+.choice span {
+  display: flex; align-items: center; min-height: 44px; padding: 0.6em 1.15em; border: 1.5px solid var(--line-strong); border-radius: 999px;
+  background: var(--card); color: var(--ink); font-size: var(--step--1); font-weight: 500;
+  transition: all .16s var(--ease); user-select: none;
+}
+.choice input:hover + span { border-color: var(--line-strong); }
+.choice input:focus-visible + span { outline: 3px solid var(--rose); outline-offset: 3px; }
+.choice input:checked + span { background: var(--rose); color: var(--porcelain); border-color: var(--rose); font-weight: 600; }
+
+/* Staged notice — nothing sends from a preview (rule 9). */
+.staged {
+  display: flex; gap: .7rem; align-items: flex-start;
+  border: 1.5px dashed var(--rose); border-radius: var(--radius-sm);
+  padding: .85rem 1rem; font-size: var(--step--1); color: var(--slate); background: var(--rose-wash);
+}
+.staged strong { color: var(--ink); }
+
+/* --- honest blanks ------------------------------------------------------
+   Every unknown renders like this: visible, labeled, impossible to mistake
+   for content. A hatched box in a client pitch is a question. Invented filler
+   in a client pitch is a lie that ships. */
+.todo {
+  border: 1.5px dashed var(--line-strong); border-radius: var(--radius);
+  padding: clamp(1.15rem, 1rem + 1vw, 1.75rem); color: var(--slate); font-size: var(--step--1);
+  background: repeating-linear-gradient(135deg, var(--blush), var(--blush) 9px, var(--card) 9px, var(--card) 18px);
+}
+.todo strong { color: var(--ink); display: block; margin-bottom: .35rem; font-size: var(--step-0); font-family: var(--font-display); }
+.todo .todo__tag {
+  display: inline-block; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--porcelain); background: var(--gold); padding: .18em .6em; border-radius: 3px;
+  font-weight: 600; margin-bottom: .6rem;
+}
+.todo p { color: var(--slate); }
+
+/* --- FAQ ---------------------------------------------------------------- */
+.faq { border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  list-style: none; cursor: pointer; display: flex; justify-content: space-between;
+  align-items: center; gap: 1.5rem; padding: 1.15rem 0; font-weight: 500; color: var(--ink);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: ""; flex: none; width: 12px; height: 12px;
+  border-right: 2px solid var(--rose); border-bottom: 2px solid var(--rose);
+  transform: rotate(45deg) translate(-3px, -3px); transition: transform .2s var(--ease);
+}
+.faq details[open] summary::after { transform: rotate(-135deg) translate(-3px, -3px); }
+.faq .answer { padding-bottom: 1.3rem; color: var(--slate); }
+.faq .answer > * + * { margin-top: .7rem; }
+
+/* --- contact ------------------------------------------------------------ */
+.channels { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+@media (min-width: 700px) {
+  .channels { grid-template-columns: 1fr 1fr; }
+  /* The channel count changes with FLAGS.showPayments — 5 with payments off,
+     6 with them on. An odd count left the last grid cell empty, showing the
+     hairline colour as a dead grey block. A lone final item spans both
+     columns instead, so the panel is correct at either count. */
+  .channel:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+.channel { background: var(--card); padding: clamp(1.15rem, 1rem + .8vw, 1.6rem); display: flex; gap: .9rem; align-items: flex-start; text-decoration: none; }
+.channel:hover { background: var(--blush); }
+.channel__icon { color: var(--rose); flex: none; margin-top: .15rem; }
+.channel__label { font-size: var(--step--1); letter-spacing: .12em; text-transform: uppercase; color: var(--slate); font-weight: 500; margin-bottom: .3rem; }
+.channel__value { font-weight: 600; color: var(--ink); font-size: var(--step-0); line-height: 1.35; }
+.channel__note { font-size: var(--step--1); color: var(--slate); margin-top: .25rem; }
+
+/* --- proof / press ------------------------------------------------------ */
+.press { display: flex; gap: 1.1rem; align-items: flex-start; }
+.press__mark { color: var(--gold); flex: none; margin-top: .2rem; }
+.press__title { font-family: var(--font-display); font-size: var(--step-1); color: var(--ink); }
+.press__meta { font-size: var(--step--1); color: var(--slate); margin-top: .3rem; }
+
+/* --- tables (exposure plan) --------------------------------------------- */
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: var(--step--1); }
+th, td { text-align: left; padding: .85rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--blush); color: var(--ink); font-weight: 600; letter-spacing: .04em; }
+tr:last-child td { border-bottom: 0; }
+td strong { color: var(--ink); }
+.cell-bad { color: var(--rose); font-weight: 600; }
+
+/* --- numbered plan ------------------------------------------------------ */
+.plan { counter-reset: plan; display: grid; gap: 1.15rem; }
+/* min-width:0 on both: a grid item defaults to min-width:auto and will not
+   shrink below its widest child, so the 34rem table inside .tablewrap pushed
+   the whole page to 653px on a 390px phone instead of scrolling inside its own
+   box. Caught by browsercheck.mjs, not by reading. */
+.plan__item { counter-increment: plan; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 1rem + 1vw, 1.85rem); display: grid; grid-template-columns: auto 1fr; gap: 1.1rem; align-items: start; min-width: 0; }
+.plan__n { font-family: var(--font-display); font-size: var(--step-2); font-weight: 600; color: var(--rose); line-height: 1; }
+.plan__n::before { content: counter(plan, decimal-leading-zero); }
+.plan__body { min-width: 0; }
+.plan__body h3 { margin-bottom: .45rem; }
+.plan__body code { font-size: .92em; background: var(--blush); padding: .1em .4em; border-radius: 4px; overflow-wrap: anywhere; }
+.plan__body p { color: var(--slate); }
+.plan__body ul { color: var(--slate); padding-left: 1.1rem; margin-top: .6rem; }
+.plan__body li + li { margin-top: .35rem; }
+
+/* --- footer ------------------------------------------------------------- */
+.footer { background: var(--ink); color: var(--on-ink); border-top: 0; padding-block: clamp(2.5rem, 2rem + 2vw, 4rem) 2rem; }
+.footer__grid { display: grid; gap: 2rem; }
+@media (min-width: 760px) { .footer__grid { grid-template-columns: 1.3fr 1fr 1fr; } }
+.footer h2, .footer h3 { font-size: var(--step-0); font-family: var(--font-ui); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--on-ink-dim); margin-bottom: .9rem; }
+.footer a { color: var(--on-ink); text-decoration: none; }
+.footer a:hover { text-decoration: underline; text-decoration-color: var(--rose-bright); }
+.footer ul { list-style: none; padding: 0; }
+.footer li + li { margin-top: .1rem; }
+/* Footer links are a thumb target, not running text — 44px floor. */
+.footer li a { display: inline-flex; align-items: center; min-height: 44px; }
+.footer__legal { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line-on-ink); display: grid; gap: 1rem; font-size: var(--step--1); color: var(--slate-dim); }
+.footer__disclaimer { max-width: 78ch; }
+
+/* The preview line. Ships on every page (see ../audit.mjs — a page without it
+   fails the build). */
+.footer__preview { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; color: var(--on-ink); font-weight: 500; }
+.footer__preview .fpc-mark { color: var(--rose-bright); flex: none; }
+
+/* ==========================================================================
+   WATERMARK — REMOVING THIS IS A DELIBERATE ACT, NOT AN ACCIDENT.
+
+   The client has not signed. Until she does, every page and every screenshot
+   or PDF taken of it carries the Front Porch mark. Three layers:
+
+     1. .watermark        fixed monogram, bottom-right, above content, inert
+     2. .watermark-field  full-page diagonal repeat, print/export only
+     3. audit.mjs         fails the build if either is missing from a page
+
+   Deleting the markup alone does not silence it: the audit catches that.
+   Deleting this block alone does not silence it either: the audit greps the
+   built CSS for these selectors. Both have to go, on purpose, by someone who
+   read this comment. That is the intent.
+   ========================================================================== */
+.watermark {
+  position: fixed; right: clamp(.85rem, 2vw, 1.75rem); bottom: clamp(.85rem, 2vw, 1.75rem);
+  z-index: 90; pointer-events: none; user-select: none;
+  opacity: 0.13;                 /* brief §0: ~12–15% */
+  color: var(--ink);
+  width: clamp(52px, 7vw, 84px); height: auto;
+  /* No drop shadow: on porcelain it dirties the mark rather than lifting it. */
+  filter: none;
+}
+/* Clear the mobile call bar so the mark never sits on top of the CALL button. */
+.watermark { bottom: calc(var(--callbar-h) + clamp(.6rem, 1.5vw, 1rem)); }
+@media (min-width: 900px) { .watermark { bottom: clamp(.85rem, 2vw, 1.75rem); } }
+
+.watermark__caption {
+  position: fixed; right: clamp(.85rem, 2vw, 1.75rem);
+  bottom: calc(var(--callbar-h) + clamp(.6rem, 1.5vw, 1rem));
+  transform: translateY(-100%);
+  z-index: 90; pointer-events: none; user-select: none;
+  font-size: .58rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink); opacity: .13; font-weight: 600; text-align: right;
+}
+@media (min-width: 900px) { .watermark__caption { bottom: calc(clamp(.85rem, 2vw, 1.75rem) + clamp(52px, 7vw, 84px) + .4rem); transform: none; } }
+
+/* Full-page diagonal repeat. Off on screen (it would fight the design), ON for
+   anything exported — print, Save-as-PDF, and any screenshot tool that prints.
+   Encoded inline so an export can never fetch it and get a 404 instead. */
+.watermark-field { display: none; }
+@media print {
+  .watermark-field {
+    display: block; position: fixed; inset: 0; z-index: 999;
+    pointer-events: none; opacity: .1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Ctext x='150' y='150' font-family='Helvetica,Arial,sans-serif' font-size='19' font-weight='bold' fill='%23000' text-anchor='middle' transform='rotate(-35 150 150)'%3EPREVIEW %E2%80%94 FRONT PORCH COLLECTIVE%3C/text%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+  .callbar, .header, .skip { display: none !important; }
+  body { padding-bottom: 0; background: #fff; color: #000; }
+  .watermark { opacity: .3; color: #000; }
+}
+
+/* --- misc --------------------------------------------------------------- */
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.tag { display: inline-block; font-size: var(--step--1); font-weight: 500; padding: .3em .8em; border: 1px solid var(--line); border-radius: 999px; color: var(--slate); }
+.tag--gold { border-color: var(--gold); color: var(--gold); }
+.breadcrumbs { font-size: var(--step--1); color: var(--slate); padding-block: .5rem; }
+.breadcrumbs a { color: var(--slate); display: inline-flex; align-items: center; min-height: 44px; }
+.breadcrumbs a:hover { color: var(--ink); }
+.breadcrumbs span[aria-current] { color: var(--ink); }
+
+/* ==========================================================================
+   CLIENT INTAKE — /start/
+   This page is FROM Front Porch, not part of her site, so it wears a different
+   hat: ink header bar, FPC mark, no client nav. Same palette underneath so it
+   still feels like one piece of work.
+   ========================================================================== */
+.intake-top { background: var(--ink); color: var(--on-ink); padding-block: 1rem; position: sticky; top: 0; z-index: 60; }
+.intake-top__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.intake-top__brand { display: flex; align-items: center; gap: .7rem; font-weight: 600; }
+.intake-top__brand .fpc-mark { color: var(--rose-bright); flex: none; }
+.intake-top__for { font-size: var(--step--1); color: var(--on-ink-dim); }
+
+.intake-hero { padding-block: clamp(2.25rem, 1.8rem + 2.5vw, 4rem) clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem); }
+.intake-hero h1 { max-width: 18ch; }
+.intake-hero .lede { max-width: 56ch; }
+
+/* Save state — reassurance that a long form is not about to be lost. */
+.savebar {
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: .8rem 1.1rem; font-size: var(--step--1); color: var(--slate);
+}
+.savebar__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); flex: none; }
+.savebar[data-state="saved"] .savebar__dot { background: var(--rose); }
+.savebar strong { color: var(--ink); }
+
+.intake-nav { display: flex; flex-wrap: wrap; gap: .5rem; }
+.intake-nav a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: .5rem 1rem;
+  border: 1.5px solid var(--line-strong); border-radius: 999px; background: var(--card);
+  text-decoration: none; font-size: var(--step--1); font-weight: 500; color: var(--ink);
+}
+.intake-nav a:hover { border-color: var(--rose); color: var(--rose); }
+
+.qsection { border-top: 2px solid var(--ink); padding-top: 1.5rem; }
+.qsection + .qsection { margin-top: clamp(2.5rem, 2rem + 2vw, 4rem); }
+.qsection__num {
+  font-size: var(--step--1); font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--rose); display: block; margin-bottom: .4rem;
+}
+.qsection__blurb { color: var(--slate); max-width: 62ch; margin-top: .7rem; }
+.qsection__body { margin-top: 2rem; display: grid; gap: 2rem; }
+
+.q { display: grid; gap: .65rem; }
+.q > .label { font-weight: 600; font-size: var(--step-0); color: var(--ink); max-width: 58ch; }
+.q .hint { font-size: var(--step--1); color: var(--slate); max-width: 62ch; line-height: 1.55; }
+
+/* Checkbox chips — same shape as the radio chips so the whole form reads as
+   one control language. */
+.check { position: relative; }
+.check input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; margin: 0; }
+.check span {
+  display: flex; align-items: center; gap: .5em; min-height: 44px; padding: .6em 1.1em;
+  border: 1.5px solid var(--line-strong); border-radius: 999px; background: var(--card);
+  color: var(--ink); font-size: var(--step--1); font-weight: 500;
+  transition: all .16s var(--ease); user-select: none;
+}
+.check span::before {
+  content: ""; width: 16px; height: 16px; flex: none; border-radius: 4px;
+  border: 1.5px solid var(--line-strong); background: var(--porcelain);
+}
+.check input:hover + span { border-color: var(--rose); }
+.check input:focus-visible + span { outline: 3px solid var(--rose); outline-offset: 3px; }
+.check input:checked + span { background: var(--rose); color: var(--card); border-color: var(--rose); font-weight: 600; }
+.check input:checked + span::before {
+  background: var(--card); border-color: var(--card);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B3195C' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-size: 12px; background-position: center; background-repeat: no-repeat;
+}
+
+/* A note block — context we owe her before she answers, not a question. */
+.notebox {
+  border-left: 3px solid var(--gold); background: var(--blush);
+  padding: 1.1rem 1.25rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.notebox strong { display: block; color: var(--ink); margin-bottom: .35rem; }
+.notebox p { color: var(--slate); font-size: var(--step--1); line-height: 1.6; }
+
+/* The offer menu — one row per thing, three priorities. */
+.prio { display: grid; gap: .75rem; }
+.prio__row {
+  display: grid; gap: .85rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.1rem 1.15rem;
+}
+@media (min-width: 780px) { .prio__row { grid-template-columns: 1fr auto; align-items: start; } }
+.prio__label { font-weight: 600; color: var(--ink); }
+.prio__desc { font-size: var(--step--1); color: var(--slate); margin-top: .3rem; line-height: 1.55; max-width: 60ch; }
+.prio__choices { display: flex; gap: .4rem; flex-wrap: wrap; }
+/* 44px here too. These were 40px to keep the offer rows compact, which the
+   browser check correctly rejected — the floor does not bend for density. */
+.prio__choices .choice span { min-height: 44px; padding: .4em .9em; font-size: .82rem; }
+
+/* Review-and-copy step */
+.summary {
+  width: 100%; min-height: 16rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .82rem; line-height: 1.55; background: var(--porcelain);
+  border: 1.5px solid var(--line-strong); border-radius: var(--radius-sm); padding: 1rem;
+  color: var(--ink); resize: vertical;
+}
+
+/* ==========================================================================
+   REVIEW CARD — /review-card/
+   A physical thing. Screen layout is a preview of the print layout.
+   ========================================================================== */
+.rcard {
+  background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+  display: grid; gap: 1.4rem; max-width: 26rem; box-shadow: var(--shadow);
+}
+@media (min-width: 640px) { .rcard--wide { max-width: 40rem; grid-template-columns: auto 1fr; align-items: center; } }
+.rcard__qr { width: clamp(150px, 40vw, 190px); height: auto; margin-inline: auto; }
+.rcard__qr svg { width: 100%; height: auto; display: block; }
+.rcard__head { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.1; color: var(--ink); }
+.rcard__sub { font-size: var(--step--1); color: var(--slate); margin-top: .4rem; }
+.rcard__steps { display: grid; gap: .5rem; margin-top: .3rem; font-size: var(--step--1); color: var(--slate); }
+.rcard__steps li { list-style: none; display: flex; gap: .6rem; }
+.rcard__steps b { color: var(--rose); flex: none; font-variant-numeric: tabular-nums; }
+.rcard__foot { font-size: var(--step--1); color: var(--slate-dim); border-top: 1px solid var(--line); padding-top: .9rem; }
+
+.sample-flag {
+  display: inline-flex; align-items: center; gap: .5em; font-size: .68rem; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 600; color: var(--card); background: var(--gold);
+  padding: .3em .7em; border-radius: 3px;
+}
+
+.prompts { display: grid; gap: .6rem; }
+.prompts li { list-style: none; padding-left: 1.4rem; position: relative; color: var(--slate); }
+.prompts li::before { content: "?"; position: absolute; left: 0; color: var(--rose); font-weight: 700; }
+
+/* ==========================================================================
+   PRINT — the form on paper.
+   The web version can breathe; the printed one cannot. At screen spacing this
+   form came out at 25 pages, which reads as homework and undoes the whole
+   "easy to fill in" promise. Everything below is compression, not redesign:
+   same questions, same order, same control language, roughly a third of the
+   paper.
+   ========================================================================== */
+@media print {
+  .intake-top, .intake-nav, .savebar, .btn, .staged, .btn-row,
+  [data-summary-wrap], .footer__grid, .watermark__caption { display: none !important; }
+
+  html, body { font-size: 10.5pt; line-height: 1.35; }
+  .section { padding-block: 0 !important; }
+  .intake-hero { padding-block: 0 0 .6rem !important; }
+  .wrap-narrow, .wrap { width: 100% !important; }
+
+  h1 { font-size: 22pt; }
+  h2 { font-size: 14pt; }
+  .lede { font-size: 11pt; line-height: 1.4; max-width: none; }
+
+  .qsection { break-inside: auto; padding-top: .5rem; border-top-width: 1.5px; }
+  .qsection + .qsection { margin-top: 1.1rem; }
+  .qsection__num { font-size: 7.5pt; margin-bottom: .1rem; }
+  .qsection__blurb { font-size: 9pt; margin-top: .25rem; }
+  .qsection__body { margin-top: .7rem; gap: .75rem; }
+
+  .q { break-inside: avoid; page-break-inside: avoid; gap: .25rem; }
+  .q > .label, .q legend.label { font-size: 10.5pt; }
+  .q .hint { font-size: 8.5pt; line-height: 1.35; }
+
+  /* Chips print as compact outlines — they are tick boxes on paper. */
+  .choices { gap: .25rem; }
+  .choice span, .check span { min-height: 0 !important; padding: .18em .5em !important; font-size: 8.5pt; border-width: 1px; }
+  .check span::before { width: 10px; height: 10px; }
+
+  .prio { gap: .25rem; }
+  .prio__row { padding: .4rem .5rem; gap: .35rem; break-inside: avoid; page-break-inside: avoid;
+               grid-template-columns: 1fr auto; align-items: center; }
+  .prio__label { font-size: 9.5pt; }
+  .prio__desc { font-size: 8pt; margin-top: .1rem; line-height: 1.3; }
+  .prio__choices .choice span { font-size: 8pt; padding: .15em .45em !important; }
+
+  .notebox { padding: .5rem .65rem; break-inside: avoid; }
+  .notebox p { font-size: 8.5pt; line-height: 1.4; }
+
+  .input { border: 1px solid #999 !important; min-height: 1.7rem; padding: .2em .4em; background: #fff !important; }
+  .textarea { border: 1px solid #999 !important; min-height: 3.2rem; padding: .2em .4em; background: #fff !important; }
+
+  /* The review card must never be split across a page. */
+  .rcard { box-shadow: none; border: 1px solid #999; break-inside: avoid; page-break-inside: avoid; max-width: 100%; }
+  .rcard__qr { width: 150px; }
+
+  /* Keep the preview line and the mark — a printed page walks out of the room. */
+  .footer { background: none !important; color: #000 !important; padding-block: .6rem 0 !important; }
+  .footer__legal { margin-top: .4rem; padding-top: .4rem; border-top: 1px solid #999; }
+  .footer__legal, .footer__preview { color: #000 !important; font-size: 8pt; }
+  .footer__disclaimer { font-size: 7.5pt; }
+}
+
+/* Office photo slot — Contact. Same discipline as the portrait: the frame
+   holds its aspect whether or not a file exists, so dropping one in later
+   shifts nothing. */
+.officeshot { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+.officeshot img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.officeshot figcaption { padding: .8rem 1rem; color: var(--slate); }
+.officeshot--empty {
+  aspect-ratio: 3 / 2; display: grid; place-items: center; text-align: center;
+  padding: 1.5rem; border-style: dashed; border-width: 1.5px; border-color: var(--line-strong);
+  background: repeating-linear-gradient(135deg, var(--card), var(--card) 10px, var(--blush) 10px, var(--blush) 20px);
+}

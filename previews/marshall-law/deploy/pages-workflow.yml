@@ -1,0 +1,50 @@
+# Publish this preview to GitHub Pages.
+#
+# The repository's Pages "Source" is set to GitHub Actions, so the deployment
+# is driven from here rather than from the Settings screen. That matters
+# because the alternative — "Deploy from a branch" — has to be saved by hand in
+# a web form, and this repo is administered from a phone.
+name: Deploy preview to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Least privilege: read the files, write one Pages deployment, nothing else.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One live site. Queue deployments rather than cancelling, so a run that is
+# already uploading is never killed half-way and left partly published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Reads the repository's Pages configuration. `enablement: true` is
+      # deliberately NOT set — a workflow's GITHUB_TOKEN is not permitted to
+      # create a Pages site, whatever permissions the job declares, and adding
+      # it makes this step fail rather than an earlier one.
+      - uses: actions/configure-pages@v5
+
+      # The site is pre-built static output committed at the repository root.
+      # There is nothing to compile here.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
