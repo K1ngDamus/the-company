@@ -5,7 +5,7 @@
 **Project:** `082d232b-8a11-449b-b841-fb1d4f22b6b5`
 · [editor](https://lovable.dev/projects/082d232b-8a11-449b-b841-fb1d4f22b6b5)
 · [preview](https://id-preview--082d232b-8a11-449b-b841-fb1d4f22b6b5.lovable.app)
-**Status:** first build done, four corrections sent. Private, unpublished, nothing deployed.
+**Status:** first build done, all four corrections verified in code. Private, unpublished, nothing deployed.
 **Opened:** 2026-09-01
 
 The flyer is the source of truth for every fact. The logo is the source of truth
@@ -186,6 +186,13 @@ Four findings, sent back as one corrective prompt:
 | 3 | A program point asserted **"There is no charge to families for care delivered through the Georgia Pediatric Program"** | A general claim about how GAPP works, written by us. Narrowed back to what she said |
 | 4 | The home page had Concepcion and Darnel **"answer questions about care, qualifying, caregiver pay and hiring"** | The flyer names them for hiring, parent caregiver compensation and employment. Who fields care and qualifying enquiries is not known, so it is no longer asserted |
 
+**All four verified fixed** at commit `73554f93`, and nothing else moved — the
+forms are byte-for-byte unchanged and still unwired. The eyebrow is now
+`text-cream` on purple, which measures **7.18:1**. The two remaining uses of
+gold-on-a-dark-fill were checked rather than assumed and both pass: the 24px
+semibold lead on purple is genuine large text at 3.66:1 against a 3:1 floor,
+and gold on navy is 6.9:1.
+
 Findings 2–4 are the same failure mode in three costumes: a true-sounding
 sentence one step beyond the source. None would have looked wrong to a reader.
 That is exactly why they are worth catching on a healthcare site.
@@ -205,3 +212,7 @@ That is exactly why they are worth catching on a healthcare site.
   unwired forms. Audited against the brief; four corrections sent. One was a
   real WCAG AA contrast failure, three were copy drifting a step past the
   flyer. Nothing published.
+- **2026-09-01** — Corrections verified at `73554f93`. Contrast fix measures
+  7.18:1; the three copy items now sit inside her wording; forms unchanged and
+  still unwired. The build is where it can go without the client's answers.
+  Nothing published.
