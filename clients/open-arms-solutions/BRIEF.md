@@ -31,10 +31,27 @@ both cost real money if ignored:
 
 ### Gate 2: the example site
 
-Leon is supplying a URL as the minimum bar. Once it is here it gets read for
-what it *does* — pages, forms, calls to action — and that list becomes the
-functional floor below. Its **looks are not a reference.** Design direction
-comes from the flyer.
+**URL received 2026-09-01: `https://www.4wardhealthcare.com/`. Not yet read —
+this session cannot reach it.** The remote environment's network policy allows
+an allowlist of hosts and this domain is not on it; both the fetch tool and a
+plain `curl` come back `403 CONNECT tunnel failed` from the egress proxy.
+
+So the functional floor below is still ours-by-trade, not theirs. It stays that
+way rather than being filled in from search snippets or memory — describing a
+site we could not open is the same invention rule 11 forbids everywhere else.
+
+Three ways to clear it, cheapest first:
+
+1. **Screenshots or a copy-paste** of the pages and the nav into the chat. All
+   we need is what it *does*: pages, forms, calls to action.
+2. **Allow the domain** on the environment's network policy, or move this work
+   to a session with open egress. See
+   <https://code.claude.com/docs/en/claude-code-on-the-web>.
+3. **Skip it.** It is the floor, not the target, and the floor below already
+   covers what the trade requires. This costs the least and loses the least.
+
+Either way its **looks are not a reference.** Design direction comes from the
+flyer.
 
 ---
 
@@ -74,8 +91,9 @@ for the client — not something we fill in.
 
 ## The functional floor
 
-Filled in from the example site once its URL arrives. Until then this is what
-the trade requires of any home care site, and it stands as our own floor:
+Not yet filled in from the example site — see Gate 2, it could not be opened.
+What follows is what the trade requires of any home care site, and it stands as
+our floor on its own merits:
 
 - [ ] Phone number reachable in one tap from every screen, header and footer
 - [ ] Services, each explained in plain language, each its own page if she has more than three
@@ -125,3 +143,7 @@ What that means concretely, before the flyer refines it:
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
   recorded. Flyer and example URL both stated as coming. Intake scaffold
   written; nothing created in Lovable.
+- **2026-09-01** — Example URL given: `4wardhealthcare.com`. Blocked by the
+  session's network policy at the egress proxy, so it is recorded unread rather
+  than described. Asked Leon for screenshots, a policy change, or to skip it.
+  Still waiting on the flyer, which is the gate that matters.
