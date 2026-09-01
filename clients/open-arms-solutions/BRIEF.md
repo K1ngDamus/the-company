@@ -5,7 +5,7 @@
 **Project:** `082d232b-8a11-449b-b841-fb1d4f22b6b5`
 · [editor](https://lovable.dev/projects/082d232b-8a11-449b-b841-fb1d4f22b6b5)
 · [preview](https://id-preview--082d232b-8a11-449b-b841-fb1d4f22b6b5.lovable.app)
-**Status:** first build running. Private, unpublished, nothing deployed.
+**Status:** first build done, four corrections sent. Private, unpublished, nothing deployed.
 **Opened:** 2026-09-01
 
 The flyer is the source of truth for every fact. The logo is the source of truth
@@ -167,6 +167,29 @@ Recommendation: **skip it.** It was offered as the floor, not the target, and
 the page list above already exceeds what it could tell us. If Leon wants it read
 anyway, screenshots pasted into the chat are the cheapest route.
 
+## Build audit — first pass, 2026-09-01
+
+Seven routes, a real design system, three forms. What it got right without
+being asked twice: `--teal` split into a graphics colour and an AA-safe text
+colour, with the contrast rules written into the stylesheet comments; an 18px
+body floor; `prefers-reduced-motion` honoured; visible focus rings; the
+founders' story left deliberately blank behind a marked chip; and forms that
+say *"This form isn't connected yet. Nothing was sent"* rather than pretending
+to submit.
+
+Four findings, sent back as one corrective prompt:
+
+| # | Finding | Why it matters |
+|---|---|---|
+| 1 | **Contrast failure.** The purple caregiver band's eyebrow is 14px bold gold on purple — about **3.66:1**. At that size WCAG needs 4.5:1, not the 3:1 large-text allowance | The one genuine AA failure. Caught by checking rather than assuming, which is the whole point of the rule |
+| 2 | Hero read **"at no cost."** unqualified | Her words are "no cost to **parents**." GAPP is Medicaid-funded — there is a cost, just not to the family. Now "at no cost to your family" |
+| 3 | A program point asserted **"There is no charge to families for care delivered through the Georgia Pediatric Program"** | A general claim about how GAPP works, written by us. Narrowed back to what she said |
+| 4 | The home page had Concepcion and Darnel **"answer questions about care, qualifying, caregiver pay and hiring"** | The flyer names them for hiring, parent caregiver compensation and employment. Who fields care and qualifying enquiries is not known, so it is no longer asserted |
+
+Findings 2–4 are the same failure mode in three costumes: a true-sounding
+sentence one step beyond the source. None would have looked wrong to a reader.
+That is exactly why they are worth catching on a healthcare site.
+
 ## Log
 
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
@@ -178,3 +201,7 @@ anyway, screenshots pasted into the chat are the cheapest route.
   not the senior home care the first draft assumed. Facts transcribed, assets
   saved, Lovable project created with the standing no-invention rules set as
   project knowledge. First build running. Nothing published.
+- **2026-09-01** — First build landed: seven routes, design system, three
+  unwired forms. Audited against the brief; four corrections sent. One was a
+  real WCAG AA contrast failure, three were copy drifting a step past the
+  flyer. Nothing published.
