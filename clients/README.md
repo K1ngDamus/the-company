@@ -11,4 +11,4 @@ marked blank, not a plausible sentence.
 
 | Client | Trade | Build lives | Status |
 |---|---|---|---|
-| [Open Arms Solutions LLC](open-arms-solutions/BRIEF.md) | Home healthcare | Lovable (not yet created) | Intake |
+| [Open Arms Solutions LLC](open-arms-solutions/BRIEF.md) | Pediatric home healthcare (GAPP) | [Lovable](https://lovable.dev/projects/082d232b-8a11-449b-b841-fb1d4f22b6b5) | First build, unpublished |

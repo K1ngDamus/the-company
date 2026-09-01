@@ -1,149 +1,180 @@
 # Open Arms Solutions LLC — website build
 
-**Trade:** home healthcare
+**Trade:** pediatric home healthcare, through Georgia's GAPP (Medicaid)
 **Build tool:** Lovable, in `Leon's Lovable` (workspace `pk7HYkw0osFxFACKvOFm`)
-**Project:** not created yet — see [Gate 1](#gate-1-the-flyer)
-**Status:** intake. Nothing built, nothing bought, nothing sent.
+**Project:** `082d232b-8a11-449b-b841-fb1d4f22b6b5`
+· [editor](https://lovable.dev/projects/082d232b-8a11-449b-b841-fb1d4f22b6b5)
+· [preview](https://id-preview--082d232b-8a11-449b-b841-fb1d4f22b6b5.lovable.app)
+**Status:** first build running. Private, unpublished, nothing deployed.
 **Opened:** 2026-09-01
 
-The client's flyer is the source of truth for this site. We are turning her
-flyer into a website — her words, her services, her contact details, her colors.
-The example site Leon is supplying is the *floor*, not the target: it says what
-the site must at minimum do. What we ship should look considerably better than
-it.
+The flyer is the source of truth for every fact. The logo is the source of truth
+for the palette. Both are in [`assets/`](assets/).
 
 ---
 
-## The two gates
+## What this business actually is
 
-### Gate 1: the flyer
+Not general home care. **Pediatric** home healthcare for children with
+developmental and physical disabilities, delivered through the **Georgia
+Pediatric Program (GAPP)** — a Medicaid program, free to the family.
 
-Nothing is created in Lovable until the flyer is in `assets/`. Two reasons, and
-both cost real money if ignored:
+And it sells to **two audiences**, which is the thing that shapes the whole site:
 
-1. **Rule 11.** Every fact on a home healthcare site — services, service area,
-   license status, phone number, who answers it — belongs to the client. A
-   guess here is not a placeholder that gets fixed later; it is a false claim
-   about a healthcare business, sitting on the open web under her name.
-2. **Credits.** Each Lovable message spends Leon's workspace credits. A first
-   prompt written from the flyer gets far closer on the first pass than a
-   generic one that then needs to be argued back into shape.
+1. **Parents of a medically complex child** who need care at home and want to
+   know whether their child qualifies.
+2. **People who want to be paid caregivers** — including parents paid to care
+   for their own child — plus nurses looking for work.
 
-### Gate 2: the example site
+The flyer leads with audience 2 (*"GET PAID TO CARE FOR YOUR CHILD!"* is the top
+line). On most home care sites recruiting is a footer link; here it is arguably
+the larger offer, so the home page forks between the two at the top rather than
+burying one.
 
-**URL received 2026-09-01: `https://www.4wardhealthcare.com/`. Not yet read —
-this session cannot reach it.** The remote environment's network policy allows
-an allowlist of hosts and this domain is not on it; both the fetch tool and a
-plain `curl` come back `403 CONNECT tunnel failed` from the egress proxy.
+## The facts, from the flyer
 
-So the functional floor below is still ours-by-trade, not theirs. It stays that
-way rather than being filled in from search snippets or memory — describing a
-site we could not open is the same invention rule 11 forbids everywhere else.
+| Item | Value |
+|---|---|
+| Name | **Open Arms Solutions** (legal: Open Arms Solutions LLC) |
+| Category | Home healthcare |
+| Positioning line | "Providing a supportive environment for children and families by offering expert care for those with developmental and physical disabilities." |
+| Phone | **(478) 447-1813** |
+| Email | **Openarmsgroupllc@gmail.com** |
+| Named contacts | Concepcion Gallardo and Darnel Hamilton Jr. |
+| Program | Georgia Pediatric Program (GAPP) |
+| Hiring | Yes — "Hiring a Nurse", "Parent Caregiver Compensation", "Employment" |
 
-Three ways to clear it, cheapest first:
+**Our dedication** (verbatim): *"At Open Arms Solutions, we provide personalized
+home healthcare services designed to meet the unique needs of each child and
+family. We are proud participants in the Georgia Pediatric Program (GAPP),
+created to aid parents and offer free in home healthcare."*
 
-1. **Screenshots or a copy-paste** of the pages and the nav into the chat. All
-   we need is what it *does*: pages, forms, calls to action.
-2. **Allow the domain** on the environment's network policy, or move this work
-   to a session with open egress. See
-   <https://code.claude.com/docs/en/claude-code-on-the-web>.
-3. **Skip it.** It is the floor, not the target, and the floor below already
-   covers what the trade requires. This costs the least and loses the least.
+**Program information:**
+- Free program with no cost to parents
+- Not a waiver service, allowing immediate approval
+- **No waitlist**
+- Intake and evaluation may take up to 30 days for service approval
+- Parents play a crucial role in developing their child's treatment plan and
+  service goals
 
-Either way its **looks are not a reference.** Design direction comes from the
-flyer.
+**Qualifying diagnosis or medical devices**, in flyer order: Epilepsy · Cerebral
+Palsy · Spina Bifida · Muscular Dystrophy · Down Syndrome · Autism with medical
+complexity · Traumatic Brain Injury · Dialysis Machine · Wheelchair · Heart
+Conditions · Gastrostomy Tube (G-Tube) · And more…
 
----
+**Get paid as your child's caregiver:** through GAPP, parents and guardians of
+medically eligible children on Medicaid can become paid caregivers. **No nursing
+license required.** Children must be between the ages of 5–20.
 
-## What we have
+**Trust points:** caregivers carefully selected and screened · background checked
+· supervised by our nurses
 
-| # | Item | Status |
+## Three things to get right, because they are easy to get wrong
+
+**The 5–20 age range belongs to one offer only.** On the flyer it sits under
+*Get Paid As Your Child's Caregiver*, not under the services. Applying it to the
+care generally would wrongly turn families away. The site states it only on the
+paid-caregiver page.
+
+**"No waitlist" and "up to 30 days" have to read as one sequence.** No waitlist
+to get started, then up to 30 days for approval. Written carelessly they read as
+a promise the next line breaks, which is worse than saying neither.
+
+**"Free" is her claim, and it stays hers.** The site carries the flyer's wording
+about the program being free to parents. It does not extend, restate, or
+guarantee it in language she did not use.
+
+## Still blank — nothing here gets guessed
+
+Every one of these is a fact only the client can give. Each renders as a marked
+placeholder rather than plausible prose, and the standing rules in the Lovable
+project forbid the agent from filling any of them in later.
+
+| # | Item | Why it matters |
 |---|---|---|
-| 1 | Company name | **Open Arms Solutions LLC** — from Leon, 2026-09-01 |
-| 2 | Trade | **Home healthcare** — from Leon, 2026-09-01 |
-| 3 | Build tool | **Lovable** — Leon's call, 2026-09-01 |
-| 4 | Design bar | **Not the bare minimum.** Extraordinary looks and graphics — Leon, 2026-09-01 |
+| 1 | **Service area** — counties, cities, or a radius | Area code 478 is middle Georgia, but that is an inference about a phone number, not a fact about where she works. Families check this before calling |
+| 2 | **Licensing** — what she is licensed or certified as, and by whom | A license claim that is not hers is the worst sentence on the site |
+| 3 | Office or mailing address | Decides `LocalBusiness` schema and a map, or service-area-only |
+| 4 | Business hours, and who answers after hours | |
+| 5 | Owners' story — Concepcion and Darnel | About page has a marked space, not an invented story. In this trade the founders *are* the differentiator |
+| 6 | Real photographs of caregivers and families, with written consent | See below |
+| 7 | Caregiver pay rate or range | The first question every applicant asks |
+| 8 | Original logo file — vector or high-res PNG on transparent | We are working from a photo of a print |
+| 9 | Does she have a Google Business Profile? | The site's NAP has to match it exactly or local search splits |
+| 10 | Domain name | Nothing bought (rule 8) |
 
-That is the whole list. Everything below is blank.
+## Two decisions that cost money or trust
 
-## What the flyer has to answer
+**Photography.** No stock. Stock photos of disabled children are both instantly
+recognisable and distasteful, and this audience will clock it immediately. The
+build therefore stands on custom illustration and the flyer's handprint motif,
+with marked slots for real photographs. Getting real photos of her actual
+caregivers and families — with written consent from everyone identifiable — is
+the single biggest visual upgrade available, and the one with the longest lead
+time. Worth asking her this week.
 
-Read straight off the flyer where it is there. Where it is not, it is a question
-for the client — not something we fill in.
+**Where the forms send.** The forms are built but **deliberately unwired**. An
+intake form that collects a child's diagnosis is collecting protected health
+information, and a form-to-Gmail pipeline is not an appropriate destination for
+it. Her current published contact is a Gmail address, which is her existing
+practice and not ours to change — but we should not build a web form that
+industrialises it. The intake form asks only what is needed to return a call:
+name, best contact, child's age, and an optional free-text note. No required
+diagnosis checkboxes, no Medicaid ID, no date of birth, no SSN.
 
-| # | Item | Why it cannot be guessed |
-|---|---|---|
-| 1 | Legal name and how she writes it publicly | "Open Arms Solutions LLC" vs "Open Arms Solutions" — the LLC belongs in the footer and schema either way |
-| 2 | Phone number | The single most-used element on a home care site |
-| 3 | Email address | |
-| 4 | Physical or mailing address | Decides whether this gets `LocalBusiness` schema and a map, or `Organization` and a service area only |
-| 5 | Service area — counties, cities, or a radius | Home care is bought locally; this drives every local page |
-| 6 | The services, in her words | Personal care, companion care, respite, homemaking, skilled nursing and private duty are different products with different licensing. We take her list, not a generic one |
-| 7 | Hours, and who answers after hours | "24/7" is a claim, not a default |
-| 8 | Licensed / bonded / insured — and by whom | A license claim that is not hers is the worst sentence we could write |
-| 9 | How families pay — private pay, long-term care insurance, VA, Medicaid waiver | Second question every family asks, after price |
-| 10 | Owner's name, story, and photo | This is the whole differentiator in home care. "Open Arms" is a promise the About page has to make good on |
-| 11 | Logo — original file if it exists, not a flyer crop | |
-| 12 | Colors and typefaces from the flyer | The palette starts here and gets pushed to something better, not replaced |
-| 13 | Photography — real caregivers and clients, with signed permission | Stock is visible from orbit in this trade. Real photos need written consent from anyone identifiable |
-| 14 | Is she hiring caregivers? | Recruiting is half the traffic on most home care sites. If yes, careers is a first-class page, not a footer link |
-| 15 | Any tagline already in use | |
+This needs a decision before launch, and it is a real one — a HIPAA-appropriate
+form destination is a paid product. Nothing gets bought without Leon (rule 8).
 
-## The functional floor
+## The design bar
 
-Not yet filled in from the example site — see Gate 2, it could not be opened.
-What follows is what the trade requires of any home care site, and it stands as
-our floor on its own merits:
+Not the bare minimum. The competition in home care is stock photos, blue
+gradients and three grey boxes; beating that is not the hard part. The hard part
+is being genuinely beautiful while still reading as serious healthcare to a
+parent making a frightening decision.
 
-- [ ] Phone number reachable in one tap from every screen, header and footer
-- [ ] Services, each explained in plain language, each its own page if she has more than three
-- [ ] Service area stated explicitly — families check this before they call
-- [ ] "Request care" form, and a separate "Apply to work here" form if #14 is yes
-- [ ] About, carrying the owner's story and face
-- [ ] How to pay
-- [ ] Real contact page with NAP matching her Google Business Profile exactly
-- [ ] Privacy and terms
-- [ ] Structured data — `LocalBusiness` or `Organization`, matching #4
+What that means concretely here:
 
-## Design direction
+- **The pediatric angle is a gift.** This site can be joyful in a way adult home
+  care never can. The flyer already knows it — rainbow handprints, children
+  holding hands. That motif is the identity, used with restraint.
+- **Palette straight from the logo.** Navy `#16295C`, teal `#1BA3A6`, purple
+  `#6B3FA0`, gold `#F0A93B` for calls to action, cream `#FDFBF7` ground. Never
+  clinical blue.
+- **Custom illustration, echoing the logo's own geometry** — the cradling-hands
+  curve, the two-tone heart, the pitched roofline — recurring as section
+  dividers, card tops and bullets.
+- **Accessibility is the product, not a checkbox.** A company serving children
+  with disabilities cannot ship an inaccessible site. WCAG 2.2 AA verified,
+  keyboard navigation, reduced-motion honoured, 18px body minimum.
+- **Mobile is the real site.** A worried parent, on a phone, at night.
 
-**The bar is extraordinary.** Home healthcare sites are, almost without
-exception, ugly: stock photos of a stranger's hands, three-column boxes, a blue
-gradient. Beating that is not the hard part. The hard part is beating it
-*without* looking like a tech startup, because the person deciding is often 55–75
-and is choosing who to trust in their mother's house.
+## The pages
 
-What that means concretely, before the flyer refines it:
+Home · Our Program (GAPP) · Who Qualifies · Get Paid to Care for Your Child ·
+Careers · About · Contact.
 
-- **Warm, not clinical.** The competition is either hospital-blue or greeting-card
-  pastel. The flyer's own palette is the way out of both.
-- **Type large by default.** Body copy sized for a reader who is not reaching for
-  glasses. This costs nothing and is felt immediately.
-- **AA contrast as a floor, not a target** — same standard our own site is held
-  to, and here the audience makes it load-bearing rather than a checkbox.
-- **Graphics that are ours.** Custom illustration or well-directed real
-  photography. Not icon-font clip art.
-- **Motion that is calm.** Considered entrances, no parallax carnival, and it all
-  respects `prefers-reduced-motion`.
-- **Mobile is the real site.** Most of this traffic is a worried adult child on a
-  phone, at night.
+Three forms, all built, all unwired: refer a child, get paid as a caregiver,
+careers application.
 
-## Handling and privacy
+## Example site
 
-- Anything a family types into a care form is health-adjacent. Forms collect the
-  minimum to return a call, and no diagnosis or condition field goes in without
-  the client asking for it and understanding where it lands.
-- No client photograph goes on the site without written permission from everyone
-  identifiable in it.
-- Nothing here is published, deployed, or shown publicly until the client says
-  so (rules 9 and 16).
+Leon gave `https://www.4wardhealthcare.com/` as the minimum bar. This session
+cannot open it — the environment's network policy allowlists hosts and that
+domain is not among them (`403` from the egress proxy, on both the fetch tool
+and plain `curl`). It is recorded unread rather than described from memory.
+
+Recommendation: **skip it.** It was offered as the floor, not the target, and
+the page list above already exceeds what it could tell us. If Leon wants it read
+anyway, screenshots pasted into the chat are the cheapest route.
 
 ## Log
 
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
-  recorded. Flyer and example URL both stated as coming. Intake scaffold
-  written; nothing created in Lovable.
+  recorded. Intake scaffold written; nothing created in Lovable.
 - **2026-09-01** — Example URL given: `4wardhealthcare.com`. Blocked by the
-  session's network policy at the egress proxy, so it is recorded unread rather
-  than described. Asked Leon for screenshots, a policy change, or to skip it.
-  Still waiting on the flyer, which is the gate that matters.
+  session's network policy, so recorded unread rather than described.
+- **2026-09-01** — **Flyer and logo received.** The brief changed shape: this is
+  pediatric GAPP care with a second, possibly larger, paid-caregiver audience —
+  not the senior home care the first draft assumed. Facts transcribed, assets
+  saved, Lovable project created with the standing no-invention rules set as
+  project knowledge. First build running. Nothing published.
