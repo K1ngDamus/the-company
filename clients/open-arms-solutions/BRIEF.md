@@ -279,6 +279,31 @@ is built on, and it would be read as carelessness rather than history.
 Worth returning to before launch: a business running two marks is a problem to
 solve deliberately, not to discover on a printed sign in someone's photograph.
 
+## GAPP expansion — first pass, 2026-09-02
+
+Six new routes: `/what-is-gapp`, `/how-to-apply`, `/switching-agencies`,
+`/your-rights`, `/first-visit`, `/faq`. Careers expanded with Georgia caregiver
+standards; EVV added; clinical terms glossed in plain language; `FAQPage`
+JSON-LD; nav regrouped behind a "For families" dropdown.
+
+What it got right without argument: the research sits in `program.ts` behind a
+header saying plainly that nobody verified it, no managed-care plan is named
+anywhere, the Katie Beckett portal is a visible chip rather than a guessed link,
+there is no bonus language on careers, and every missing client fact is a chip
+instead of an invention.
+
+The voice landed. *"Dishes in the sink. Toys on the floor. A bad night's sleep.
+None of it counts against you"* is the best writing on the site, and it is aimed
+exactly at the reader the brief describes.
+
+Three corrections sent:
+
+| # | Finding | Why |
+|---|---|---|
+| 1 | **The entire site was written in British English** — `programme`, `authorised`, `centralised`, and *"Georgia Pediatric Programme"* | It is a US state Medicaid program, spelled wrong. It also reached the mandated compliance sentence, which renders site-wide. A Georgia parent registers that something is off even without naming it, and this site's whole job is trust |
+| 2 | An FAQ answer opened *"Our flyer puts it plainly…"* | A website visitor has never seen the flyer |
+| 3 | The "For families" dropdown never closed on Escape or an outside click | It closes on navigation, which is good, but not on dismissal |
+
 ## Log
 
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
@@ -320,3 +345,8 @@ solve deliberately, not to discover on a printed sign in someone's photograph.
   tap-to-call contacts, a real founders section on About, and a face on the
   contact page. No bio, title or credential invented — the story stays a marked
   blank. Nothing published.
+- **2026-09-02** — GAPP expansion built from the supplied research brief: six new
+  routes, compliance stamps, the State-decides sentence, plain-language glosses,
+  EVV, caregiver standards. Research kept in `program.ts` apart from the
+  client's own facts. Three corrections sent, the significant one being that the
+  whole build came back in British English. Nothing published.
