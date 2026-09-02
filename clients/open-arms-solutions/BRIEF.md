@@ -197,6 +197,34 @@ Findings 2–4 are the same failure mode in three costumes: a true-sounding
 sentence one step beyond the source. None would have looked wrong to a reader.
 That is exactly why they are worth catching on a healthcare site.
 
+## Design audit — healthcare standards, 2026-09-02
+
+Audited the built site against what families now expect of a healthcare
+provider's website. Scored against evidence in the code, not impressions.
+
+| Area | Score | The finding |
+|---|---|---|
+| Visual clarity | 4/5 | Strong. The 404 and error pages still use starter-scaffold styling and 14px body copy, bypassing the design system |
+| Navigation | 3/5 | Sticky header, skip link, real mobile drawer — but the desktop nav is gated at `xl` (1280px), so 13" laptops get a hamburger |
+| Conversion path | **2/5** | The header CTA is gated at `2xl` — **"See if your child qualifies" only renders above 1536px.** On most desktops the primary call to action is simply absent |
+| Patient tools | n/a | The usual checklist — portal, telehealth, online scheduling, triage — is wrong for a GAPP agency. The next step here is a phone call and a 30-day intake, not software |
+| Trust signals | 3/5 | No stock photos, no invented testimonials, no false licence claim. But **no privacy page and no privacy language on any form**, on a healthcare site collecting contact details |
+| Mobile | 4/5 | Mobile-first, 44px targets, sticky tap-to-call bar, 18px floor |
+| Accessibility | 4/5 | Skip link, landmarks, `aria-current`, `aria-live`, reduced motion, AA verified. Only the 404 breaks the type floor |
+| Findability | **2/5** | Good per-page titles and descriptions — and **no JSON-LD at all.** For a business whose whole market is local search, that is the largest single gap |
+
+The design is the strong part. What is costing this site is plumbing around
+it: two breakpoint bugs suppressing the primary CTA, and no structured data.
+
+Six fixes sent. One of them — the contact page still crediting Concepcion and
+Darnel with care and qualifying enquiries — is the same error corrected on the
+home page on 2026-09-01. That correction was scoped to one file when it should
+have been scoped to the claim. Worth remembering: fix the claim, not the line.
+
+The schema deliberately carries `areaServed: Georgia` and no address, hours or
+rating. Narrower would be a guess, and an empty field is worse than an absent
+one.
+
 ## Log
 
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
@@ -216,3 +244,8 @@ That is exactly why they are worth catching on a healthcare site.
   7.18:1; the three copy items now sit inside her wording; forms unchanged and
   still unwired. The build is where it can go without the client's answers.
   Nothing published.
+- **2026-09-02** — Design audit against healthcare-site standards. Six fixes
+  sent: the header CTA and nav breakpoints, JSON-LD structured data, a privacy
+  page and form privacy note, branded 404 and error pages, the contact-page
+  attribution missed last round, and a "what happens after you call" timeline
+  built from the flyer's own three steps. Nothing published.
