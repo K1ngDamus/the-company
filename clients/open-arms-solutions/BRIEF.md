@@ -5,7 +5,7 @@
 **Project:** `082d232b-8a11-449b-b841-fb1d4f22b6b5`
 · [editor](https://lovable.dev/projects/082d232b-8a11-449b-b841-fb1d4f22b6b5)
 · [preview](https://id-preview--082d232b-8a11-449b-b841-fb1d4f22b6b5.lovable.app)
-**Status:** first build done, all four corrections verified in code. Private, unpublished, nothing deployed.
+**Status:** built, audited, all fixes verified. Private, unpublished, nothing deployed.
 **Opened:** 2026-09-01
 
 The flyer is the source of truth for every fact. The logo is the source of truth
@@ -278,3 +278,7 @@ page at a time.
   error pages, the contact attribution now behind a shared constant, and the
   three-step next-steps timeline. Three URL leftovers sent back. Nothing
   published.
+- **2026-09-02** — URL leftovers verified at `67177be2`: `url` dropped from the
+  JSON-LD with the reasoning left in a comment, `telephone` now E.164 via a
+  `phoneE164` field, the stray relative canonical gone. The site is built,
+  audited and correct as far as it can go without the client. Nothing published.
