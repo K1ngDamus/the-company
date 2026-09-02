@@ -225,6 +225,30 @@ The schema deliberately carries `areaServed: Georgia` and no address, hours or
 rating. Narrower would be a guess, and an empty field is worse than an absent
 one.
 
+## Audit fixes — verified 2026-09-02
+
+All six landed at `01b80b50`, and three of them landed better than asked:
+
+- The header CTA now runs from `md` with progressive labels — "Get started",
+  "See if you qualify", "See if your child qualifies" — instead of vanishing.
+  Nav drops to `lg`. The phone goes icon-only where space is tight, carrying an
+  `aria-label` with the visible number `aria-hidden` so a screen reader hears it
+  once rather than twice.
+- The contact-page attribution is now a single `namedContactScope` constant in
+  `site.ts`. The claim can no longer drift line by line, which is the actual fix
+  for the mistake that caused it.
+- The privacy page states plainly that the forms transmit nothing, tells families
+  not to send diagnoses or Medicaid numbers, claims no HIPAA compliance, and
+  names the Google Fonts request as the one outside resource the site loads —
+  which is true and easy to have missed.
+
+Three leftovers went back, all one root cause: no domain yet, so a few places
+wrote a relative URL where an absolute one is required. `url: "/"` in the JSON-LD
+(dropped — a bare slash is worse than nothing), `telephone` in pretty format
+rather than E.164, and a lone relative canonical on `/privacy`. Absolute
+canonicals go in across every page in one pass when a domain is bought, not one
+page at a time.
+
 ## Log
 
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
@@ -249,3 +273,8 @@ one.
   page and form privacy note, branded 404 and error pages, the contact-page
   attribution missed last round, and a "what happens after you call" timeline
   built from the flyer's own three steps. Nothing published.
+- **2026-09-02** — Audit fixes verified at `01b80b50`: CTA and nav breakpoints,
+  `MedicalOrganization`/`LocalBusiness` JSON-LD, `/privacy`, branded 404 and
+  error pages, the contact attribution now behind a shared constant, and the
+  three-step next-steps timeline. Three URL leftovers sent back. Nothing
+  published.
