@@ -304,6 +304,25 @@ Three corrections sent:
 | 2 | An FAQ answer opened *"Our flyer puts it plainly…"* | A website visitor has never seen the flyer |
 | 3 | The "For families" dropdown never closed on Escape or an outside click | It closes on navigation, which is good, but not on dismissal |
 
+## Verified at `73849f48`
+
+The compliance machinery is real and rendering:
+
+- `ReviewStamp` — *"Program information last reviewed: 2 September 2026."* Its
+  own comment gets the point exactly: **"it is a date, not a credential."**
+- `StateDecidesNote` — the mandated sentence, in American English, styled as a
+  calm note rather than a disclaimer.
+- On `/how-to-apply` the flyer's "immediate approval" is **quoted and
+  attributed** — *In our own words: "…"* — and immediately followed by the
+  honest sequence. It never stands alone, which was the compliance requirement.
+- No managed-care plan named; a visible chip asks which she is in network with.
+
+The English fix reached the data and component files but **not all the route
+files** — `/how-to-apply` still read "You don't need to memorise this." A second,
+complete sweep was sent, with an explicit list of forms to catch and the proper
+nouns to leave alone. Partial sweeps are worse than none: they leave the
+inconsistency looking deliberate.
+
 ## Log
 
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
