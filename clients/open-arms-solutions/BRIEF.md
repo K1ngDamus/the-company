@@ -40,7 +40,7 @@ burying one.
 | Positioning line | "Providing a supportive environment for children and families by offering expert care for those with developmental and physical disabilities." |
 | Phone | **(478) 447-1813** |
 | Email | **Openarmsgroupllc@gmail.com** |
-| Named contacts | Concepcion Gallardo and Darnel Hamilton Jr. |
+| Named contacts | **Darnel Hamilton Jr.** — (478) 447-1813 · **Concepcion Gallardo** — (470) 202-5236 |
 | Program | Georgia Pediatric Program (GAPP) |
 | Hiring | Yes — "Hiring a Nurse", "Parent Caregiver Compensation", "Employment" |
 
@@ -249,6 +249,22 @@ rather than E.164, and a lone relative canonical on `/privacy`. Absolute
 canonicals go in across every page in one pass when a domain is bought, not one
 page at a time.
 
+## The logo discrepancy, 2026-09-02
+
+Concepcion's headshot was taken in front of an office sign carrying a
+**different logo** — a blue and green heart mark reading "Open Arms Solutions,
+LLC". The site's entire palette, illustration set and motif system are derived
+from the flyer logo: navy, teal, purple and gold, two children, a house roof,
+cradling hands. They are not the same brand.
+
+Leon confirmed on 2026-09-02 that **the flyer logo is current**. The sign was
+therefore cropped out of the photograph rather than shipped, because a founder
+portrait with a competing logo behind it undercuts the identity the whole site
+is built on, and it would be read as carelessness rather than history.
+
+Worth returning to before launch: a business running two marks is a problem to
+solve deliberately, not to discover on a printed sign in someone's photograph.
+
 ## Log
 
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
@@ -282,3 +298,11 @@ page at a time.
   JSON-LD with the reasoning left in a comment, `telephone` now E.164 via a
   `phoneE164` field, the stray relative canonical gone. The site is built,
   audited and correct as far as it can go without the client. Nothing published.
+- **2026-09-02** — **Founder photographs received**, plus a second phone number:
+  Darnel Hamilton Jr. on (478) 447-1813, Concepcion Gallardo on
+  (470) 202-5236. Photo-to-name mapping confirmed with Leon rather than guessed.
+  A different logo visible on the office sign behind Concepcion was cropped out
+  after Leon confirmed the flyer mark is current. Sent to Lovable: per-person
+  tap-to-call contacts, a real founders section on About, and a face on the
+  contact page. No bio, title or credential invented — the story stays a marked
+  blank. Nothing published.
