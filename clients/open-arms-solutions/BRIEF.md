@@ -323,6 +323,23 @@ complete sweep was sent, with an explicit list of forms to catch and the proper
 nouns to leave alone. Partial sweeps are worse than none: they leave the
 inconsistency looking deliberate.
 
+**That second sweep was right to insist on.** Run with ripgrep across all of
+`src/`, it found British spellings in **five more files** nobody had flagged:
+`your-rights.tsx` ("favours"), `careers.tsx` ("Licence type", "enrolment
+status"), `program.ts` ("Current Georgia licence"), `forms.tsx` ("Licences,
+certifications"), and comments in `styles.css`. It also correctly left
+`aria-labelledby` alone — an HTML attribute, not a spelling — and reported what
+it checked and found clean, not just what it changed.
+
+Two of those were on the careers page, in the very list of credentials a nurse
+would scan first.
+
+**Everything else verified at `73849f48` and `521f011f`:** the flyer references
+are gone from reader-facing copy, replaced by *"In our own words:"*, which is
+better than what was asked for — it attributes the claim to her rather than
+hiding it. The dropdown now dismisses on Escape and on outside click, and both
+were tested in a real browser rather than assumed.
+
 ## Log
 
 - **2026-09-01** — Leon opened the build. Name, trade, tool and design bar
@@ -369,3 +386,7 @@ inconsistency looking deliberate.
   EVV, caregiver standards. Research kept in `program.ts` apart from the
   client's own facts. Three corrections sent, the significant one being that the
   whole build came back in British English. Nothing published.
+- **2026-09-02** — Corrections verified at `73849f48` and `521f011f`. The second
+  English sweep found five more files, two of them on the careers page in the
+  credential list a nurse reads first. Dropdown dismissal browser-tested.
+  Compliance machinery confirmed rendering. Nothing published.
