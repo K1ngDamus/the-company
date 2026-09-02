@@ -249,6 +249,20 @@ rather than E.164, and a lone relative canonical on `/privacy`. Absolute
 canonicals go in across every page in one pass when a domain is bought, not one
 page at a time.
 
+## Compliance
+
+A researched GAPP brief arrived 2026-09-02 and the site is being expanded from
+it. The audit, the severity table and the full open-items list live in
+**[`COMPLIANCE.md`](COMPLIANCE.md)**. Two findings must be closed before launch:
+the flyer's "immediate approval" wording, which reads as a guarantee Medicaid
+marketing rules forbid; and the absence anywhere on the site of the fact that
+**the State decides approval and hours, not the agency**.
+
+Program facts from that brief are kept in `src/data/program.ts`, apart from the
+client's own facts in `site.ts`, and carry a visible review date. Nobody in this
+project has verified them — this session cannot reach any primary source — so
+verification is a gate in front of publishing.
+
 ## The logo discrepancy, 2026-09-02
 
 Concepcion's headshot was taken in front of an office sign carrying a
